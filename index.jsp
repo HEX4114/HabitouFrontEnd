@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
         <title>TODO supply a title</title>
@@ -381,22 +379,6 @@ and open the template in the editor.
                         });
                     }
                 }
-                /*
-                new google.maps.Rectangle({
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.25,
-                    map: map,
-                    bounds: {
-                        north: 45.765,
-                        south: 45.755,
-                        east: 4.850,
-                        west: 4.845
-                    }
-                });
-                */
             }
            
             function FindDatas() {
@@ -470,8 +452,13 @@ and open the template in the editor.
                     document.getElementById('searchAlert').innerHTML = "";
                 }
                 
-                
-                
+                GetRequest();
+                /*
+                $.get("squares", function(responseText) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                    alert(responseText);
+                    $("#searchAlert").text(responseText);           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                });
+                */
             }
             
             function EnterPressed(textBox) {
@@ -486,7 +473,7 @@ and open the template in the editor.
             
             function GetRequest() {
                 var xhr_object = null; 
- 
+                //alert("GetRequest");
                 if(window.XMLHttpRequest) // Firefox 
                     xhr_object = new XMLHttpRequest(); 
                 else if(window.ActiveXObject) // Internet Explorer 
@@ -507,11 +494,19 @@ and open the template in the editor.
                         } 
                         alert(tmp[0]); 
                     } 
+                    else alert("marche pas...");
                 } 
                 
                 xhr_object.send(data); 
             }
             
+            /*
+            $(document).on("click", "#searchButton", function() { // When HTML DOM "click" event is invoked on element with ID "somebutton", execute the following function...
+                $.get("squares", function(responseText) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                    $("#searchAlert").text(responseText);           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                });
+            });
+            */
         </script>
     </body>
 </html>
