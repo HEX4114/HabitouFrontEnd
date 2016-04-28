@@ -51,6 +51,32 @@
                 padding-right : 5px;
             }
             
+            .modeTransportDiv{
+                float: left;
+                margin-left: 15%;
+            }
+            .iconDiv{
+                background-image: url(//maps.gstatic.com/tactile/directions/omnibox/directions-1x-20150929.png);
+                background-size: 96px 216px;
+                width: 24px;
+                height: 24px;
+            }
+            .iconWalk{
+                background-position: 0px -144px;
+            }
+            .iconBike{
+                background-position: 0px -168px;
+            }
+            .iconCar{
+                background-position: 0px -96px;
+            }
+            .iconTransit{
+                background-position: 0px -120px;
+            }
+            .checkTransportDiv{
+                margin-left: 0px;
+            }
+            
             .inputText {
                 font : inherit;
                 font-size : 15px;
@@ -259,6 +285,42 @@
                         </br>
                     </div>
                     <div class="themeCritereTitle">
+                        Moyens de transport :
+                        </br>
+                    </div>
+                    <div id="listTransportsDiv">
+                        <div id="footDiv" class="modeTransportDiv" aria-label="À pied" data-tooltip="À pied" jsan="t-r5wgmuI8U-U,7.directions-travel-mode-icon,7.directions-walk-icon,0.aria-label,0.data-tooltip">
+                            <div class="iconDiv iconWalk">
+                            </div>
+                            <div class="checkTransportDiv">
+                                <input type="checkbox" id="footCheck" onclick="EnableMode(0)"/><label for="footCheck"></label>
+                            </div>
+                        </div>
+                        <div id="bikeDiv" class="modeTransportDiv" aria-label="À vélo">
+                            <div class="iconDiv iconBike">
+                            </div>
+                            <div class="checkTransportDiv">
+                                <input type="checkbox" id="bikeCheck" onclick="EnableMode(1)"/><label for="bikeCheck"></label>
+                            </div>
+                        </div>
+                        <div id="carDiv" class="modeTransportDiv" aria-label="En voiture">
+                            <div class="iconDiv iconCar">
+                            </div>
+                            <div class="checkTransportDiv">
+                                <input type="checkbox" id="carCheck" onclick="EnableMode(2)"/><label for="carCheck"></label>
+                            </div>
+                        </div>
+                        <div id="transportDiv" class="modeTransportDiv" aria-label="En transports en commun">
+                            <div class="iconDiv iconTransit">
+                            </div>
+                            <div class="checkTransportDiv">
+                                <input type="checkbox" id="transportCheck" onclick="EnableMode(3)"/><label for="transportCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div></div>
+                    </br></br></br>
+                    <div class="themeCritereTitle">
                         À moins de (distance en min) :
                         </br>
                     </div>
@@ -268,7 +330,7 @@
                     </div>
                     </br>
                     <div id="listCriteresDiv">
-                        <div id="critAdress" class="critereDiv">
+                        <div id="adress" class="critereDiv">
                             <input type="checkbox" id="critAdressCheck" onclick="EnableCritere(0)"/><label for="critAdressCheck"></label>
                             <a class="critereName">Adresse </a>
                             <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(0)" disabled>
@@ -276,25 +338,25 @@
                             </br>
                             <input type="text" id="adressInput" class="inputText" onkeydown="EnterPressed(this)" disabled value="Adresse..."/>
                         </div>
-                        <div id="crit1" class="critereDiv">
+                        <div id="supermarket" class="critereDiv">
                             <input type="checkbox" id="crit1Check" onclick="EnableCritere(1)"/><label for="crit1Check"></label>
                             <a class="critereName">Supermarché</a>
                             <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(1)" disabled>
                             <a class="value">0</a>
                         </div>
-                        <div id="crit2" class="critereDiv">
+                        <div id="school" class="critereDiv">
                             <input type="checkbox" id="crit2Check" onclick="EnableCritere(2)"/><label for="crit2Check"></label>
                             <a class="critereName">École</a>
                             <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(2)" disabled>
                             <a class="value">0</a>
                         </div>
-                        <div id="crit3" class="critereDiv">
+                        <div id="transport" class="critereDiv">
                             <input type="checkbox" id="crit3Check" onclick="EnableCritere(3)"/><label for="crit3Check"></label>
                             <a class="critereName">Station de transport</a>
                             <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
                             <a class="value">0</a>
                         </div>
-                        <div id="crit4" class="critereDiv">
+                        <div id="atm" class="critereDiv">
                             <input type="checkbox" id="crit4Check" onclick="EnableCritere(4)"/><label for="crit4Check"></label>
                             <a class="critereName">Borne de retrait</a>
                             <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
@@ -355,14 +417,6 @@
                 }
             }
            
-            /*
-            function FindDatas() {
-                var heatmapData = [
-                    new google.maps.LatLng(45.765, 4.850),
-                    new google.maps.LatLng(45.765, 4.853),
-                ];
-                return heatmapData;
-            } */
            
             function EnableCritere(numCritere) {
                 var nodes = document.getElementById('listCriteresDiv').children;
@@ -403,26 +457,30 @@
             
             function ClickSearchButton(button) {
                 button.disabled = true;
-                //var parameters = [][];
+                var parameters = "?";
                 var triggerChecked = false;
+                
                 var nodes = document.getElementById('listCriteresDiv').children;
                 for(var i=0; i<nodes.length; i+=1) {
-                    if(nodes[i].children[0].checked) {
+                    if(!(parameters == "?")) parameters += "&";
                         
+                    if(nodes[i].children[0].checked) {
                         triggerChecked = true;
-                        //parameters[i][0] = i;
-                        //parameters[i][1] = nodes[i].children[3].value;
-                        alert("voila voila");
-                        alert(parameters[i][0]);
-                        alert(parameters[i][1]);
+                        parameters += nodes[i].id + "=" + nodes[i].children[3].value;
+                    } else {
+                        parameters += nodes[i].id + "=null";
                     }
                 } 
+                
+                
                 
                 if (!triggerChecked) {
                     document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
                 } else {
                     document.getElementById('searchAlert').innerHTML = "";
-                    DoSearch(parameters);
+                    //DoSearch(parameters);
+                    alert(parameters);
+                    GetRequest(parameters);
                 }
             }
             
@@ -462,9 +520,8 @@
                 xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlHttpReq.onreadystatechange = function() {
                     if (xmlHttpReq.readyState == 4) {
-                        alert("ouioui");
-                        alert(xmlHttpReq.responseXML.getElementsByTagName("lati")[0].childNodes[0].nodeValue);
-                        alert(xmlHttpReq.responseXML.getElementsByTagName("long")[0].childNodes[0].nodeValue);
+                        //alert(xmlHttpReq.responseXML.getElementsByTagName("lati")[0].childNodes[0].nodeValue);
+                        //alert(xmlHttpReq.responseXML.getElementsByTagName("long")[0].childNodes[0].nodeValue);
                     }
                 }
                 xmlHttpReq.send();
