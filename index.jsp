@@ -374,11 +374,9 @@
                 
             </div>
         </div>
-<<<<<<< HEAD
         <div id="requestResult">
             
         </div>
-=======
         
         <div id="resultDiv">
             <div id="resultBord" class="commandBorder">
@@ -419,7 +417,6 @@
             </div>
         </div>
         
->>>>>>> 0da3eeb4ab516590fc86d1ca5dca89ebe056023a
         
         <script type="text/javascript">
             function GetMap() {
@@ -433,11 +430,10 @@
                 var container = document.getElementById("mapContainer");
                 map = new google.maps.Map(container,myOptions);
                 
+                map.controls[google.maps.ControlPosition.LEFT_CENTER].push(rechercheDiv);
                 /*
                 var rechercheDiv = document.getElementById("rechercheDiv");
                 rechercheDiv.index = 1;
-                map.controls[google.maps.ControlPosition.LEFT_CENTER].push(rechercheDiv);
-                
 <<<<<<< HEAD
 =======
                 var resultDiv = document.getElementById("resultDiv");
