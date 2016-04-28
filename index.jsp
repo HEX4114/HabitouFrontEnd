@@ -51,18 +51,22 @@
                 padding-right : 5px;
             }
             
-            .modeTransportDiv{
+            #transportsTitle {
                 float: left;
-                margin-left: 15%;
+            }
+            .modeTransportDiv{
+                float: right;
+                margin-left: 20px;
+                margin-bottom: 12px;
+                margin-top : 6px;
             }
             .iconDiv{
                 background-image: url(//maps.gstatic.com/tactile/directions/omnibox/directions-1x-20150929.png);
                 background-size: 96px 216px;
                 width: 24px;
                 height: 24px;
-            }
-            .iconWalk{
-                background-position: 0px -144px;
+                float: left;
+                vertical-align: middle;
             }
             .iconBike{
                 background-position: 0px -168px;
@@ -74,7 +78,10 @@
                 background-position: 0px -120px;
             }
             .checkTransportDiv{
-                margin-left: 0px;
+                margin-top: 4px;
+                margin-left: 4px;
+                float: right;
+                vertical-align: middle;
             }
             
             .inputText {
@@ -284,42 +291,36 @@
                         <b>Critères de recherche :</b>
                         </br>
                     </div>
-                    <div class="themeCritereTitle">
-                        Moyens de transport :
-                        </br>
-                    </div>
-                    <div id="listTransportsDiv">
-                        <div id="footDiv" class="modeTransportDiv" aria-label="À pied" data-tooltip="À pied" jsan="t-r5wgmuI8U-U,7.directions-travel-mode-icon,7.directions-walk-icon,0.aria-label,0.data-tooltip">
-                            <div class="iconDiv iconWalk">
-                            </div>
-                            <div class="checkTransportDiv">
-                                <input type="checkbox" id="footCheck" onclick="EnableMode(0)"/><label for="footCheck"></label>
-                            </div>
+                    <div id="transportsCritDiv">
+                        <div class="themeCritereTitle" id="transportsTitle">
+                            Moyens de transport :
                         </div>
-                        <div id="bikeDiv" class="modeTransportDiv" aria-label="À vélo">
-                            <div class="iconDiv iconBike">
+                        <div id="listTransportsDiv">
+                            <div id="transport" class="modeTransportDiv" aria-label="En transports en commun">
+                                <div class="iconDiv iconTransit">
+                                </div>
+                                <div class="checkTransportDiv">
+                                    <input type="checkbox" id="transportCheck" onclick="EnableMode()"/><label for="transportCheck"></label>
+                                </div>
                             </div>
-                            <div class="checkTransportDiv">
-                                <input type="checkbox" id="bikeCheck" onclick="EnableMode(1)"/><label for="bikeCheck"></label>
+                            <div id="car" class="modeTransportDiv" aria-label="En voiture">
+                                <div class="iconDiv iconCar">
+                                </div>
+                                <div class="checkTransportDiv">
+                                    <input type="checkbox" id="carCheck" onclick="EnableMode()"/><label for="carCheck"></label>
+                                </div>
                             </div>
-                        </div>
-                        <div id="carDiv" class="modeTransportDiv" aria-label="En voiture">
-                            <div class="iconDiv iconCar">
-                            </div>
-                            <div class="checkTransportDiv">
-                                <input type="checkbox" id="carCheck" onclick="EnableMode(2)"/><label for="carCheck"></label>
-                            </div>
-                        </div>
-                        <div id="transportDiv" class="modeTransportDiv" aria-label="En transports en commun">
-                            <div class="iconDiv iconTransit">
-                            </div>
-                            <div class="checkTransportDiv">
-                                <input type="checkbox" id="transportCheck" onclick="EnableMode(3)"/><label for="transportCheck"></label>
+                            <div id="bike" class="modeTransportDiv" aria-label="À vélo">
+                                <div class="iconDiv iconBike">
+                                </div>
+                                <div class="checkTransportDiv">
+                                    <input type="checkbox" id="bikeCheck" onclick="EnableMode()"/><label for="bikeCheck"></label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div></div>
-                    </br></br></br>
+                    </br></br>
                     <div class="themeCritereTitle">
                         À moins de (distance en min) :
                         </br>
@@ -371,10 +372,14 @@
                     <div id="searchAlert">
                     </div>
                     
+                    
                 </div>
+                
             </div>
         </div>
-        
+        <div id="requestResult">
+            
+        </div>
         
         <script type="text/javascript">
             function GetMap() {
@@ -392,29 +397,6 @@
                 rechercheDiv.index = 1;
                 map.controls[google.maps.ControlPosition.LEFT_CENTER].push(rechercheDiv);
                 
-                var southBound = 45.720;
-                var westBound = 4.780;
-                var horStep = 0.004;
-                var verStep = 0.0028;
-                var space = 0.0005;
-                for(var i=0; i<25; i++) {
-                    for(var j=0; j<30; j++) {
-                        new google.maps.Rectangle({
-                            strokeColor: '#228800',
-                            strokeOpacity: 0.2,
-                            strokeWeight: 1,
-                            fillColor: '#228800',
-                            fillOpacity: 0.15,
-                            map: map,
-                            bounds: {
-                                north: southBound + (i+1)*verStep + i*space,
-                                south: southBound + i*verStep + i*space,
-                                east: westBound + (j+1)*horStep + j*space,
-                                west: westBound + j*horStep + j*space
-                            }
-                        });
-                    }
-                }
             }
            
            
@@ -443,6 +425,7 @@
                     }
                 }
                 document.getElementById('searchButton').disabled = false;
+                
             }
             
             function GrabCursor(numCursor) {
@@ -472,30 +455,25 @@
                     }
                 } 
                 
-                
+                nodes = document.getElementById('listTransportsDiv').children;
+                for(var i=0; i<nodes.length; i+=1) {
+                    if(nodes[i].children[1].checked) {
+                        parameters += "&" + nodes[i].id + "=y";
+                    } else {
+                        parameters += "&" + nodes[i].id + "=n";
+                    }
+                } 
                 
                 if (!triggerChecked) {
                     document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
                 } else {
                     document.getElementById('searchAlert').innerHTML = "";
-                    //DoSearch(parameters);
-                    alert(parameters);
+                    //alert(parameters);
+                    document.getElementById('requestResult').innerHTML = parameters;
                     GetRequest(parameters);
                 }
             }
             
-            
-            function DoSearch(parameters) {
-                var stringParameters = "?";
-                for(var i=0; i<parameters.length-1; i++) {
-                    stringParameters += parameters[i][0] + "=" + parameters[i][1];
-                    if(i < parameters.length-1) {
-                        stringParameters += "&";
-                    }
-                }
-                
-                GetRequest(stringParameters);
-            }
             
             function EnterPressed(textBox) {
                 document.getElementById('searchButton').disabled = false;
@@ -520,11 +498,77 @@
                 xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlHttpReq.onreadystatechange = function() {
                     if (xmlHttpReq.readyState == 4) {
-                        //alert(xmlHttpReq.responseXML.getElementsByTagName("lati")[0].childNodes[0].nodeValue);
+                        //alert(xmlHttpReq.responseXML.getElementsByTagName("score")[0].childNodes[0].nodeValue);
                         //alert(xmlHttpReq.responseXML.getElementsByTagName("long")[0].childNodes[0].nodeValue);
+                        RefreshSquares(xmlHttpReq);
                     }
                 }
                 xmlHttpReq.send();
+            }
+            
+            function EnableMode() {
+                document.getElementById('searchButton').disabled = false;
+            }
+            
+            
+            function RefreshSquares(xmlHttpReq) {
+                //document.getElementById('requestResult').innerHTML = xmlHttpReq.responseText;
+                alert("test");
+                var squares = xmlHttpReq.responseXML.getElementsByTagName("square");
+                alert("test");
+                for (var i=0; i<40; i++) {
+                    var result = "";
+                    var id = xmlHttpReq.responseXML.getElementsByTagName("id")[i].childNodes[0].nodeValue;
+                    var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
+                    var lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lati")[i].childNodes[0].nodeValue);
+                    var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
+                    
+                    var southBound = parseFloat(45.720);
+                    var westBound = parseFloat(4.780);
+
+                    new google.maps.Rectangle({
+                        strokeColor: '#228800',
+                        strokeOpacity: 0.5,
+                        strokeWeight: 1,
+                        fillColor: '#228800',
+                        fillOpacity: 0.5,
+                        map: map,
+                        bounds: {
+                            north:  southBound + 0.01,
+                            south: southBound,
+                            east: westBound + 0.01,
+                            west: westBound
+                        }
+                    });
+                    
+                    
+                    alert("test");
+                    var largeur = parseFloat(0.1);
+                    
+                    new google.maps.Rectangle({
+                        strokeColor: '#228800',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 1,
+                        fillColor: '#228800',
+                        fillOpacity: 0.6,
+                        map: map,
+                        bounds: {
+                            north:  long + 0.1,
+                            south: long,
+                            east: lati + 0.1,
+                            west: lati
+                        }
+                    });
+                    /*
+                    result += "square n°" + i + "</br>";
+                    result += id.nodeName + " = " + id.childNodes[0].nodeValue + "</br>";
+                    result += long.nodeName + " = " + long.childNodes[0].nodeValue + "</br>";
+                    result += lati.nodeName + " = " + lati.childNodes[0].nodeValue + "</br>";
+                    result += score.nodeName + " = " + score.childNodes[0].nodeValue + "</br>";
+                    document.getElementById('requestResult').innerHTML += result;   
+                    */
+                }
+
             }
             
             
