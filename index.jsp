@@ -1,6 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
@@ -288,7 +285,7 @@
             <div id="rechercheBord" class="commandBorder">
                 <div id="rechercheInter" class="commandInner">
                     <div id="titleCritere">
-                        <b>CritÃ¨res de recherche :</b>
+                        <b>Critères de recherche :</b>
                         </br>
                     </div>
                     <div id="transportsCritDiv">
@@ -310,7 +307,7 @@
                                     <input type="checkbox" id="carCheck" onclick="EnableMode()"/><label for="carCheck"></label>
                                 </div>
                             </div>
-                            <div id="bike" class="modeTransportDiv" aria-label="Ã€ vÃ©lo">
+                            <div id="bike" class="modeTransportDiv" aria-label="À vélo">
                                 <div class="iconDiv iconBike">
                                 </div>
                                 <div class="checkTransportDiv">
@@ -322,7 +319,7 @@
                     <div></div>
                     </br></br>
                     <div class="themeCritereTitle">
-                        Ã€ moins de (distance en min) :
+                        À moins de (distance en min) :
                         </br>
                     </div>
                     <div class="boundValues">
@@ -341,13 +338,13 @@
                         </div>
                         <div id="supermarket" class="critereDiv">
                             <input type="checkbox" id="crit1Check" onclick="EnableCritere(1)"/><label for="crit1Check"></label>
-                            <a class="critereName">SupermarchÃ©</a>
+                            <a class="critereName">Supermarché</a>
                             <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(1)" disabled>
                             <a class="value">0</a>
                         </div>
                         <div id="school" class="critereDiv">
                             <input type="checkbox" id="crit2Check" onclick="EnableCritere(2)"/><label for="crit2Check"></label>
-                            <a class="critereName">Ã‰cole</a>
+                            <a class="critereName">École</a>
                             <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(2)" disabled>
                             <a class="value">0</a>
                         </div>
@@ -377,9 +374,52 @@
                 
             </div>
         </div>
+<<<<<<< HEAD
         <div id="requestResult">
             
         </div>
+=======
+        
+        <div id="resultDiv">
+            <div id="resultBord" class="commandBorder">
+                <div id="resultInter" class="commandInner">
+                    <div id="titleResult">
+                        <b>Plus proche(s) ...</b>
+                        </br>
+                    </div>
+                    <div id="listResultDiv">
+                        <div id="res1" class="critereDiv">
+
+                            <a class="critereName"><span id="star1">&#9899;</span>Adresse </a>
+
+                        </div>
+                        <div id="res2" class="critereDiv">
+
+                            <a class="critereName"><span id="star2">&#9899;</span>Supermarché</a>
+
+                        </div>
+                        <div id="res3" class="critereDiv">
+
+                            <a class="critereName"><span id="star3">&#9899;</span>École</a>
+
+                        </div>
+                        <div id="res4" class="critereDiv">
+
+                            <a class="critereName"><span id="star4">&#9899;</span>Station de transport</a>
+
+                        </div>
+                        <div id="res5" class="critereDiv">
+
+                            <a class="critereName"><span id="star5">&#9899;</span>Borne de retrait</a>
+
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+>>>>>>> 0da3eeb4ab516590fc86d1ca5dca89ebe056023a
         
         <script type="text/javascript">
             function GetMap() {
@@ -393,11 +433,67 @@
                 var container = document.getElementById("mapContainer");
                 map = new google.maps.Map(container,myOptions);
                 
+                /*
                 var rechercheDiv = document.getElementById("rechercheDiv");
                 rechercheDiv.index = 1;
                 map.controls[google.maps.ControlPosition.LEFT_CENTER].push(rechercheDiv);
                 
+<<<<<<< HEAD
+=======
+                var resultDiv = document.getElementById("resultDiv");
+                //resultDiv.index = 1;
+                map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(resultDiv);
+                
+                var southBound = 45.720;
+                var westBound = 4.780;
+                var horStep = 0.004;
+                var verStep = 0.0028;
+                var space = 0.0005;
+                
+                setIndicatorColor("star1", 1, 1);
+                setIndicatorColor("star2", 1.4, 1);
+                setIndicatorColor("star3", 1.8, 1);
+                setIndicatorColor("star4", 2.2, 1);
+                setIndicatorColor("star5", 2.6, 1);
+                
+                for(var i=0; i<25; i++) {
+                    for(var j=0; j<30; j++) {
+                        new google.maps.Rectangle({
+                            strokeColor: '#228800',
+                            strokeOpacity: 0.2,
+                            strokeWeight: 1,
+                            fillColor: '#228800',
+                            fillOpacity: 0.15,
+                            map: map,
+                            bounds: {
+                                north: southBound + (i+1)*verStep + i*space,
+                                south: southBound + i*verStep + i*space,
+                                east: westBound + (j+1)*horStep + j*space,
+                                west: westBound + j*horStep + j*space
+                            }
+                        });
+                    }
+                }
+>>>>>>> 0da3eeb4ab516590fc86d1ca5dca89ebe056023a
+        */
             }
+            
+            function setIndicatorColor(id, distance, distanceMax) {
+                var r = (distance >= distanceMax) ? (distance >= 2*distanceMax) ? 255 : (distance-distanceMax)/distanceMax*255 : 0;
+                var g = (distance >= 2*distanceMax) ? (distance >= 3*distanceMax) ? 0 : (1 - (distance-distanceMax)/(2*distanceMax))*255 : 255;
+                var elem = document.getElementById(id);
+		elem.style.color = rgbToHex(r, g, 0);
+            }
+            
+            function getSquareColor(score) {
+              var r = (score <= 0.5) ? (score)/0.5*255 : 255;
+              var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
+	      return rgbToHex(r, g, 0);
+            }
+            
+            function rgbToHex(r, g, b) {
+              return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+	    }
            
            
             function EnableCritere(numCritere) {
@@ -465,7 +561,7 @@
                 } 
                 
                 if (!triggerChecked) {
-                    document.getElementById('searchAlert').innerHTML = "Aucun critÃ¨re n'est sÃ©lectionnÃ© !";
+                    document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
                 } else {
                     document.getElementById('searchAlert').innerHTML = "";
                     //alert(parameters);
@@ -560,7 +656,7 @@
                         }
                     });
                     /*
-                    result += "square nÂ°" + i + "</br>";
+                    result += "square n°" + i + "</br>";
                     result += id.nodeName + " = " + id.childNodes[0].nodeValue + "</br>";
                     result += long.nodeName + " = " + long.childNodes[0].nodeValue + "</br>";
                     result += lati.nodeName + " = " + lati.childNodes[0].nodeValue + "</br>";
