@@ -1,6 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
@@ -313,6 +310,45 @@
             </div>
         </div>
         
+        <div id="resultDiv">
+            <div id="resultBord" class="commandBorder">
+                <div id="resultInter" class="commandInner">
+                    <div id="titleResult">
+                        <b>Plus proche(s) ...</b>
+                        </br>
+                    </div>
+                    <div id="listResultDiv">
+                        <div id="res1" class="critereDiv">
+
+                            <a class="critereName"><span id="star1">&#9899;</span>Adresse </a>
+
+                        </div>
+                        <div id="res2" class="critereDiv">
+
+                            <a class="critereName"><span id="star2">&#9899;</span>Supermarché</a>
+
+                        </div>
+                        <div id="res3" class="critereDiv">
+
+                            <a class="critereName"><span id="star3">&#9899;</span>École</a>
+
+                        </div>
+                        <div id="res4" class="critereDiv">
+
+                            <a class="critereName"><span id="star4">&#9899;</span>Station de transport</a>
+
+                        </div>
+                        <div id="res5" class="critereDiv">
+
+                            <a class="critereName"><span id="star5">&#9899;</span>Borne de retrait</a>
+
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
         
         <script type="text/javascript">
             function GetMap() {
@@ -330,11 +366,22 @@
                 rechercheDiv.index = 1;
                 map.controls[google.maps.ControlPosition.LEFT_CENTER].push(rechercheDiv);
                 
+                var resultDiv = document.getElementById("resultDiv");
+                //resultDiv.index = 1;
+                map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(resultDiv);
+                
                 var southBound = 45.720;
                 var westBound = 4.780;
                 var horStep = 0.004;
                 var verStep = 0.0028;
                 var space = 0.0005;
+                
+                setIndicatorColor("star1", 1, 1);
+                setIndicatorColor("star2", 1.4, 1);
+                setIndicatorColor("star3", 1.8, 1);
+                setIndicatorColor("star4", 2.2, 1);
+                setIndicatorColor("star5", 2.6, 1);
+                
                 for(var i=0; i<25; i++) {
                     for(var j=0; j<30; j++) {
                         new google.maps.Rectangle({
@@ -354,6 +401,23 @@
                     }
                 }
             }
+            
+            function setIndicatorColor(id, distance, distanceMax) {
+                var r = (distance >= distanceMax) ? (distance >= 2*distanceMax) ? 255 : (distance-distanceMax)/distanceMax*255 : 0;
+                var g = (distance >= 2*distanceMax) ? (distance >= 3*distanceMax) ? 0 : (1 - (distance-distanceMax)/(2*distanceMax))*255 : 255;
+                var elem = document.getElementById(id);
+		elem.style.color = rgbToHex(r, g, 0);
+            }
+            
+            function getSquareColor(score) {
+              var r = (score <= 0.5) ? (score)/0.5*255 : 255;
+              var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
+	      return rgbToHex(r, g, 0);
+            }
+            
+            function rgbToHex(r, g, b) {
+              return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+	    }
            
             /*
             function FindDatas() {
