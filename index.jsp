@@ -431,14 +431,11 @@
                 map = new google.maps.Map(container,myOptions);
                 
                 map.controls[google.maps.ControlPosition.LEFT_CENTER].push(rechercheDiv);
-                /*
-                var rechercheDiv = document.getElementById("rechercheDiv");
-                rechercheDiv.index = 1;
-<<<<<<< HEAD
-=======
+                
                 var resultDiv = document.getElementById("resultDiv");
                 //resultDiv.index = 1;
                 map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(resultDiv);
+                
                 
                 var southBound = 45.720;
                 var westBound = 4.780;
@@ -452,6 +449,7 @@
                 setIndicatorColor("star4", 2.2, 1);
                 setIndicatorColor("star5", 2.6, 1);
                 
+                /*
                 for(var i=0; i<25; i++) {
                     for(var j=0; j<30; j++) {
                         new google.maps.Rectangle({
@@ -470,8 +468,8 @@
                         });
                     }
                 }
->>>>>>> 0da3eeb4ab516590fc86d1ca5dca89ebe056023a
-        */
+                */
+        
             }
             
             function setIndicatorColor(id, distance, distanceMax) {
@@ -560,7 +558,6 @@
                     document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
                 } else {
                     document.getElementById('searchAlert').innerHTML = "";
-                    //alert(parameters);
                     document.getElementById('requestResult').innerHTML = parameters;
                     GetRequest(parameters);
                 }
@@ -590,8 +587,6 @@
                 xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlHttpReq.onreadystatechange = function() {
                     if (xmlHttpReq.readyState == 4) {
-                        //alert(xmlHttpReq.responseXML.getElementsByTagName("score")[0].childNodes[0].nodeValue);
-                        //alert(xmlHttpReq.responseXML.getElementsByTagName("long")[0].childNodes[0].nodeValue);
                         RefreshSquares(xmlHttpReq);
                     }
                 }
@@ -604,51 +599,31 @@
             
             
             function RefreshSquares(xmlHttpReq) {
-                //document.getElementById('requestResult').innerHTML = xmlHttpReq.responseText;
-                alert("test");
                 var squares = xmlHttpReq.responseXML.getElementsByTagName("square");
-                alert("test");
-                for (var i=0; i<40; i++) {
+                
+                for (var i=0; i<squares.length; i++) {
                     var result = "";
                     var id = xmlHttpReq.responseXML.getElementsByTagName("id")[i].childNodes[0].nodeValue;
                     var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
-                    var lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lati")[i].childNodes[0].nodeValue);
+                    var lat = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
                     
-                    var southBound = parseFloat(45.720);
-                    var westBound = parseFloat(4.780);
-
+                    var largeur = 0.0025;
+                    
+                    
+                    var hex = rgbToHex(180-score*180, 150+100*score, 30).toString();
                     new google.maps.Rectangle({
-                        strokeColor: '#228800',
-                        strokeOpacity: 0.5,
+                        strokeColor: hex,
+                        strokeOpacity: 0.4,
                         strokeWeight: 1,
-                        fillColor: '#228800',
-                        fillOpacity: 0.5,
+                        fillColor: hex,
+                        fillOpacity: 0.2,
                         map: map,
                         bounds: {
-                            north:  southBound + 0.01,
-                            south: southBound,
-                            east: westBound + 0.01,
-                            west: westBound
-                        }
-                    });
-                    
-                    
-                    alert("test");
-                    var largeur = parseFloat(0.1);
-                    
-                    new google.maps.Rectangle({
-                        strokeColor: '#228800',
-                        strokeOpacity: 0.8,
-                        strokeWeight: 1,
-                        fillColor: '#228800',
-                        fillOpacity: 0.6,
-                        map: map,
-                        bounds: {
-                            north:  long + 0.1,
-                            south: long,
-                            east: lati + 0.1,
-                            west: lati
+                            north: lat + largeur,
+                            south: lat,
+                            east: long + largeur,
+                            west: long
                         }
                     });
                     /*
