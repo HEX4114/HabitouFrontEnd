@@ -4,14 +4,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Criteri'Home</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
         <script type="text/javascript" 
             src="http://maps.google.com/maps/api/js?key=AIzaSyAjCKf6zCL0EwJegJ4sV1wBu3T3gQ3fENA&sensor=false">
-        </script>
-        <script type="text/javascript" 
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjCKf6zCL0EwJegJ4sV1wBu3T3gQ3fENA&libraries=visualization&sensor=true">
         </script>
         
         <style type="text/css">
@@ -316,7 +314,6 @@
         </div>
         
         
-        
         <script type="text/javascript">
             function GetMap() {
                 var origin = new google.maps.LatLng(45.760, 4.850);
@@ -332,29 +329,6 @@
                 var rechercheDiv = document.getElementById("rechercheDiv");
                 rechercheDiv.index = 1;
                 map.controls[google.maps.ControlPosition.LEFT_CENTER].push(rechercheDiv);
-                
-                
-                var heatmapData = FindDatas();
-                var heatmap = new google.maps.visualization.HeatmapLayer({
-                    data: heatmapData,
-                    radius: 55,
-                    opacity: 0.4,
-                    gradient:[
-                        'rgba(47, 12, 41, 0.4)',
-                        'rgba(83, 12, 60, 0.6)',
-                        'rgba(88, 12, 94, 0.8)',
-                        'rgba(100, 35, 100, 1)',
-                        'rgba(100, 46, 100, 1)',
-                        'rgba(255, 255, 64, 1)',
-                        'rgba(255, 255, 64, 0.8)',
-                        'rgba(255, 255, 64, 0.1)'
-                    ],
-                    dissipating:true
-                });
-                //heatmap.setMap(map);
-                
-                //var zoom = map.getZoom();
-                //alert(zoom);
                 
                 var southBound = 45.720;
                 var westBound = 4.780;
@@ -381,21 +355,14 @@
                 }
             }
            
+            /*
             function FindDatas() {
                 var heatmapData = [
                     new google.maps.LatLng(45.765, 4.850),
                     new google.maps.LatLng(45.765, 4.853),
-                    new google.maps.LatLng(45.769, 4.853),
-                    new google.maps.LatLng(45.758, 4.852),
-                    new google.maps.LatLng(45.758, 4.855),
-                    new google.maps.LatLng(45.764, 4.859),
-                    new google.maps.LatLng(45.761, 4.850),
-                    new google.maps.LatLng(45.763, 4.860),
-                    new google.maps.LatLng(45.759, 4.849),
-                    new google.maps.LatLng(45.762, 4.851)
                 ];
                 return heatmapData;
-            }
+            } */
            
             function EnableCritere(numCritere) {
                 var nodes = document.getElementById('listCriteresDiv').children;
@@ -419,7 +386,6 @@
                                 nodes[i].children[6].disabled = true;
                             }
                         }
-                        //alert(nodes[i].children[4].innerHTML);
                     }
                 }
                 document.getElementById('searchButton').disabled = false;
@@ -437,12 +403,18 @@
             
             function ClickSearchButton(button) {
                 button.disabled = true;
-                    
+                //var parameters = [][];
                 var triggerChecked = false;
                 var nodes = document.getElementById('listCriteresDiv').children;
                 for(var i=0; i<nodes.length; i+=1) {
                     if(nodes[i].children[0].checked) {
+                        
                         triggerChecked = true;
+                        //parameters[i][0] = i;
+                        //parameters[i][1] = nodes[i].children[3].value;
+                        alert("voila voila");
+                        alert(parameters[i][0]);
+                        alert(parameters[i][1]);
                     }
                 } 
                 
@@ -450,15 +422,21 @@
                     document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
                 } else {
                     document.getElementById('searchAlert').innerHTML = "";
+                    DoSearch(parameters);
+                }
+            }
+            
+            
+            function DoSearch(parameters) {
+                var stringParameters = "?";
+                for(var i=0; i<parameters.length-1; i++) {
+                    stringParameters += parameters[i][0] + "=" + parameters[i][1];
+                    if(i < parameters.length-1) {
+                        stringParameters += "&";
+                    }
                 }
                 
-                GetRequest();
-                /*
-                $.get("squares", function(responseText) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                    alert(responseText);
-                    $("#searchAlert").text(responseText);           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                });
-                */
+                GetRequest(stringParameters);
             }
             
             function EnterPressed(textBox) {
@@ -471,42 +449,28 @@
             }
             
             
-            function GetRequest() {
-                var xhr_object = null; 
-                //alert("GetRequest");
-                if(window.XMLHttpRequest) // Firefox 
-                    xhr_object = new XMLHttpRequest(); 
-                else if(window.ActiveXObject) // Internet Explorer 
-                    xhr_object = new ActiveXObject("Microsoft.XMLHTTP"); 
-                else { // XMLHttpRequest non supporté par le navigateur 
-                    alert("Votre navigateur ne supporte pas les objets XMLHTTPRequest..."); 
-                    return; 
-                } 
+            function GetRequest(parameters) {
+                var xmlHttpReq = false;
 
-                xhr_object.open("GET", filename, true);
-                
-                xhr_object.onreadystatechange = function() { 
-                    if(xhr_object.readyState == 4) { 
-                        var tmp = xhr_object.responseText.split(":"); 
-                        if(typeof(tmp[1]) != "undefined") { 
-                            f.elements["string1_r"].value = tmp[1]; 
-                            f.elements["string2_r"].value = tmp[2]; 
-                        } 
-                        alert(tmp[0]); 
-                    } 
-                    else alert("marche pas...");
-                } 
-                
-                xhr_object.send(data); 
+                if (window.XMLHttpRequest) {
+                   xmlHttpReq = new XMLHttpRequest();
+                }
+                else if (window.ActiveXObject) {
+                    xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlHttpReq.open('GET', "getSquares" + parameters, true);
+                xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xmlHttpReq.onreadystatechange = function() {
+                    if (xmlHttpReq.readyState == 4) {
+                        alert("ouioui");
+                        alert(xmlHttpReq.responseXML.getElementsByTagName("lati")[0].childNodes[0].nodeValue);
+                        alert(xmlHttpReq.responseXML.getElementsByTagName("long")[0].childNodes[0].nodeValue);
+                    }
+                }
+                xmlHttpReq.send();
             }
             
-            /*
-            $(document).on("click", "#searchButton", function() { // When HTML DOM "click" event is invoked on element with ID "somebutton", execute the following function...
-                $.get("squares", function(responseText) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                    $("#searchAlert").text(responseText);           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                });
-            });
-            */
+            
         </script>
     </body>
 </html>
