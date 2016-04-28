@@ -533,9 +533,9 @@
                 nodes = document.getElementById('listTransportsDiv').children;
                 for(var i=0; i<nodes.length; i+=1) {
                     if(nodes[i].children[1].checked) {
-                        parameters += "&" + nodes[i].id + "=n";
-                    } else {
                         parameters += "&" + nodes[i].id + "=y";
+                    } else {
+                        parameters += "&" + nodes[i].id + "=n";
                     }
                 } 
                 
