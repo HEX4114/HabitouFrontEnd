@@ -688,18 +688,18 @@
                         if(score > 0.9) {
                             fillColor = "#9DF215";
                             strokeColor = "#6D8E39";
-                            fillOpacity = 0.4;
-                            strokeOpacity = 0.8;
+                            fillOpacity = 0.3;
+                            strokeOpacity = 0.7;
                         } else if (score > 0.6) {
                             fillColor = "#FFC300";
                             strokeColor = "#A57224";
-                            fillOpacity = 0.4;
-                            strokeOpacity = 0.8;
+                            fillOpacity = 0.3;
+                            strokeOpacity = 0.7;
                         } else {
                             fillColor = "#EF2C0E";
                             strokeColor = "#EF2C0E";
-                            fillOpacity = 0.25;
-                            strokeOpacity = 0.45;
+                            fillOpacity = 0.10;
+                            strokeOpacity = 0.30;
                         }
                         rectangles[i].setOptions({
                             strokeColor: strokeColor,
