@@ -556,9 +556,10 @@
                                     var type = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
                                     var price = xmlHttpReq.responseXML.getElementsByTagName("price")[i].childNodes[0].nodeValue;
                                     var link = xmlHttpReq.responseXML.getElementsByTagName("link")[i].childNodes[0].nodeValue;
+                                    var src = "http://localhost:8080/Habitou/editOfferImagesById?id="+ids[ind];
                                     var infoWindow = new google.maps.InfoWindow({
                                         content: '<div class="popup_container">' +
-                                                //'<IMG BORDER="0" ALIGN="Top" SRC="myimage.jpg" width="100" height="100" >' +
+                                                '<IMG ID="ImageOffer" BORDER="0" ALIGN="Top" SRC='+src+ ' width="100" height="100" >' +
                                                 '<br> <br> Address : ' + address + 
                                                 '<br> Type : ' + type + 
                                                 '<br> Price : &euro; ' + parseFloat(price).toFixed(2) + 
