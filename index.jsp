@@ -43,6 +43,10 @@
                 z-index: 1;
             }
             
+            #rechercheDiv{
+                margin-top: 20px;
+            }
+            
             .commandBorder {
                 background-color: #fff;
                 border : 2px solid #fff;
@@ -143,6 +147,14 @@
             }
             .boundMax{
             }
+            
+            .bound0{
+                margin-right: 20.3%;
+            }
+            .boundNumber{
+                margin-right: 19%;
+            }
+            
             
             input[type="checkbox"] {
                 cursor: pointer;
@@ -286,22 +298,51 @@
                 margin-bottom : 2px;
             }
             
+            #squareInfosDiv {
+                width: 493px;
+            }
+            
+            #titleResult {
+                weight: 100%;
+            }
+            
             .resultInfos {
                 display: inline-block;
                 text-align: right;
-                vertical-align: middle;
-                width: 40px;
+                width: 10%;
+                margin-left: 10px;
+                margin-top: 4px;
+                vertical-align: top;
             }
             
-            .critereName{
-                vertical-align: bottom;
+            .critereResultDiv {
+                margin: 4px 0px 4px 0px;
+            }
+            
+            .critereNameInfos{
                 display: inline-block;
+                width: 30%;
+                margin-top: 4px;
+                vertical-align: top;
             }
             
             .pastille{
-                font-size: 24px;
-                margin: 0px 6px 0px 6px;
+                width: 24px;
+                height: 24px;
+                background-position: 2px 2px;
+                border-radius: 100%;
+                background-color: #99CC00;
+                display: inline-block;
+                margin: 0px 5px 0px 5px;
             }
+            
+            .iconSupermarket {
+                background-image: url(img/icon_supermarket.png);
+            }
+            .iconAtm {
+                background-image: url(img/icon_atm.png);
+            }
+            
             
         </style>
     </head>
@@ -365,29 +406,38 @@
                             <a class="value">0</a>
                             </br>
                             <input type="text" id="adressInput" class="inputText" onkeydown="EnterPressed(this)" disabled value="Adresse..."/>
+                            
                         </div>
+                        <div class="boundValues">
+                            <span class="bound0">0</span>
+                            <span class="boundNumber">5</span>
+                            <span class="boundNumber">10</span>
+                            <span class="boundNumber">15</span>
+                            <span >20</span>
+                        </div>
+                        </br>
                         <div id="supermarket" class="critereDiv">
-                            <input type="checkbox" id="crit1Check" onclick="EnableCritere(1)"/><label for="crit1Check"></label>
+                            <input type="checkbox" id="crit1Check" onclick="EnableCritere(3)"/><label for="crit1Check"></label>
                             <a class="critereName">Supermarché</a>
-                            <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(1)" disabled>
+                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
                             <a class="value">0</a>
                         </div>
                         <div id="school" class="critereDiv" hidden>
-                            <input type="checkbox" id="crit2Check" onclick="EnableCritere(2)"/><label for="crit2Check"></label>
+                            <input type="checkbox" id="crit2Check" onclick="EnableCritere(4)"/><label for="crit2Check"></label>
                             <a class="critereName">École</a>
-                            <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(2)" disabled>
+                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
                             <a class="value">0</a>
                         </div>
                         <div id="transport" class="critereDiv" hidden>
-                            <input type="checkbox" id="crit3Check" onclick="EnableCritere(3)"/><label for="crit3Check"></label>
+                            <input type="checkbox" id="crit3Check" onclick="EnableCritere(5)"/><label for="crit3Check"></label>
                             <a class="critereName">Station de transport</a>
-                            <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
+                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5)" disabled>
                             <a class="value">0</a>
                         </div>
                         <div id="atm" class="critereDiv">
-                            <input type="checkbox" id="crit4Check" onclick="EnableCritere(4)"/><label for="crit4Check"></label>
+                            <input type="checkbox" id="crit4Check" onclick="EnableCritere(6)"/><label for="crit4Check"></label>
                             <a class="critereName">Borne de retrait</a>
-                            <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
+                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6)" disabled>
                             <a class="value">0</a>
                         </div>
                     </div>
@@ -411,35 +461,30 @@
                         <b></b>
                     </div>
                     <div id="listInfosDiv">
-                        <div id="adressResultDiv" class="critereDiv">
-                            <a class="critereName">
-                                <span id="star1" class="pastille">&#9899;</span>Adresse 
-                                <div id="adressResultTime" class="resultInfos"></div>
-                            </a>
+                        <div id="adressResultDiv" class="critereResultDiv" hidden>
+                            <div class="pastille"></div>
+                            <div class="critereNameInfos">Adresse</div>
+                            <div id="adressResultTime" class="resultInfos"></div>
                         </div>
-                        <div id="superMarketResultDiv" class="critereDiv">
-                            <a class="critereName">
-                                <span id="star2" class="pastille">&#9899;</span>Supermarché
-                                <div id="supermarkerResultTime" class="resultInfos"></div>
-                            </a>
+                        <div id="superMarketResultDiv" class="critereResultDiv">
+                            <div class="pastille iconSupermarket"></div>
+                            <div class="critereNameInfos">Supermarché</div>
+                            <div id="supermarkerResultTime" class="resultInfos"></div>
                         </div>
-                        <div id="schoolResultDiv" class="critereDiv">
-                            <a class="critereName">
-                                <span id="star3" class="pastille">&#9899;</span>École
-                                <div id="schoolResultTime" class="resultInfos"></div>
-                            </a>
+                        <div id="schoolResultDiv" class="critereResultDiv" hidden>
+                            <div class="pastille"></div>
+                            <div class="critereNameInfos">École</div>
+                            <div id="schoolResultTime" class="resultInfos"></div>
                         </div>
-                        <div id="transportResultDiv" class="critereDiv">
-                            <a class="critereName">
-                                <span id="star4" class="pastille">&#9899;</span>Station de transport
-                                <div id="transportResultTime" class="resultInfos"></div>
-                            </a>
+                        <div id="transportResultDiv" class="critereResultDiv" hidden>
+                            <div class="pastille"></div>
+                            <div class="critereNameInfos">Station de transport</div>
+                            <div id="transportResultTime" class="resultInfos"></div>
                         </div>
-                        <div id="atmResultDiv" class="critereDiv">
-                            <a class="critereName">
-                                <span id="star5" class="pastille">&#9899;</span>Borne de retrait
-                                <div id="atmResultTime" class="resultInfos"></div>
-                            </a>
+                        <div id="atmResultDiv" class="critereResultDiv">
+                            <div class="pastille iconAtm"></div>
+                            <div class="critereNameInfos">Borne de retrait</div>
+                            <div id="atmResultTime" class="resultInfos"></div>
                         </div>
                     </div>
                     
@@ -471,10 +516,10 @@
                 var container = document.getElementById("mapContainer");
                 map = new google.maps.Map(container,myOptions);
                 
-                map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(rechercheDiv);
+                map.controls[google.maps.ControlPosition.TOP_LEFT].push(rechercheDiv);
                 
                 var resultDiv = document.getElementById("squareInfosDiv");
-                map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(resultDiv);
+                map.controls[google.maps.ControlPosition.LEFT_TOP].push(resultDiv);
                 
                 /*
                 setIndicatorColor("star1", 1, 1);
@@ -484,7 +529,7 @@
                 setIndicatorColor("star5", 2.6, 1);
                 */
                 GetOffers();
-        
+                map.addListener('click', ClickSquare);
             }
 
             function GetOffers() {
@@ -609,28 +654,28 @@
                 var nodes = document.getElementById('listCriteresDiv').children;
                 for(var i=0; i<nodes.length; i+=1) {
                     if(i == numCritere) {
-                        if(nodes[i].children[0].checked) {
-                            nodes[i].children[3].className = "cursorEnabled";
-                            nodes[i].children[3].disabled = false;
-                            nodes[i].children[4].style="visibility: visible";
-                            GrabCursor(numCritere);
-                            if(i == 0) {
-                                nodes[0].children[6].select();
-                                nodes[0].children[6].disabled = false;
-                                nodes[0].children[6].focus();
-                            }
-                        } else {
-                            nodes[i].children[3].className = "cursorDisabled";
-                            nodes[i].children[3].disabled = true;
-                            nodes[i].children[4].style="visibility: hidden";
-                            if(i == 0) {
-                                nodes[i].children[6].disabled = true;
+                        if(i!=1 && i!=2) {
+                            if(nodes[i].children[0].checked) {
+                                nodes[i].children[3].className = "cursorEnabled";
+                                nodes[i].children[3].disabled = false;
+                                nodes[i].children[4].style="visibility: visible";
+                                GrabCursor(numCritere);
+                                if(i == 0) {
+                                    nodes[0].children[6].select();
+                                    nodes[0].children[6].disabled = false;
+                                    nodes[0].children[6].focus();
+                                }
+                            } else {
+                                nodes[i].children[3].className = "cursorDisabled";
+                                nodes[i].children[3].disabled = true;
+                                nodes[i].children[4].style="visibility: hidden";
+                                if(i == 0) {
+                                    nodes[i].children[6].disabled = true;
+                                }
                             }
                         }
                     }
                 }
-                //document.getElementById('searchButton').disabled = false;
-                
             }
             
             function GrabCursor(numCursor) {
@@ -645,24 +690,26 @@
             
             function ClickSearchButton(button) {
                 button.disabled = true;
-                setTimeout(function(button){button.disabled = false;}, 1000, button);
+                setTimeout(function(button){button.disabled = false;}, 1500, button);
                 var parameters = "?";
                 var triggerChecked = false;
                 
                 var nodes = document.getElementById('listCriteresDiv').children;
                 for(var i=0; i<nodes.length; i+=1) {
-                    if(!(parameters == "?")) parameters += "&";
+                    if(i!=1 && i!=2) {
+                        if(!(parameters == "?")) parameters += "&";
                         
-                    if(nodes[i].children[0].checked) {
-                        triggerChecked = true;
-                        parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
-                        if(nodes[i].id == "adress") {
-                            parameters += "adressstring" + "=" + nodes[i].children[6].value;
-                        }
-                    } else {
-                        parameters += nodes[i].id + "=null";
-                        if(nodes[i].id == "adress") {
-                            parameters += "adressstring=null";
+                        if(nodes[i].children[0].checked) {
+                            triggerChecked = true;
+                            parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
+                            if(nodes[i].id == "adress") {
+                                parameters += "adressstring" + "=" + nodes[i].children[6].value;
+                            }
+                        } else {
+                            parameters += nodes[i].id + "=null";
+                            if(nodes[i].id == "adress") {
+                                parameters += "adressstring=null";
+                            }
                         }
                     }
                 } 
@@ -741,6 +788,8 @@
             }
             
             function ClickSquare(event) {
+                document.getElementById("squareInfosDiv").hidden = true;
+                
                 var lat = event.latLng.lat();
                 var lng = event.latLng.lng();
                 
@@ -776,7 +825,7 @@
                     var lat = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
                     
-                    largeur = 0.0025;
+                    largeur = 0.0015;
                     
                     
                     if(rectangles.length != squares.length) {
@@ -824,26 +873,29 @@
                 var walkTime;
                 var driveTime;
                 var result;
+                var carChecked;
                 
-                var carChecked = document.getElementById("carCheck").checked ;
-                
+                carChecked = document.getElementById("carCheck").checked ;
                 if(!carChecked) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                 else {
                     driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
                     walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                     result = (walkTime > driveTime ? driveTime : walkTime) ;
                 }
-                
-                //result = Math.round((walkTime > driveTime ? driveTime : walkTime) / 60 ) ;
                 result = Math.round(result/60) ;
                 document.getElementById("supermarkerResultTime").innerHTML = result + " min";
                 
                 
-                /*
-                var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
-                var lat = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
-                var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
-                */
+                carChecked = document.getElementById("carCheck").checked ;
+                if(!carChecked) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                else {
+                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                    result = (walkTime > driveTime ? driveTime : walkTime) ;
+                }
+                result = Math.round(result/60) ;
+                document.getElementById("atmResultTime").innerHTML = result + " min";
+                
             }
             
             function LaunchRemoteInterval(score, i) {
@@ -857,8 +909,8 @@
                 var west = rectangles[i].getBounds().getSouthWest().lng();
                 
                 if(animationTab[i] == 0) {
-                    north -= 0.0002;
-                    south += 0.0002;
+                    north -= 0.0001;
+                    south += 0.0001;
                     if(north > south) {
                         
                         rectangles[i].setOptions({
@@ -889,8 +941,8 @@
                         animationTab[i] = 1;
                     }
                 } else {
-                    north += 0.0002;
-                    south -= 0.0002;
+                    north += 0.0001;
+                    south -= 0.0001;
                     
                     var diff = (north-south) - (largeur);
                     if(diff >= 0) {
