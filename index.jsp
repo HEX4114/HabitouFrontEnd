@@ -465,7 +465,104 @@
                 setIndicatorColor("star4", 2.2, 1);
                 setIndicatorColor("star5", 2.6, 1);
                 */
+                GetOffers();
         
+            }
+
+            function GetOffers() {
+                var xmlHttpReq = false;
+
+                if (window.XMLHttpRequest) {
+                    xmlHttpReq = new XMLHttpRequest();
+                }
+                else if (window.ActiveXObject) {
+                    xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlHttpReq.open('GET', "getOffers", true);
+                xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xmlHttpReq.onreadystatechange = function () {
+                    if (xmlHttpReq.readyState == 4) {
+                        GetMarkers(xmlHttpReq);
+                    }
+                }
+                xmlHttpReq.send();
+            }
+
+            function GetMarkers(xmlHttpReq) {
+                var offers = xmlHttpReq.responseXML.getElementsByTagName("offer");
+                var markers = [];
+                var ids = [];
+
+                for (i = 0; i < offers.length; i++) {
+                    ids[i] = xmlHttpReq.responseXML.getElementsByTagName("id")[i].childNodes[0].nodeValue;
+                    var longi = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
+                    var lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
+                    var typeOffer = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
+                    
+                    if (typeOffer === 'vendre') {
+                        markers[i] = new google.maps.Marker({
+                            position: new google.maps.LatLng(lati, longi),
+                            map: map,
+                            icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+                        });
+                     } else {
+                         markers[i] = new google.maps.Marker({
+                            position: new google.maps.LatLng(lati, longi),
+                            map: map,
+                            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                        });
+                     }
+
+                    markers[i].index = i; //add index property
+                    
+                    var prev_infoWindow =false;
+                    google.maps.event.addListener(markers[i], 'click', function () {
+                        
+                        var xmlHttpReq = false;
+                        var ind = this.index;
+
+                        if (window.XMLHttpRequest) {
+                            xmlHttpReq = new XMLHttpRequest();
+                        }
+                        else if (window.ActiveXObject) {
+                            xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+                        }
+                        xmlHttpReq.open('GET', "getOfferById?id=" + ids[ind], true);
+                        xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                        xmlHttpReq.onreadystatechange = function () {
+                            if (xmlHttpReq.readyState == 4) {
+                                var offer = xmlHttpReq.responseXML.getElementsByTagName("offer");
+                                for (var i = 0; i < offer.length; i++) {
+                                    var address = xmlHttpReq.responseXML.getElementsByTagName("address")[i].childNodes[0].nodeValue;
+                                    var type = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
+                                    var price = xmlHttpReq.responseXML.getElementsByTagName("price")[i].childNodes[0].nodeValue;
+                                    var link = xmlHttpReq.responseXML.getElementsByTagName("link")[i].childNodes[0].nodeValue;
+                                    var infoWindow = new google.maps.InfoWindow({
+                                        content: '<div class="popup_container">' +
+                                                //'<IMG BORDER="0" ALIGN="Top" SRC="myimage.jpg" width="100" height="100" >' +
+                                                '<br> <br> Address : ' + address + 
+                                                '<br> Type : ' + type + 
+                                                '<br> Price : &euro; ' + parseFloat(price).toFixed(2) + 
+                                                '<br> <a href="' + link + '">' + 'Lien vers l annonce' +'</a>'+
+                                                ' </div>',
+                                        maxWidth: 300
+                                    });
+                                    
+                                    if( prev_infoWindow ) {
+                                        prev_infoWindow.close();
+                                    }
+                                    
+                                    
+                                    infoWindow.open(map, markers[ind]);
+                                    prev_infoWindow = infoWindow;
+                                    map.panTo(markers[ind].getPosition());
+                                }
+                            }
+                        }
+                        xmlHttpReq.send();
+                    });
+                }
             }
             
             function setIndicatorColor(id, distance, distanceMax) {
