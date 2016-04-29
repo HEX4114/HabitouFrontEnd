@@ -286,6 +286,23 @@
                 margin-bottom : 2px;
             }
             
+            .resultInfos {
+                display: inline-block;
+                text-align: right;
+                vertical-align: middle;
+                width: 40px;
+            }
+            
+            .critereName{
+                vertical-align: bottom;
+                display: inline-block;
+            }
+            
+            .pastille{
+                font-size: 24px;
+                margin: 0px 6px 0px 6px;
+            }
+            
         </style>
     </head>
     <body onload="GetMap()">
@@ -395,31 +412,34 @@
                     </div>
                     <div id="listInfosDiv">
                         <div id="adressResultDiv" class="critereDiv">
-
-                            <a class="critereName"><span id="star1">&#9899;</span>Adresse </a>
-                            <a id="adressResultTime"></a>
-
+                            <a class="critereName">
+                                <span id="star1" class="pastille">&#9899;</span>Adresse 
+                                <div id="adressResultTime" class="resultInfos"></div>
+                            </a>
                         </div>
                         <div id="superMarketResultDiv" class="critereDiv">
-
-                            <a class="critereName"><span id="star2">&#9899;</span>Supermarché</a>
-                            <div id="supermarkerResultTime"></div>
-
+                            <a class="critereName">
+                                <span id="star2" class="pastille">&#9899;</span>Supermarché
+                                <div id="supermarkerResultTime" class="resultInfos"></div>
+                            </a>
                         </div>
                         <div id="schoolResultDiv" class="critereDiv">
-
-                            <a class="critereName"><span id="star3">&#9899;</span>École</a>
-                            <a id="schoolResultTime"></a>
+                            <a class="critereName">
+                                <span id="star3" class="pastille">&#9899;</span>École
+                                <div id="schoolResultTime" class="resultInfos"></div>
+                            </a>
                         </div>
                         <div id="transportResultDiv" class="critereDiv">
-
-                            <a class="critereName"><span id="star4">&#9899;</span>Station de transport</a>
-                            <a id="transportResultTime"></a>
+                            <a class="critereName">
+                                <span id="star4" class="pastille">&#9899;</span>Station de transport
+                                <div id="transportResultTime" class="resultInfos"></div>
+                            </a>
                         </div>
                         <div id="atmResultDiv" class="critereDiv">
-
-                            <a class="critereName"><span id="star5">&#9899;</span>Borne de retrait</a>
-                            <a id="atmResultTime"></a>
+                            <a class="critereName">
+                                <span id="star5" class="pastille">&#9899;</span>Borne de retrait
+                                <div id="atmResultTime" class="resultInfos"></div>
+                            </a>
                         </div>
                     </div>
                     
@@ -433,8 +453,6 @@
                 </div>
             </div>
         </div>
-        
-        <div id="parameter">test</div>
         
         <script type="text/javascript">
             var rectanglesId = new Array;
@@ -738,7 +756,7 @@
                     if(lat < north && lat > south) {
                         if(lng < east && lng > west) {
                             var parameter = "?id=" + rectanglesId[i];
-                            document.getElementById("parameter").innerHTML = parameter;
+                            //document.getElementById("parameter").innerHTML = parameter;
                             GetOneSquareRequest(parameter);
                             return;
                         }
@@ -800,14 +818,23 @@
             function RefreshSquareInfos(xmlHttpReq) {
                 //alert(xmlHttpReq.responseXML.getElementsByTagName("id")[0].childNodes[0].nodeValue);
                 //setIndicatorColor("star1", 1, 1);
+                document.getElementById("squareInfosDiv").hidden = false;
                 
                 var walkTime;
                 var driveTime;
                 var result;
-                document.getElementById("squareInfosDiv").hidden = false;
-                walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
-                driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
-                result = Math.round((walkTime > driveTime ? driveTime : walkTime) / 60 ) ;
+                
+                var carChecked = document.getElementById("carCheck").checked ;
+                
+                if(!carChecked) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                else {
+                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                    result = (walkTime > driveTime ? driveTime : walkTime) ;
+                }
+                
+                //result = Math.round((walkTime > driveTime ? driveTime : walkTime) / 60 ) ;
+                result = Math.round(result/60) ;
                 document.getElementById("supermarkerResultTime").innerHTML = result + " min";
                 
                 
