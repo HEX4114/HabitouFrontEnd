@@ -679,46 +679,24 @@
                         
                     if(i<50) {
                         intervals[i] = setInterval(ChangeSquare, 1, score, i);
-                    }
-                    else if(i<100) { 
-                        setTimeout(LaunchRemoteInterval, 140*1, score, i);
-                    }
-                    else if(i<150) {
-                        setTimeout(LaunchRemoteInterval, 140*2, score, i);
-                    }
-                    else if(i<200) {
-                        setTimeout(LaunchRemoteInterval, 140*3, score, i);
-                    }
-                    else if(i<250) {
-                        setTimeout(LaunchRemoteInterval, 140*4, score, i);
-                    }
-                    else if(i<300) {
-                        setTimeout(LaunchRemoteInterval, 140*5, score, i);
-                    }
-                    else if(i<350) {
-                        setTimeout(LaunchRemoteInterval, 140*6, score, i);
-                    }
-                    else if(i<400) {
-                        setTimeout(LaunchRemoteInterval, 140*7, score, i);
-                    }
-                    else if(i<450) {
-                        setTimeout(LaunchRemoteInterval, 140*8, score, i);
-                    }
-                    else if(i<500) {
-                        setTimeout(LaunchRemoteInterval, 140*9, score, i);
-                    }
-                    else if(i<550) {
-                        setTimeout(LaunchRemoteInterval, 150*10, score, i);
-                    }
-                    else {
-                        setTimeout(LaunchRemoteInterval, 150*11, score, i);
+                    } else {
+                        var triggerTimeOutLaunched = false;
+                        for(var coef=1; coef<10; coef++) {
+                            if(i < 50 * (coef+1) && i >= 50 * coef) {
+                                setTimeout(LaunchRemoteInterval, 140*coef, score, i);
+                                triggerTimeOutLaunched = true;
+                            }
+                        }
+                        if(triggerTimeOutLaunched == false) {
+                            setTimeout(LaunchRemoteInterval, 140*11, score, i);
+                        }
                     }
                 }
             }
             
             
             function RefreshSquareInfos(xmlHttpReq) {
-                alert(xmlHttpReq.responseXML.getElementsByTagName("id")[0].childNodes[0].nodeValue);
+                //alert(xmlHttpReq.responseXML.getElementsByTagName("id")[0].childNodes[0].nodeValue);
                 
                 /*
                 var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
