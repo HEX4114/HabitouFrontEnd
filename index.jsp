@@ -23,11 +23,11 @@
                 width:100%;
             }
             #titleApp{
-                vertical-align: middle;
+                vertical-align: top;
                 text-align: center;
                 font-family : AR DESTINE;
                 font-size : 92px;
-                margin: 0px 0px 0px -8px;
+                margin: -10px 0px 0px -8px;
                 padding: 0px;
                 width: 102%;
                 height: 100px;
@@ -403,7 +403,7 @@
                         <div id="superMarketResultDiv" class="critereDiv">
 
                             <a class="critereName"><span id="star2">&#9899;</span>Supermarché</a>
-                            <a id="supermarkerResultTime"></a>
+                            <div id="supermarkerResultTime"></div>
 
                         </div>
                         <div id="schoolResultDiv" class="critereDiv">
@@ -434,6 +434,7 @@
             </div>
         </div>
         
+        <div id="parameter">test</div>
         
         <script type="text/javascript">
             var rectanglesId = new Array;
@@ -640,6 +641,7 @@
                     if(lat < north && lat > south) {
                         if(lng < east && lng > west) {
                             var parameter = "?id=" + rectanglesId[i];
+                            document.getElementById("parameter").innerHTML = parameter;
                             GetOneSquareRequest(parameter);
                             return;
                         }
@@ -701,15 +703,16 @@
             function RefreshSquareInfos(xmlHttpReq) {
                 //alert(xmlHttpReq.responseXML.getElementsByTagName("id")[0].childNodes[0].nodeValue);
                 //setIndicatorColor("star1", 1, 1);
-                /*
+                
                 var walkTime;
                 var driveTime;
                 var result;
+                document.getElementById("squareInfosDiv").hidden = false;
+                walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                result = Math.round((walkTime > driveTime ? driveTime : walkTime) / 60 ) ;
+                document.getElementById("supermarkerResultTime").innerHTML = result + " min";
                 
-                walkTime = parseInt(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].nodeValue);
-                driveTime = parseInt(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].nodeValue);
-                result = (walkTime > driveTime ? driveTime : walkTime);
-                document.getElementById("supermarketResultTime").innerHTML = result;
                 
                 /*
                 var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
@@ -748,24 +751,6 @@
                         var fillOpacity;
                         var strokeOpacity;
                         
-                        /*
-                        if(score > 0.9) {
-                            //fillColor = "#9DF215";
-                            //strokeColor = "#6D8E39";
-                            fillOpacity = 0.4;
-                            strokeOpacity = 0.9;
-                        } else if (score > 0.6) {
-                            //fillColor = "#FFC300";
-                            //strokeColor = "#A57224";
-                            fillOpacity = 0.6;
-                            strokeOpacity = 0.9;
-                        } else {
-                            //fillColor = "#EF2C0E";
-                            //strokeColor = "#EF2C0E";
-                            fillOpacity = 0.20;
-                            strokeOpacity = 0.50;
-                        }
-                        */
                         fillOpacity = 0.45;
                         strokeOpacity = 0.50;
                         fillColor = getSquareColor(score);
