@@ -10,24 +10,31 @@
         </script>
         
         <style type="text/css">
+            html {
+                height:100%;
+            }
+            body{
+                height: 100%;
+            }
             #titleApp{
                 vertical-align: middle;
                 text-align: center;
                 font-family : AR DESTINE;
                 font-size : 92px;
-                margin: 40px 0px 60px -8px;
+                margin: 0px 0px 0px -8px;
                 padding: 0px;
                 width: 102%;
-                height: 120px;
+                height: 100px;
                 background-color: #A1C643;
-                box-shadow: 0px 4px 3px 2px rgba(0, 0, 0, 0.4); 
+                z-index: 2;
             }
             
             #mapContainer{
-                margin-left: 2.5%;
-                width: 95%;
-                height: 640px;
-                box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.4); 
+                margin-left: -8px;
+                padding: 0px;
+                width: 101%;
+                height: 88%;
+                z-index: 1;
             }
             
             .commandBorder {
@@ -374,10 +381,6 @@
                 
             </div>
         </div>
-        <div id="requestResult">
-            
-        </div>
-        
         <div id="resultDiv">
             <div id="resultBord" class="commandBorder">
                 <div id="resultInter" class="commandInner">
@@ -421,8 +424,8 @@
         <script type="text/javascript">
             
             var rectangles = new Array;
-            //var animationTab = new Array;
-            //var intervals = new Array;
+            var animationTab = new Array;
+            var intervals = new Array;
             
             function GetMap() {
                 var origin = new google.maps.LatLng(45.760, 4.850);
@@ -595,30 +598,30 @@
                     largeur = 0.0025;
                     espace = 0.0001;
                     
-                    var fillColor;
-                    var strokeColor;
-                    var fillOpacity;
-                    var strokeOpacity;
-                    
-                    if(score > 0.9) {
-                        fillColor = "#9DF215";
-                        strokeColor = "#6D8E39";
-                        fillOpacity = 0.4;
-                        strokeOpacity = 0.8;
-                    } else if (score > 0.6) {
-                        fillColor = "#FFC300";
-                        strokeColor = "#A57224";
-                        fillOpacity = 0.4;
-                        strokeOpacity = 0.8;
-                    } else {
-                        fillColor = "#EF2C0E";
-                        strokeColor = "#EF2C0E";
-                        fillOpacity = 0.25;
-                        strokeOpacity = 0.45;
-                    }
-                    
                     
                     if(rectangles.length < squares.length) {
+                        var fillColor;
+                        var strokeColor;
+                        var fillOpacity;
+                        var strokeOpacity;
+
+                        if(score > 0.9) {
+                            fillColor = "#9DF215";
+                            strokeColor = "#6D8E39";
+                            fillOpacity = 0.4;
+                            strokeOpacity = 0.8;
+                        } else if (score > 0.6) {
+                            fillColor = "#FFC300";
+                            strokeColor = "#A57224";
+                            fillOpacity = 0.4;
+                            strokeOpacity = 0.8;
+                        } else {
+                            fillColor = "#EF2C0E";
+                            strokeColor = "#EF2C0E";
+                            fillOpacity = 0.25;
+                            strokeOpacity = 0.45;
+                        }
+                        
                         rectangles[i] = new google.maps.Rectangle({
                             strokeColor: strokeColor,
                             strokeOpacity: strokeOpacity,
@@ -633,76 +636,125 @@
                                 west: long + espace
                             }
                         });
-                        //animationTab[i] == 0
+                        animationTab[i] = 0;
                     } else {
-                        //intervals[i] = setInterval(ChangeSquare(strokeColor,strokeOpacity,fillColor,fillOpacity,i,rectangles), 3000);
+                        //var partSize = (squares.length)/6;
+                        //alert(partSize);
+                        //document.getElementById('requestResult').innnerHTML += partSize;
                         
+                        if(i<50) {
+                            intervals[i] = setInterval(ChangeSquare, 1, score, i);
+                        }
+                        else if(i<100) { 
+                            setTimeout(LaunchRemoteInterval, 140*1, score, i);
+                        }
+                        else if(i<150) {
+                            setTimeout(LaunchRemoteInterval, 140*2, score, i);
+                        }
+                        else if(i<200) {
+                            setTimeout(LaunchRemoteInterval, 140*3, score, i);
+                        }
+                        else if(i<250) {
+                            setTimeout(LaunchRemoteInterval, 140*4, score, i);
+                        }
+                        else if(i<300) {
+                            setTimeout(LaunchRemoteInterval, 140*5, score, i);
+                        }
+                        else if(i<350) {
+                            setTimeout(LaunchRemoteInterval, 140*6, score, i);
+                        }
+                        else if(i<400) {
+                            setTimeout(LaunchRemoteInterval, 140*7, score, i);
+                        }
+                        else if(i<450) {
+                            setTimeout(LaunchRemoteInterval, 140*8, score, i);
+                        }
+                        else if(i<500) {
+                            setTimeout(LaunchRemoteInterval, 140*9, score, i);
+                        }
+                        else if(i<550) {
+                            setTimeout(LaunchRemoteInterval, 150*10, score, i);
+                        }
+                        else {
+                            setTimeout(LaunchRemoteInterval, 150*11, score, i);
+                        }
+                    }
+                }
+            }
+            
+            function LaunchRemoteInterval(score, i) {
+                intervals[i] = setInterval(ChangeSquare, 1, score, i);
+            }
+            
+            function ChangeSquare(score,i) {
+                var north = rectangles[i].getBounds().getNorthEast().lat();
+                var south = rectangles[i].getBounds().getSouthWest().lat();
+                var east = rectangles[i].getBounds().getNorthEast().lng();
+                var west = rectangles[i].getBounds().getSouthWest().lng();
+                
+                if(animationTab[i] == 0) {
+                    north -= 0.0001;
+                    south += 0.0001;
+                    if(north > south) {
+                        
+                        rectangles[i].setOptions({
+                            bounds: {
+                                north:north,
+                                south:south,
+                                east:east,
+                                west:west
+                            }
+                        });
+                    } else {
+                        var fillColor;
+                        var strokeColor;
+                        var fillOpacity;
+                        var strokeOpacity;
+
+                        if(score > 0.9) {
+                            fillColor = "#9DF215";
+                            strokeColor = "#6D8E39";
+                            fillOpacity = 0.4;
+                            strokeOpacity = 0.8;
+                        } else if (score > 0.6) {
+                            fillColor = "#FFC300";
+                            strokeColor = "#A57224";
+                            fillOpacity = 0.4;
+                            strokeOpacity = 0.8;
+                        } else {
+                            fillColor = "#EF2C0E";
+                            strokeColor = "#EF2C0E";
+                            fillOpacity = 0.25;
+                            strokeOpacity = 0.45;
+                        }
                         rectangles[i].setOptions({
                             strokeColor: strokeColor,
                             strokeOpacity: strokeOpacity,
                             fillColor: fillColor,
                             fillOpacity: fillOpacity
                         });
-                        
-                    }
-                }
-            }
-            
-            /*
-            function ChangeSquare(strokeColor,strokeOpacity,fillColor,fillOpacity,i,rectangles) {
-                //document.getElementById('requestResult').innerHTML += i + " ";
-                
-                //var bounds = rectangles[i].getBounds();
-                var north = rectangles[i].getBounds().getNorthEast().lat();
-                var south = rectangles[i].getBounds().getSouthWest().lat();
-                document.getElementById('requestResult').innerHTML += north + " - " + south + "<br>";
-                if(animationTab[i] == 0) {
-                    //alert("1");
-                    north -= 0.001;
-                    south += 0.001;
-                    if(north>south) {
-                        rectangles[i].setOptions({
-                            bounds: {
-                                north:north,
-                                south:south
-                            }
-                        });
-                        
-                    } else {
-                        //alert("2");
-                        rectangles[i].setOptions({
-                            bounds: {
-                                north:south,
-                                south:north,
-                                strokeColor: strokeColor,
-                                strokeOpacity: strokeOpacity,
-                                fillColor: fillColor,
-                                fillOpacity: fillOpacity
-                            }
-                        });
                         animationTab[i] = 1;
                     }
                 } else {
-                    //alert("3");
-                    north += 0.001;
-                    south -= 0.001;
+                    north += 0.0001;
+                    south -= 0.0001;
                     
                     if(north-south < largeur - 2*espace) {
-                        //alert("4");
                         rectangles[i].setOptions({
                             bounds: {
                                 north:north,
-                                south:south
+                                south:south,
+                                east:east,
+                                west:west
                             }
                         });
                     } else {
-                        //alert("5");
                         animationTab[i] = 0;
                         clearInterval(intervals[i]);
                     }
                 }
             }
-            */
+            
             
             
         </script>
