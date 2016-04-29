@@ -528,7 +528,7 @@
                         
                     if(nodes[i].children[0].checked) {
                         triggerChecked = true;
-                        parameters += nodes[i].id + "=" + nodes[i].children[3].value;
+                        parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
                     } else {
                         parameters += nodes[i].id + "=null";
                     }
@@ -548,7 +548,7 @@
                     DeleteAllSquares();
                 } else {
                     document.getElementById('searchAlert').innerHTML = "";
-                    GetRequest(parameters);
+                    GetSquaresRequest(parameters);
                 }
             }
             
@@ -563,7 +563,7 @@
             }
             
             
-            function GetRequest(parameters) {
+            function GetSquaresRequest(parameters) {
                 var xmlHttpReq = false;
 
                 if (window.XMLHttpRequest) {
@@ -573,6 +573,25 @@
                     xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
                 }
                 xmlHttpReq.open('GET', "getSquares" + parameters, true);
+                xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xmlHttpReq.onreadystatechange = function() {
+                    if (xmlHttpReq.readyState == 4) {
+                        RefreshSquares(xmlHttpReq);
+                    }
+                }
+                xmlHttpReq.send();
+            }
+            
+            function GetOneSquareRequest(parameters) {
+                var xmlHttpReq = false;
+
+                if (window.XMLHttpRequest) {
+                   xmlHttpReq = new XMLHttpRequest();
+                }
+                else if (window.ActiveXObject) {
+                    xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlHttpReq.open('GET', "getSquareById" + parameters, true);
                 xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlHttpReq.onreadystatechange = function() {
                     if (xmlHttpReq.readyState == 4) {
@@ -667,8 +686,8 @@
                 var west = rectangles[i].getBounds().getSouthWest().lng();
                 
                 if(animationTab[i] == 0) {
-                    north -= 0.0001;
-                    south += 0.0001;
+                    north -= 0.0002;
+                    south += 0.0002;
                     if(north > south) {
                         
                         rectangles[i].setOptions({
@@ -688,18 +707,18 @@
                         if(score > 0.9) {
                             fillColor = "#9DF215";
                             strokeColor = "#6D8E39";
-                            fillOpacity = 0.3;
-                            strokeOpacity = 0.7;
+                            fillOpacity = 0.4;
+                            strokeOpacity = 0.9;
                         } else if (score > 0.6) {
                             fillColor = "#FFC300";
                             strokeColor = "#A57224";
-                            fillOpacity = 0.3;
-                            strokeOpacity = 0.7;
+                            fillOpacity = 0.4;
+                            strokeOpacity = 0.9;
                         } else {
                             fillColor = "#EF2C0E";
                             strokeColor = "#EF2C0E";
-                            fillOpacity = 0.10;
-                            strokeOpacity = 0.30;
+                            fillOpacity = 0.20;
+                            strokeOpacity = 0.50;
                         }
                         rectangles[i].setOptions({
                             strokeColor: strokeColor,
@@ -710,22 +729,27 @@
                         animationTab[i] = 1;
                     }
                 } else {
-                    north += 0.0001;
-                    south -= 0.0001;
+                    north += 0.0002;
+                    south -= 0.0002;
                     
-                    if(north-south < largeur - 2*espace) {
-                        rectangles[i].setOptions({
-                            bounds: {
-                                north:north,
-                                south:south,
-                                east:east,
-                                west:west
-                            }
-                        });
-                    } else {
+                    var diff = (north-south) - (largeur - 2*espace);
+                    if(diff >= 0) {
+                        if(diff > 0.0001) {
+                            north -= 0.00012;
+                            south += 0.00012;
+                        }
+                        
                         animationTab[i] = 0;
                         clearInterval(intervals[i]);
                     }
+                    rectangles[i].setOptions({
+                        bounds: {
+                            north:north,
+                            south:south,
+                            east:east,
+                            west:west
+                        }
+                    });
                 }
             }
             
