@@ -387,38 +387,39 @@
                 
             </div>
         </div>
-        <div id="squareInfosDiv">
+        <div id="squareInfosDiv" hidden>
             <div id="resultBord" class="commandBorder">
                 <div id="resultInter" class="commandInner">
                     <div id="titleResult">
-                        <b>Plus proche(s) ...</b>
-                        </br>
+                        <b></b>
                     </div>
-                    <div id="listResultDiv">
-                        <div id="res1" class="critereDiv">
+                    <div id="listInfosDiv">
+                        <div id="adressResultDiv" class="critereDiv">
 
                             <a class="critereName"><span id="star1">&#9899;</span>Adresse </a>
+                            <a id="adressResultTime"></a>
 
                         </div>
-                        <div id="res2" class="critereDiv">
+                        <div id="superMarketResultDiv" class="critereDiv">
 
                             <a class="critereName"><span id="star2">&#9899;</span>Supermarché</a>
+                            <a id="supermarkerResultTime"></a>
 
                         </div>
-                        <div id="res3" class="critereDiv">
+                        <div id="schoolResultDiv" class="critereDiv">
 
                             <a class="critereName"><span id="star3">&#9899;</span>École</a>
-
+                            <a id="schoolResultTime"></a>
                         </div>
-                        <div id="res4" class="critereDiv">
+                        <div id="transportResultDiv" class="critereDiv">
 
                             <a class="critereName"><span id="star4">&#9899;</span>Station de transport</a>
-
+                            <a id="transportResultTime"></a>
                         </div>
-                        <div id="res5" class="critereDiv">
+                        <div id="atmResultDiv" class="critereDiv">
 
                             <a class="critereName"><span id="star5">&#9899;</span>Borne de retrait</a>
-
+                            <a id="atmResultTime"></a>
                         </div>
                     </div>
                     
@@ -456,11 +457,13 @@
                 var resultDiv = document.getElementById("squareInfosDiv");
                 map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(resultDiv);
                 
+                /*
                 setIndicatorColor("star1", 1, 1);
                 setIndicatorColor("star2", 1.4, 1);
                 setIndicatorColor("star3", 1.8, 1);
                 setIndicatorColor("star4", 2.2, 1);
                 setIndicatorColor("star5", 2.6, 1);
+                */
         
             }
             
@@ -697,6 +700,16 @@
             
             function RefreshSquareInfos(xmlHttpReq) {
                 //alert(xmlHttpReq.responseXML.getElementsByTagName("id")[0].childNodes[0].nodeValue);
+                //setIndicatorColor("star1", 1, 1);
+                /*
+                var walkTime;
+                var driveTime;
+                var result;
+                
+                walkTime = parseInt(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].nodeValue);
+                driveTime = parseInt(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].nodeValue);
+                result = (walkTime > driveTime ? driveTime : walkTime);
+                document.getElementById("supermarketResultTime").innerHTML = result;
                 
                 /*
                 var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
