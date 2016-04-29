@@ -513,7 +513,6 @@
                         nodes[j].children[4].innerHTML = value;
                     }
                 } 
-                //document.getElementById('searchButton').disabled = false;
             }
             
             function ClickSearchButton(button) {
@@ -529,14 +528,20 @@
                     if(nodes[i].children[0].checked) {
                         triggerChecked = true;
                         parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
+                        if(nodes[i].id == "adress") {
+                            parameters += "adressstring" + "=" + nodes[i].children[6].value;
+                        }
                     } else {
                         parameters += nodes[i].id + "=null";
+                        if(nodes[i].id == "adress") {
+                            parameters += "adressstring=null";
+                        }
                     }
                 } 
                 
                 nodes = document.getElementById('listTransportsDiv').children;
                 for(var i=0; i<nodes.length; i+=1) {
-                    if(nodes[i].children[1].checked) {
+                    if(nodes[i].children[1].children[0].checked) {
                         parameters += "&" + nodes[i].id + "=y";
                     } else {
                         parameters += "&" + nodes[i].id + "=n";
@@ -549,6 +554,7 @@
                 } else {
                     document.getElementById('searchAlert').innerHTML = "";
                     GetSquaresRequest(parameters);
+                    //alert(parameters);
                 }
             }
             
