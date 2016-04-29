@@ -14,9 +14,13 @@
             
             html {
                 height:100%;
+                display:block;
+                width:100%;
             }
             body{
                 height: 100%;
+                display:block;
+                width:100%;
             }
             #titleApp{
                 vertical-align: middle;
@@ -422,9 +426,16 @@
             </div>
         </div>
         
+        <div id="opacityDiv">
+            <div id="resultBord" class="commandBorder">
+                <div id="resultInter" class="commandInner">
+                </div>
+            </div>
+        </div>
+        
         
         <script type="text/javascript">
-            
+            var rectanglesId = new Array;
             var rectangles = new Array;
             var animationTab = new Array;
             var intervals = new Array;
@@ -461,9 +472,11 @@
             }
             
             function getSquareColor(score) {
-              score = 1 - score;
-              var r = (score <= 0.5) ? (score)/0.5*255 : 255;
-              var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
+              //score = 1 - score;
+              var r = (score >= 0.5) ? 131 + (1-score)*94 : 225;
+              var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
+              //var r = (score <= 0.5) ? (score)/0.5*255 : 255; 
+              //var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
 	      return rgbToHex(r, g, 0);
             }
             
@@ -564,6 +577,11 @@
             }
             
             
+            function ClickSquare(i) {
+                var parameters = "?id=" + rectanglesId[i];
+                GetOneSquareRequest(parameters);
+            }
+            
             function GetSquaresRequest(parameters) {
                 var xmlHttpReq = false;
 
@@ -596,7 +614,7 @@
                 xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlHttpReq.onreadystatechange = function() {
                     if (xmlHttpReq.readyState == 4) {
-                        RefreshSquares(xmlHttpReq);
+                        RefreshSquareInfos(xmlHttpReq);
                     }
                 }
                 xmlHttpReq.send();
@@ -612,7 +630,7 @@
                 
                 for (var i=0; i<squares.length; i++) {
                     var result = "";
-                    var id = xmlHttpReq.responseXML.getElementsByTagName("id")[i].childNodes[0].nodeValue;
+                    rectanglesId[i] = xmlHttpReq.responseXML.getElementsByTagName("id")[i].childNodes[0].nodeValue;
                     var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
                     var lat = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
@@ -634,6 +652,7 @@
                                 west: long + espace
                             }
                         });
+                        rectangles[i].addListener('click', function e(){ClickSquare(i);});
                         animationTab[i] = 0;
                     } 
                         
@@ -676,6 +695,15 @@
                 }
             }
             
+            function RefreshSquareInfos(xmlHttpReq) {
+                alert(xmlHttpReq.responseXML.getElementsByTagName("id")[0].nodeValue);
+                /*
+                var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
+                var lat = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
+                var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
+                */
+            }
+            
             function LaunchRemoteInterval(score, i) {
                 intervals[i] = setInterval(ChangeSquare, 1, score, i);
             }
@@ -714,7 +742,7 @@
                         } else if (score > 0.6) {
                             //fillColor = "#FFC300";
                             //strokeColor = "#A57224";
-                            fillOpacity = 0.4;
+                            fillOpacity = 0.6;
                             strokeOpacity = 0.9;
                         } else {
                             //fillColor = "#EF2C0E";
@@ -722,6 +750,8 @@
                             fillOpacity = 0.20;
                             strokeOpacity = 0.50;
                         }
+                        fillOpacity = 0.5;
+                        strokeOpacity = 0.8;
                         fillColor = getSquareColor(score);
                         strokeColor = getSquareColor(score);
                         rectangles[i].setOptions({
