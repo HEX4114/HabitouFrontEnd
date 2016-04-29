@@ -369,7 +369,7 @@
                         </div>
                     </div>
                     
-                    <button id="searchButton" type="button" onclick="ClickSearchButton(this)" class="button" disabled> 
+                    <button id="searchButton" type="button" onclick="ClickSearchButton(this)" class="button" > 
                         Rechercher
                     </button> 
                     
@@ -501,7 +501,7 @@
                         }
                     }
                 }
-                document.getElementById('searchButton').disabled = false;
+                //document.getElementById('searchButton').disabled = false;
                 
             }
             
@@ -513,11 +513,12 @@
                         nodes[j].children[4].innerHTML = value;
                     }
                 } 
-                document.getElementById('searchButton').disabled = false;
+                //document.getElementById('searchButton').disabled = false;
             }
             
             function ClickSearchButton(button) {
                 button.disabled = true;
+                setTimeout(function(button){button.disabled = false;}, 1000, button);
                 var parameters = "?";
                 var triggerChecked = false;
                 
@@ -544,6 +545,7 @@
                 
                 if (!triggerChecked) {
                     document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
+                    DeleteAllSquares();
                 } else {
                     document.getElementById('searchAlert').innerHTML = "";
                     GetRequest(parameters);
@@ -552,7 +554,7 @@
             
             
             function EnterPressed(textBox) {
-                document.getElementById('searchButton').disabled = false;
+                //document.getElementById('searchButton').disabled = false;
                 if (event.keyCode == 13) {
                     textBox.blur();
                     document.getElementById('searchButton').click();
@@ -581,7 +583,7 @@
             }
             
             function EnableMode() {
-                document.getElementById('searchButton').disabled = false;
+                //document.getElementById('searchButton').disabled = false;
             }
             
             
@@ -599,85 +601,57 @@
                     espace = 0.0001;
                     
                     
-                    if(rectangles.length < squares.length) {
-                        var fillColor;
-                        var strokeColor;
-                        var fillOpacity;
-                        var strokeOpacity;
-
-                        if(score > 0.9) {
-                            fillColor = "#9DF215";
-                            strokeColor = "#6D8E39";
-                            fillOpacity = 0.4;
-                            strokeOpacity = 0.8;
-                        } else if (score > 0.6) {
-                            fillColor = "#FFC300";
-                            strokeColor = "#A57224";
-                            fillOpacity = 0.4;
-                            strokeOpacity = 0.8;
-                        } else {
-                            fillColor = "#EF2C0E";
-                            strokeColor = "#EF2C0E";
-                            fillOpacity = 0.25;
-                            strokeOpacity = 0.45;
-                        }
-                        
+                    if(rectangles.length != squares.length) {
                         rectangles[i] = new google.maps.Rectangle({
-                            strokeColor: strokeColor,
-                            strokeOpacity: strokeOpacity,
+                            strokeOpacity: 0,
+                            fillOpacity: 0,
                             strokeWeight: 1,
-                            fillColor: fillColor,
-                            fillOpacity: fillOpacity,
                             map: map,
                             bounds: {
-                                north: lat + largeur - espace,
-                                south: lat + espace,
+                                north: lat + largeur /2 - espace,
+                                south: lat + largeur /2 + espace,
                                 east: long + largeur - espace,
                                 west: long + espace
                             }
                         });
                         animationTab[i] = 0;
-                    } else {
-                        //var partSize = (squares.length)/6;
-                        //alert(partSize);
-                        //document.getElementById('requestResult').innnerHTML += partSize;
+                    } 
                         
-                        if(i<50) {
-                            intervals[i] = setInterval(ChangeSquare, 1, score, i);
-                        }
-                        else if(i<100) { 
-                            setTimeout(LaunchRemoteInterval, 140*1, score, i);
-                        }
-                        else if(i<150) {
-                            setTimeout(LaunchRemoteInterval, 140*2, score, i);
-                        }
-                        else if(i<200) {
-                            setTimeout(LaunchRemoteInterval, 140*3, score, i);
-                        }
-                        else if(i<250) {
-                            setTimeout(LaunchRemoteInterval, 140*4, score, i);
-                        }
-                        else if(i<300) {
-                            setTimeout(LaunchRemoteInterval, 140*5, score, i);
-                        }
-                        else if(i<350) {
-                            setTimeout(LaunchRemoteInterval, 140*6, score, i);
-                        }
-                        else if(i<400) {
-                            setTimeout(LaunchRemoteInterval, 140*7, score, i);
-                        }
-                        else if(i<450) {
-                            setTimeout(LaunchRemoteInterval, 140*8, score, i);
-                        }
-                        else if(i<500) {
-                            setTimeout(LaunchRemoteInterval, 140*9, score, i);
-                        }
-                        else if(i<550) {
-                            setTimeout(LaunchRemoteInterval, 150*10, score, i);
-                        }
-                        else {
-                            setTimeout(LaunchRemoteInterval, 150*11, score, i);
-                        }
+                    if(i<50) {
+                        intervals[i] = setInterval(ChangeSquare, 1, score, i);
+                    }
+                    else if(i<100) { 
+                        setTimeout(LaunchRemoteInterval, 140*1, score, i);
+                    }
+                    else if(i<150) {
+                        setTimeout(LaunchRemoteInterval, 140*2, score, i);
+                    }
+                    else if(i<200) {
+                        setTimeout(LaunchRemoteInterval, 140*3, score, i);
+                    }
+                    else if(i<250) {
+                        setTimeout(LaunchRemoteInterval, 140*4, score, i);
+                    }
+                    else if(i<300) {
+                        setTimeout(LaunchRemoteInterval, 140*5, score, i);
+                    }
+                    else if(i<350) {
+                        setTimeout(LaunchRemoteInterval, 140*6, score, i);
+                    }
+                    else if(i<400) {
+                        setTimeout(LaunchRemoteInterval, 140*7, score, i);
+                    }
+                    else if(i<450) {
+                        setTimeout(LaunchRemoteInterval, 140*8, score, i);
+                    }
+                    else if(i<500) {
+                        setTimeout(LaunchRemoteInterval, 140*9, score, i);
+                    }
+                    else if(i<550) {
+                        setTimeout(LaunchRemoteInterval, 150*10, score, i);
+                    }
+                    else {
+                        setTimeout(LaunchRemoteInterval, 150*11, score, i);
                     }
                 }
             }
@@ -755,7 +729,12 @@
                 }
             }
             
-            
+            function DeleteAllSquares() {
+                for (var k=0; k<rectangles.length; k++) {
+                    rectangle[k].setMap(null);
+                    rectangle[k] = null;
+                }
+            }
             
         </script>
     </body>
