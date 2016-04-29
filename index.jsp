@@ -577,10 +577,6 @@
             }
             
             
-            function ClickSquare(i) {
-                var parameters = "?id=" + rectanglesId[i];
-                GetOneSquareRequest(parameters);
-            }
             
             function GetSquaresRequest(parameters) {
                 var xmlHttpReq = false;
@@ -624,6 +620,30 @@
                 //document.getElementById('searchButton').disabled = false;
             }
             
+            function ClickSquare(event) {
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+                
+                var north;
+                var south;
+                var east;
+                var west;
+                
+                for(var i=0; i<rectangles.length; i++) {
+                    north = rectangles[i].getBounds().getNorthEast().lat();
+                    south = rectangles[i].getBounds().getSouthWest().lat();
+                    east = rectangles[i].getBounds().getNorthEast().lng();
+                    west = rectangles[i].getBounds().getSouthWest().lng();
+                    if(lat < north && lat > south) {
+                        if(lng < east && lng > west) {
+                            var parameter = "?id=" + rectanglesId[i];
+                            GetOneSquareRequest(parameter);
+                            return;
+                        }
+                    }
+                }
+            }
+            
             
             function RefreshSquares(xmlHttpReq) {
                 var squares = xmlHttpReq.responseXML.getElementsByTagName("square");
@@ -636,7 +656,6 @@
                     var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
                     
                     largeur = 0.0025;
-                    espace = 0.0001;
                     
                     
                     if(rectangles.length != squares.length) {
@@ -645,14 +664,16 @@
                             fillOpacity: 0,
                             strokeWeight: 1,
                             map: map,
+                            clickable: true,
                             bounds: {
-                                north: lat + largeur /2 - espace,
-                                south: lat + largeur /2 + espace,
-                                east: long + largeur - espace,
-                                west: long + espace
+                                north: lat + largeur /2,
+                                south: lat + largeur /2,
+                                east: long + largeur,
+                                west: long 
                             }
                         });
-                        rectangles[i].addListener('click', function e(){ClickSquare(i);});
+                        //map.event.addListener(rectangles[i], 'click', ClickSquare);
+                        rectangles[i].addListener('click', ClickSquare);
                         animationTab[i] = 0;
                     } 
                         
@@ -695,8 +716,10 @@
                 }
             }
             
+            
             function RefreshSquareInfos(xmlHttpReq) {
-                alert(xmlHttpReq.responseXML.getElementsByTagName("id")[0].nodeValue);
+                alert(xmlHttpReq.responseXML.getElementsByTagName("id")[0].childNodes[0].nodeValue);
+                
                 /*
                 var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
                 var lat = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
@@ -733,7 +756,8 @@
                         var strokeColor;
                         var fillOpacity;
                         var strokeOpacity;
-
+                        
+                        /*
                         if(score > 0.9) {
                             //fillColor = "#9DF215";
                             //strokeColor = "#6D8E39";
@@ -750,8 +774,9 @@
                             fillOpacity = 0.20;
                             strokeOpacity = 0.50;
                         }
-                        fillOpacity = 0.5;
-                        strokeOpacity = 0.8;
+                        */
+                        fillOpacity = 0.45;
+                        strokeOpacity = 0.50;
                         fillColor = getSquareColor(score);
                         strokeColor = getSquareColor(score);
                         rectangles[i].setOptions({
@@ -766,12 +791,10 @@
                     north += 0.0002;
                     south -= 0.0002;
                     
-                    var diff = (north-south) - (largeur - 2*espace);
+                    var diff = (north-south) - (largeur);
                     if(diff >= 0) {
-                        if(diff > 0.0001) {
-                            north -= 0.00012;
-                            south += 0.00012;
-                        }
+                        north -= diff/2;
+                        south += diff/2;
                         
                         animationTab[i] = 0;
                         clearInterval(intervals[i]);
