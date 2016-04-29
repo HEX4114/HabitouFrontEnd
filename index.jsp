@@ -10,6 +10,8 @@
         </script>
         
         <style type="text/css">
+            @font-face { font-family: AR DESTINE; src: url('ARDESTINE.ttf'); }
+            
             html {
                 height:100%;
             }
