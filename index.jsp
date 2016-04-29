@@ -383,7 +383,7 @@
                 
             </div>
         </div>
-        <div id="resultDiv">
+        <div id="squareInfosDiv">
             <div id="resultBord" class="commandBorder">
                 <div id="resultInter" class="commandInner">
                     <div id="titleResult">
@@ -440,18 +440,10 @@
                 var container = document.getElementById("mapContainer");
                 map = new google.maps.Map(container,myOptions);
                 
-                map.controls[google.maps.ControlPosition.LEFT_CENTER].push(rechercheDiv);
+                map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(rechercheDiv);
                 
-                var resultDiv = document.getElementById("resultDiv");
-                //resultDiv.index = 1;
-                map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(resultDiv);
-                
-                
-                var southBound = 45.720;
-                var westBound = 4.780;
-                var horStep = 0.004;
-                var verStep = 0.0028;
-                var space = 0.0005;
+                var resultDiv = document.getElementById("squareInfosDiv");
+                map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(resultDiv);
                 
                 setIndicatorColor("star1", 1, 1);
                 setIndicatorColor("star2", 1.4, 1);
@@ -469,6 +461,7 @@
             }
             
             function getSquareColor(score) {
+              score = 1 - score;
               var r = (score <= 0.5) ? (score)/0.5*255 : 255;
               var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
 	      return rgbToHex(r, g, 0);
@@ -706,28 +699,31 @@
                                 west:west
                             }
                         });
-                    } else {
+                    } else {    
+                        
                         var fillColor;
                         var strokeColor;
                         var fillOpacity;
                         var strokeOpacity;
 
                         if(score > 0.9) {
-                            fillColor = "#9DF215";
-                            strokeColor = "#6D8E39";
+                            //fillColor = "#9DF215";
+                            //strokeColor = "#6D8E39";
                             fillOpacity = 0.4;
                             strokeOpacity = 0.9;
                         } else if (score > 0.6) {
-                            fillColor = "#FFC300";
-                            strokeColor = "#A57224";
+                            //fillColor = "#FFC300";
+                            //strokeColor = "#A57224";
                             fillOpacity = 0.4;
                             strokeOpacity = 0.9;
                         } else {
-                            fillColor = "#EF2C0E";
-                            strokeColor = "#EF2C0E";
+                            //fillColor = "#EF2C0E";
+                            //strokeColor = "#EF2C0E";
                             fillOpacity = 0.20;
                             strokeOpacity = 0.50;
                         }
+                        fillColor = getSquareColor(score);
+                        strokeColor = getSquareColor(score);
                         rectangles[i].setOptions({
                             strokeColor: strokeColor,
                             strokeOpacity: strokeOpacity,
