@@ -14,9 +14,13 @@
             
             html {
                 height:100%;
+                display:block;
+                width:100%;
             }
             body{
                 height: 100%;
+                display:block;
+                width:100%;
             }
             #titleApp{
                 vertical-align: middle;
@@ -383,38 +387,39 @@
                 
             </div>
         </div>
-        <div id="squareInfosDiv">
+        <div id="squareInfosDiv" hidden>
             <div id="resultBord" class="commandBorder">
                 <div id="resultInter" class="commandInner">
                     <div id="titleResult">
-                        <b>Plus proche(s) ...</b>
-                        </br>
+                        <b></b>
                     </div>
-                    <div id="listResultDiv">
-                        <div id="res1" class="critereDiv">
+                    <div id="listInfosDiv">
+                        <div id="adressResultDiv" class="critereDiv">
 
                             <a class="critereName"><span id="star1">&#9899;</span>Adresse </a>
+                            <a id="adressResultTime"></a>
 
                         </div>
-                        <div id="res2" class="critereDiv">
+                        <div id="superMarketResultDiv" class="critereDiv">
 
                             <a class="critereName"><span id="star2">&#9899;</span>Supermarché</a>
+                            <a id="supermarkerResultTime"></a>
 
                         </div>
-                        <div id="res3" class="critereDiv">
+                        <div id="schoolResultDiv" class="critereDiv">
 
                             <a class="critereName"><span id="star3">&#9899;</span>École</a>
-
+                            <a id="schoolResultTime"></a>
                         </div>
-                        <div id="res4" class="critereDiv">
+                        <div id="transportResultDiv" class="critereDiv">
 
                             <a class="critereName"><span id="star4">&#9899;</span>Station de transport</a>
-
+                            <a id="transportResultTime"></a>
                         </div>
-                        <div id="res5" class="critereDiv">
+                        <div id="atmResultDiv" class="critereDiv">
 
                             <a class="critereName"><span id="star5">&#9899;</span>Borne de retrait</a>
-
+                            <a id="atmResultTime"></a>
                         </div>
                     </div>
                     
@@ -422,9 +427,16 @@
             </div>
         </div>
         
+        <div id="opacityDiv">
+            <div id="resultBord" class="commandBorder">
+                <div id="resultInter" class="commandInner">
+                </div>
+            </div>
+        </div>
+        
         
         <script type="text/javascript">
-            
+            var rectanglesId = new Array;
             var rectangles = new Array;
             var animationTab = new Array;
             var intervals = new Array;
@@ -445,109 +457,14 @@
                 var resultDiv = document.getElementById("squareInfosDiv");
                 map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(resultDiv);
                 
+                /*
                 setIndicatorColor("star1", 1, 1);
                 setIndicatorColor("star2", 1.4, 1);
                 setIndicatorColor("star3", 1.8, 1);
                 setIndicatorColor("star4", 2.2, 1);
                 setIndicatorColor("star5", 2.6, 1);
-                GetOffers();
+                */
         
-            }
-
-            function GetOffers() {
-                var xmlHttpReq = false;
-
-                if (window.XMLHttpRequest) {
-                    xmlHttpReq = new XMLHttpRequest();
-                }
-                else if (window.ActiveXObject) {
-                    xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-                xmlHttpReq.open('GET', "getOffers", true);
-                xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xmlHttpReq.onreadystatechange = function () {
-                    if (xmlHttpReq.readyState == 4) {
-                        GetMarkers(xmlHttpReq);
-                    }
-                }
-                xmlHttpReq.send();
-            }
-
-            function GetMarkers(xmlHttpReq) {
-                var offers = xmlHttpReq.responseXML.getElementsByTagName("offer");
-                var markers = [];
-                var ids = [];
-
-                for (i = 0; i < offers.length; i++) {
-                    ids[i] = xmlHttpReq.responseXML.getElementsByTagName("id")[i].childNodes[0].nodeValue;
-                    var longi = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
-                    var lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
-                    var typeOffer = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
-                    
-                    if (typeOffer === 'vendre') {
-                        markers[i] = new google.maps.Marker({
-                            position: new google.maps.LatLng(lati, longi),
-                            map: map,
-                            icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-                        });
-                     } else {
-                         markers[i] = new google.maps.Marker({
-                            position: new google.maps.LatLng(lati, longi),
-                            map: map,
-                            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
-                        });
-                     }
-
-                    markers[i].index = i; //add index property
-                    
-                    var prev_infoWindow =false;
-                    google.maps.event.addListener(markers[i], 'click', function () {
-                        
-                        var xmlHttpReq = false;
-                        var ind = this.index;
-
-                        if (window.XMLHttpRequest) {
-                            xmlHttpReq = new XMLHttpRequest();
-                        }
-                        else if (window.ActiveXObject) {
-                            xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-                        }
-                        xmlHttpReq.open('GET', "getOfferById?id=" + ids[ind], true);
-                        xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-                        xmlHttpReq.onreadystatechange = function () {
-                            if (xmlHttpReq.readyState == 4) {
-                                var offer = xmlHttpReq.responseXML.getElementsByTagName("offer");
-                                for (var i = 0; i < offer.length; i++) {
-                                    var address = xmlHttpReq.responseXML.getElementsByTagName("address")[i].childNodes[0].nodeValue;
-                                    var type = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
-                                    var price = xmlHttpReq.responseXML.getElementsByTagName("price")[i].childNodes[0].nodeValue;
-                                    var link = xmlHttpReq.responseXML.getElementsByTagName("link")[i].childNodes[0].nodeValue;
-                                    var infoWindow = new google.maps.InfoWindow({
-                                        content: '<div class="popup_container">' +
-                                                //'<IMG BORDER="0" ALIGN="Top" SRC="myimage.jpg" width="100" height="100" >' +
-                                                '<br> <br> Address : ' + address + 
-                                                '<br> Type : ' + type + 
-                                                '<br> Price : &euro; ' + parseFloat(price).toFixed(2) + 
-                                                '<br> <a href="' + link + '">' + 'Lien vers l annonce' +'</a>'+
-                                                ' </div>',
-                                        maxWidth: 300
-                                    });
-                                    
-                                    if( prev_infoWindow ) {
-                                        prev_infoWindow.close();
-                                    }
-                                    
-                                    
-                                    infoWindow.open(map, markers[ind]);
-                                    prev_infoWindow = infoWindow;
-                                    map.panTo(markers[ind].getPosition());
-                                }
-                            }
-                        }
-                        xmlHttpReq.send();
-                    });
-                }
             }
             
             function setIndicatorColor(id, distance, distanceMax) {
@@ -558,9 +475,11 @@
             }
             
             function getSquareColor(score) {
-              score = 1 - score;
-              var r = (score <= 0.5) ? (score)/0.5*255 : 255;
-              var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
+              //score = 1 - score;
+              var r = (score >= 0.5) ? 131 + (1-score)*94 : 225;
+              var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
+              //var r = (score <= 0.5) ? (score)/0.5*255 : 255; 
+              //var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
 	      return rgbToHex(r, g, 0);
             }
             
@@ -661,6 +580,7 @@
             }
             
             
+            
             function GetSquaresRequest(parameters) {
                 var xmlHttpReq = false;
 
@@ -693,7 +613,7 @@
                 xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlHttpReq.onreadystatechange = function() {
                     if (xmlHttpReq.readyState == 4) {
-                        RefreshSquares(xmlHttpReq);
+                        RefreshSquareInfos(xmlHttpReq);
                     }
                 }
                 xmlHttpReq.send();
@@ -703,19 +623,42 @@
                 //document.getElementById('searchButton').disabled = false;
             }
             
+            function ClickSquare(event) {
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+                
+                var north;
+                var south;
+                var east;
+                var west;
+                
+                for(var i=0; i<rectangles.length; i++) {
+                    north = rectangles[i].getBounds().getNorthEast().lat();
+                    south = rectangles[i].getBounds().getSouthWest().lat();
+                    east = rectangles[i].getBounds().getNorthEast().lng();
+                    west = rectangles[i].getBounds().getSouthWest().lng();
+                    if(lat < north && lat > south) {
+                        if(lng < east && lng > west) {
+                            var parameter = "?id=" + rectanglesId[i];
+                            GetOneSquareRequest(parameter);
+                            return;
+                        }
+                    }
+                }
+            }
+            
             
             function RefreshSquares(xmlHttpReq) {
                 var squares = xmlHttpReq.responseXML.getElementsByTagName("square");
                 
                 for (var i=0; i<squares.length; i++) {
                     var result = "";
-                    var id = xmlHttpReq.responseXML.getElementsByTagName("id")[i].childNodes[0].nodeValue;
+                    rectanglesId[i] = xmlHttpReq.responseXML.getElementsByTagName("id")[i].childNodes[0].nodeValue;
                     var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
                     var lat = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
                     
                     largeur = 0.0025;
-                    espace = 0.0001;
                     
                     
                     if(rectangles.length != squares.length) {
@@ -724,53 +667,55 @@
                             fillOpacity: 0,
                             strokeWeight: 1,
                             map: map,
+                            clickable: true,
                             bounds: {
-                                north: lat + largeur /2 - espace,
-                                south: lat + largeur /2 + espace,
-                                east: long + largeur - espace,
-                                west: long + espace
+                                north: lat + largeur /2,
+                                south: lat + largeur /2,
+                                east: long + largeur,
+                                west: long 
                             }
                         });
+                        //map.event.addListener(rectangles[i], 'click', ClickSquare);
+                        rectangles[i].addListener('click', ClickSquare);
                         animationTab[i] = 0;
                     } 
                         
                     if(i<50) {
                         intervals[i] = setInterval(ChangeSquare, 1, score, i);
-                    }
-                    else if(i<100) { 
-                        setTimeout(LaunchRemoteInterval, 140*1, score, i);
-                    }
-                    else if(i<150) {
-                        setTimeout(LaunchRemoteInterval, 140*2, score, i);
-                    }
-                    else if(i<200) {
-                        setTimeout(LaunchRemoteInterval, 140*3, score, i);
-                    }
-                    else if(i<250) {
-                        setTimeout(LaunchRemoteInterval, 140*4, score, i);
-                    }
-                    else if(i<300) {
-                        setTimeout(LaunchRemoteInterval, 140*5, score, i);
-                    }
-                    else if(i<350) {
-                        setTimeout(LaunchRemoteInterval, 140*6, score, i);
-                    }
-                    else if(i<400) {
-                        setTimeout(LaunchRemoteInterval, 140*7, score, i);
-                    }
-                    else if(i<450) {
-                        setTimeout(LaunchRemoteInterval, 140*8, score, i);
-                    }
-                    else if(i<500) {
-                        setTimeout(LaunchRemoteInterval, 140*9, score, i);
-                    }
-                    else if(i<550) {
-                        setTimeout(LaunchRemoteInterval, 150*10, score, i);
-                    }
-                    else {
-                        setTimeout(LaunchRemoteInterval, 150*11, score, i);
+                    } else {
+                        var triggerTimeOutLaunched = false;
+                        for(var coef=1; coef<10; coef++) {
+                            if(i < 50 * (coef+1) && i >= 50 * coef) {
+                                setTimeout(LaunchRemoteInterval, 140*coef, score, i);
+                                triggerTimeOutLaunched = true;
+                            }
+                        }
+                        if(triggerTimeOutLaunched == false) {
+                            setTimeout(LaunchRemoteInterval, 140*11, score, i);
+                        }
                     }
                 }
+            }
+            
+            
+            function RefreshSquareInfos(xmlHttpReq) {
+                //alert(xmlHttpReq.responseXML.getElementsByTagName("id")[0].childNodes[0].nodeValue);
+                //setIndicatorColor("star1", 1, 1);
+                /*
+                var walkTime;
+                var driveTime;
+                var result;
+                
+                walkTime = parseInt(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].nodeValue);
+                driveTime = parseInt(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].nodeValue);
+                result = (walkTime > driveTime ? driveTime : walkTime);
+                document.getElementById("supermarketResultTime").innerHTML = result;
+                
+                /*
+                var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
+                var lat = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
+                var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
+                */
             }
             
             function LaunchRemoteInterval(score, i) {
@@ -802,7 +747,8 @@
                         var strokeColor;
                         var fillOpacity;
                         var strokeOpacity;
-
+                        
+                        /*
                         if(score > 0.9) {
                             //fillColor = "#9DF215";
                             //strokeColor = "#6D8E39";
@@ -811,7 +757,7 @@
                         } else if (score > 0.6) {
                             //fillColor = "#FFC300";
                             //strokeColor = "#A57224";
-                            fillOpacity = 0.4;
+                            fillOpacity = 0.6;
                             strokeOpacity = 0.9;
                         } else {
                             //fillColor = "#EF2C0E";
@@ -819,6 +765,9 @@
                             fillOpacity = 0.20;
                             strokeOpacity = 0.50;
                         }
+                        */
+                        fillOpacity = 0.45;
+                        strokeOpacity = 0.50;
                         fillColor = getSquareColor(score);
                         strokeColor = getSquareColor(score);
                         rectangles[i].setOptions({
@@ -833,12 +782,10 @@
                     north += 0.0002;
                     south -= 0.0002;
                     
-                    var diff = (north-south) - (largeur - 2*espace);
+                    var diff = (north-south) - (largeur);
                     if(diff >= 0) {
-                        if(diff > 0.0001) {
-                            north -= 0.00012;
-                            south += 0.00012;
-                        }
+                        north -= diff/2;
+                        south += diff/2;
                         
                         animationTab[i] = 0;
                         clearInterval(intervals[i]);
