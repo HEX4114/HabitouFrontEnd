@@ -440,6 +440,102 @@
             var rectangles = new Array;
             var animationTab = new Array;
             var intervals = new Array;
+            var opacity = 0.45;
+            
+            function OpacityControl(controlDiv, map) {
+                // Set CSS for the control border.
+                var controlUpUI = document.createElement('div');
+                controlUpUI.style.backgroundColor = '#fff';
+                controlUpUI.style.border = '2px solid #fff';
+                controlUpUI.style.borderRadius = '3px 3px 0px 0px';
+                controlUpUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+                controlUpUI.style.cursor = 'pointer';
+                controlUpUI.style.marginLeft = '20px';
+                controlUpUI.style.marginTop = '20px';
+                controlUpUI.style.textAlign = 'center';
+                controlUpUI.title = 'Click to increase opacity';
+                controlDiv.appendChild(controlUpUI);
+
+                // Set CSS for the control interior.
+                var controlUpText = document.createElement('div');
+                //controlUpText.setAttribute("class", "iconDiv iconCar");
+                controlUpText.style.color = 'rgb(25,25,25)';
+                controlUpText.style.fontFamily = 'Roboto,Arial,sans-serif';
+                controlUpText.style.fontSize = '20px';
+                controlUpText.style.lineHeight = '30px';
+                controlUpText.style.paddingLeft = '5px';
+                controlUpText.style.paddingRight = '5px';
+                controlUpText.innerHTML = '+';
+                controlUpText.setAttribute("class", "democlass");
+                controlUpUI.appendChild(controlUpText);
+
+                // Setup the click event listeners.
+                controlUpUI.addEventListener('click', function() {
+                    opacity = opacity + 0.1;
+                    if(opacity > 1) opacity = 0.95;
+                    updateSquaresOpacity();
+                });
+                
+                var controlLabelUI = document.createElement('div');
+                controlLabelUI.style.backgroundColor = '#fff';
+                controlLabelUI.style.border = '2px solid #fff';
+                controlLabelUI.style.borderRadius = '0px';
+                controlLabelUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+                controlLabelUI.style.marginLeft = '20px';
+                controlLabelUI.style.marginTop = '2px';
+                controlLabelUI.style.textAlign = 'center';
+                controlDiv.appendChild(controlLabelUI);
+
+                // Set CSS for the control interior.
+                var controlLabelText = document.createElement('div');
+                controlLabelText.style.color = 'rgb(25,25,25)';
+                controlLabelText.style.fontFamily = 'Roboto,Arial,sans-serif';
+                controlLabelText.style.fontSize = '14px';
+                controlLabelText.style.lineHeight = '30px';
+                controlLabelText.style.paddingLeft = '5px';
+                controlLabelText.style.paddingRight = '5px';
+                controlLabelText.innerHTML = 'Opacity';
+                controlLabelUI.appendChild(controlLabelText);
+                
+                var controlDownUI = document.createElement('div');
+                controlDownUI.style.backgroundColor = '#fff';
+                controlDownUI.style.border = '2px solid #fff';
+                controlDownUI.style.borderRadius = '0px 0px 3px 3px';
+                controlDownUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+                controlDownUI.style.cursor = 'pointer';
+                controlDownUI.style.marginLeft = '20px';
+                controlDownUI.style.marginTop = '2px';
+                controlDownUI.style.textAlign = 'center';
+                controlDownUI.title = 'Click to decrease opacity';
+                controlDiv.appendChild(controlDownUI);
+
+                // Set CSS for the control interior.
+                var controlDownText = document.createElement('div');
+                controlDownText.style.color = 'rgb(25,25,25)';
+                controlDownText.style.fontFamily = 'Roboto,Arial,sans-serif';
+                controlDownText.style.fontSize = '20px';
+                controlDownText.style.lineHeight = '30px';
+                controlDownText.style.paddingLeft = '5px';
+                controlDownText.style.paddingRight = '5px';
+                controlDownText.innerHTML = '-';
+                controlDownUI.appendChild(controlDownText);
+
+                // Setup the click event listeners: simply set the map to Chicago.
+                controlDownUI.addEventListener('click', function() {
+                    opacity = opacity - 0.1;
+                    if(opacity < 0) opacity = 0.05;
+                    updateSquaresOpacity();
+                });
+            }
+
+            function updateSquaresOpacity() {
+                for(var i=0; i<rectangles.length; i++) {
+                    rectangles[i].setOptions({
+                            strokeOpacity: opacity + 0.05,
+                            fillOpacity: opacity
+                        });
+                }
+            }
             
             function GetMap() {
                 var origin = new google.maps.LatLng(45.760, 4.850);
@@ -464,6 +560,12 @@
                 setIndicatorColor("star4", 2.2, 1);
                 setIndicatorColor("star5", 2.6, 1);
                 */
+        
+                var opacityControlDiv = document.createElement('div');
+                var opacityControl = new OpacityControl(opacityControlDiv, map);
+
+                opacityControlDiv.index = 1;
+                map.controls[google.maps.ControlPosition.TOP_LEFT].push(opacityControlDiv);
         
             }
             
@@ -766,8 +868,8 @@
                             strokeOpacity = 0.50;
                         }
                         */
-                        fillOpacity = 0.45;
-                        strokeOpacity = 0.50;
+                        fillOpacity = opacity;
+                        strokeOpacity = opacity+0.05;
                         fillColor = getSquareColor(score);
                         strokeColor = getSquareColor(score);
                         rectangles[i].setOptions({
