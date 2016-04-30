@@ -500,6 +500,8 @@
         </div>
         
         <script type="text/javascript">
+            var largeur = 0.00075;
+            var hauteur = 0.0005;
             var rectanglesId = new Array;
             var rectangles = new Array;
             var animationTab = new Array;
@@ -825,9 +827,6 @@
                     var lat = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
                     
-                    largeur = 0.0015;
-                    
-                    
                     if(rectangles.length != squares.length) {
                         rectangles[i] = new google.maps.Rectangle({
                             strokeOpacity: 0,
@@ -836,8 +835,8 @@
                             map: map,
                             clickable: true,
                             bounds: {
-                                north: lat + largeur /2,
-                                south: lat + largeur /2,
+                                north: lat + hauteur /2,
+                                south: lat + hauteur /2,
                                 east: long + largeur,
                                 west: long 
                             }
@@ -887,7 +886,7 @@
                 
                 
                 carChecked = document.getElementById("carCheck").checked ;
-                if(!carChecked) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                if(!carChecked) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                 else {
                     driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
                     walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
@@ -944,7 +943,7 @@
                     north += 0.0001;
                     south -= 0.0001;
                     
-                    var diff = (north-south) - (largeur);
+                    var diff = (north-south) - (hauteur);
                     if(diff >= 0) {
                         north -= diff/2;
                         south += diff/2;
