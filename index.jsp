@@ -514,9 +514,9 @@
                 controlUpUI.style.borderRadius = '3px 3px 0px 0px';
                 controlUpUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
                 controlUpUI.style.cursor = 'pointer';
-                controlUpUI.style.marginLeft = '10px';
-                controlUpUI.style.marginBottom = '2px';
+                controlUpUI.style.margin = '0 auto';
                 controlUpUI.style.textAlign = 'center';
+                controlUpUI.style.width = '30px';
                 controlUpUI.title = 'Click to increase opacity';
                 controlDiv.appendChild(controlUpUI);
 
@@ -527,9 +527,9 @@
                 controlUpText.style.fontFamily = 'Roboto,Arial,sans-serif';
                 controlUpText.style.fontSize = '20px';
                 controlUpText.style.lineHeight = '30px';
-                controlUpText.style.paddingLeft = '5px';
-                controlUpText.style.paddingRight = '5px';
-                controlUpText.innerHTML = '+';
+                controlUpText.style.paddingLeft = '2px';
+                controlUpText.style.paddingRight = '2px';
+                controlUpText.innerHTML = '&#x02C4';
                 controlUpText.setAttribute("class", "democlass");
                 controlUpUI.appendChild(controlUpText);
 
@@ -541,12 +541,7 @@
                 });
                 
                 var controlLabelUI = document.createElement('div');
-                controlLabelUI.style.backgroundColor = '#fff';
-                controlLabelUI.style.border = '2px solid #fff';
-                controlLabelUI.style.borderRadius = '0px';
-                controlLabelUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-                controlLabelUI.style.marginLeft = '10px';
-                controlLabelUI.style.marginBottom = '2px';
+                controlLabelUI.style.marginRight = '10px';
                 controlLabelUI.style.textAlign = 'center';
                 controlDiv.appendChild(controlLabelUI);
 
@@ -556,8 +551,6 @@
                 controlLabelText.style.fontFamily = 'Roboto,Arial,sans-serif';
                 controlLabelText.style.fontSize = '14px';
                 controlLabelText.style.lineHeight = '30px';
-                controlLabelText.style.paddingLeft = '5px';
-                controlLabelText.style.paddingRight = '5px';
                 controlLabelText.innerHTML = 'Opacity';
                 controlLabelUI.appendChild(controlLabelText);
                 
@@ -567,9 +560,10 @@
                 controlDownUI.style.borderRadius = '0px 0px 3px 3px';
                 controlDownUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
                 controlDownUI.style.cursor = 'pointer';
-                controlDownUI.style.marginLeft = '10px';
-                controlDownUI.style.marginBottom = '200px';
+                controlDownUI.style.margin = '0 auto';
+                controlDownUI.style.marginBottom = '10px';
                 controlDownUI.style.textAlign = 'center';
+                controlDownUI.style.width = '30px';
                 controlDownUI.title = 'Click to decrease opacity';
                 controlDiv.appendChild(controlDownUI);
 
@@ -579,9 +573,9 @@
                 controlDownText.style.fontFamily = 'Roboto,Arial,sans-serif';
                 controlDownText.style.fontSize = '20px';
                 controlDownText.style.lineHeight = '30px';
-                controlDownText.style.paddingLeft = '5px';
-                controlDownText.style.paddingRight = '5px';
-                controlDownText.innerHTML = '-';
+                controlDownText.style.paddingLeft = '2px';
+                controlDownText.style.paddingRight = '2px';
+                controlDownText.innerHTML = '&#x02C5';
                 controlDownUI.appendChild(controlDownText);
 
                 // Setup the click event listeners: simply set the map to Chicago.
@@ -628,7 +622,7 @@
                 var opacityControlDiv = document.createElement('div');
                 var opacityControl = new OpacityControl(opacityControlDiv, map);
                 opacityControlDiv.index = 1;
-                map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(opacityControlDiv);
+                map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(opacityControlDiv);
 
                 //GetOffers();
                 map.addListener('click', ClickSquare);
