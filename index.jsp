@@ -23,11 +23,11 @@
                 width:100%;
             }
             #titleApp{
-                vertical-align: middle;
+                vertical-align: top;
                 text-align: center;
                 font-family : AR DESTINE;
                 font-size : 92px;
-                margin: 0px 0px 0px -8px;
+                margin: -10px 0px 0px -8px;
                 padding: 0px;
                 width: 102%;
                 height: 100px;
@@ -41,6 +41,10 @@
                 width: 101%;
                 height: 88%;
                 z-index: 1;
+            }
+            
+            #rechercheDiv{
+                margin-top: 20px;
             }
             
             .commandBorder {
@@ -143,6 +147,14 @@
             }
             .boundMax{
             }
+            
+            .bound0{
+                margin-right: 20.3%;
+            }
+            .boundNumber{
+                margin-right: 19%;
+            }
+            
             
             input[type="checkbox"] {
                 cursor: pointer;
@@ -286,6 +298,52 @@
                 margin-bottom : 2px;
             }
             
+            #squareInfosDiv {
+                width: 493px;
+            }
+            
+            #titleResult {
+                weight: 100%;
+            }
+            
+            .resultInfos {
+                display: inline-block;
+                text-align: right;
+                width: 10%;
+                margin-left: 10px;
+                margin-top: 4px;
+                vertical-align: top;
+            }
+            
+            .critereResultDiv {
+                margin: 4px 0px 4px 0px;
+            }
+            
+            .critereNameInfos{
+                display: inline-block;
+                width: 30%;
+                margin-top: 4px;
+                vertical-align: top;
+            }
+            
+            .pastille{
+                width: 24px;
+                height: 24px;
+                background-position: 2px 2px;
+                border-radius: 100%;
+                background-color: #99CC00;
+                display: inline-block;
+                margin: 0px 5px 0px 5px;
+            }
+            
+            .iconSupermarket {
+                background-image: url(img/icon_supermarket.png);
+            }
+            .iconAtm {
+                background-image: url(img/icon_atm.png);
+            }
+            
+            
         </style>
     </head>
     <body onload="GetMap()">
@@ -348,29 +406,38 @@
                             <a class="value">0</a>
                             </br>
                             <input type="text" id="adressInput" class="inputText" onkeydown="EnterPressed(this)" disabled value="Adresse..."/>
+                            
                         </div>
+                        <div class="boundValues">
+                            <span class="bound0">0</span>
+                            <span class="boundNumber">5</span>
+                            <span class="boundNumber">10</span>
+                            <span class="boundNumber">15</span>
+                            <span >20</span>
+                        </div>
+                        </br>
                         <div id="supermarket" class="critereDiv">
-                            <input type="checkbox" id="crit1Check" onclick="EnableCritere(1)"/><label for="crit1Check"></label>
+                            <input type="checkbox" id="crit1Check" onclick="EnableCritere(3)"/><label for="crit1Check"></label>
                             <a class="critereName">Supermarché</a>
-                            <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(1)" disabled>
+                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
                             <a class="value">0</a>
                         </div>
                         <div id="school" class="critereDiv" hidden>
-                            <input type="checkbox" id="crit2Check" onclick="EnableCritere(2)"/><label for="crit2Check"></label>
+                            <input type="checkbox" id="crit2Check" onclick="EnableCritere(4)"/><label for="crit2Check"></label>
                             <a class="critereName">École</a>
-                            <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(2)" disabled>
+                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
                             <a class="value">0</a>
                         </div>
                         <div id="transport" class="critereDiv" hidden>
-                            <input type="checkbox" id="crit3Check" onclick="EnableCritere(3)"/><label for="crit3Check"></label>
+                            <input type="checkbox" id="crit3Check" onclick="EnableCritere(5)"/><label for="crit3Check"></label>
                             <a class="critereName">Station de transport</a>
-                            <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
+                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5)" disabled>
                             <a class="value">0</a>
                         </div>
                         <div id="atm" class="critereDiv">
-                            <input type="checkbox" id="crit4Check" onclick="EnableCritere(4)"/><label for="crit4Check"></label>
+                            <input type="checkbox" id="crit4Check" onclick="EnableCritere(6)"/><label for="crit4Check"></label>
                             <a class="critereName">Borne de retrait</a>
-                            <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
+                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6)" disabled>
                             <a class="value">0</a>
                         </div>
                     </div>
@@ -394,32 +461,30 @@
                         <b></b>
                     </div>
                     <div id="listInfosDiv">
-                        <div id="adressResultDiv" class="critereDiv">
-
-                            <a class="critereName"><span id="star1">&#9899;</span>Adresse </a>
-                            <a id="adressResultTime"></a>
-
+                        <div id="adressResultDiv" class="critereResultDiv" hidden>
+                            <div class="pastille"></div>
+                            <div class="critereNameInfos">Adresse</div>
+                            <div id="adressResultTime" class="resultInfos"></div>
                         </div>
-                        <div id="superMarketResultDiv" class="critereDiv">
-
-                            <a class="critereName"><span id="star2">&#9899;</span>Supermarché</a>
-                            <a id="supermarkerResultTime"></a>
-
+                        <div id="superMarketResultDiv" class="critereResultDiv">
+                            <div class="pastille iconSupermarket"></div>
+                            <div class="critereNameInfos">Supermarché</div>
+                            <div id="supermarkerResultTime" class="resultInfos"></div>
                         </div>
-                        <div id="schoolResultDiv" class="critereDiv">
-
-                            <a class="critereName"><span id="star3">&#9899;</span>École</a>
-                            <a id="schoolResultTime"></a>
+                        <div id="schoolResultDiv" class="critereResultDiv" hidden>
+                            <div class="pastille"></div>
+                            <div class="critereNameInfos">École</div>
+                            <div id="schoolResultTime" class="resultInfos"></div>
                         </div>
-                        <div id="transportResultDiv" class="critereDiv">
-
-                            <a class="critereName"><span id="star4">&#9899;</span>Station de transport</a>
-                            <a id="transportResultTime"></a>
+                        <div id="transportResultDiv" class="critereResultDiv" hidden>
+                            <div class="pastille"></div>
+                            <div class="critereNameInfos">Station de transport</div>
+                            <div id="transportResultTime" class="resultInfos"></div>
                         </div>
-                        <div id="atmResultDiv" class="critereDiv">
-
-                            <a class="critereName"><span id="star5">&#9899;</span>Borne de retrait</a>
-                            <a id="atmResultTime"></a>
+                        <div id="atmResultDiv" class="critereResultDiv">
+                            <div class="pastille iconAtm"></div>
+                            <div class="critereNameInfos">Borne de retrait</div>
+                            <div id="atmResultTime" class="resultInfos"></div>
                         </div>
                     </div>
                     
@@ -433,7 +498,6 @@
                 </div>
             </div>
         </div>
-        
         
         <script type="text/javascript">
             var rectanglesId = new Array;
@@ -450,8 +514,8 @@
                 controlUpUI.style.borderRadius = '3px 3px 0px 0px';
                 controlUpUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
                 controlUpUI.style.cursor = 'pointer';
-                controlUpUI.style.marginLeft = '20px';
-                controlUpUI.style.marginTop = '20px';
+                controlUpUI.style.marginLeft = '10px';
+                controlUpUI.style.marginBottom = '2px';
                 controlUpUI.style.textAlign = 'center';
                 controlUpUI.title = 'Click to increase opacity';
                 controlDiv.appendChild(controlUpUI);
@@ -481,8 +545,8 @@
                 controlLabelUI.style.border = '2px solid #fff';
                 controlLabelUI.style.borderRadius = '0px';
                 controlLabelUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-                controlLabelUI.style.marginLeft = '20px';
-                controlLabelUI.style.marginTop = '2px';
+                controlLabelUI.style.marginLeft = '10px';
+                controlLabelUI.style.marginBottom = '2px';
                 controlLabelUI.style.textAlign = 'center';
                 controlDiv.appendChild(controlLabelUI);
 
@@ -503,8 +567,8 @@
                 controlDownUI.style.borderRadius = '0px 0px 3px 3px';
                 controlDownUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
                 controlDownUI.style.cursor = 'pointer';
-                controlDownUI.style.marginLeft = '20px';
-                controlDownUI.style.marginTop = '2px';
+                controlDownUI.style.marginLeft = '10px';
+                controlDownUI.style.marginBottom = '200px';
                 controlDownUI.style.textAlign = 'center';
                 controlDownUI.title = 'Click to decrease opacity';
                 controlDiv.appendChild(controlDownUI);
@@ -548,10 +612,10 @@
                 var container = document.getElementById("mapContainer");
                 map = new google.maps.Map(container,myOptions);
                 
-                map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(rechercheDiv);
+                map.controls[google.maps.ControlPosition.TOP_LEFT].push(rechercheDiv);
                 
                 var resultDiv = document.getElementById("squareInfosDiv");
-                map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(resultDiv);
+                map.controls[google.maps.ControlPosition.LEFT_TOP].push(resultDiv);
                 
                 /*
                 setIndicatorColor("star1", 1, 1);
@@ -560,13 +624,111 @@
                 setIndicatorColor("star4", 2.2, 1);
                 setIndicatorColor("star5", 2.6, 1);
                 */
-        
+
                 var opacityControlDiv = document.createElement('div');
                 var opacityControl = new OpacityControl(opacityControlDiv, map);
-
                 opacityControlDiv.index = 1;
-                map.controls[google.maps.ControlPosition.TOP_LEFT].push(opacityControlDiv);
-        
+                map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(opacityControlDiv);
+
+                //GetOffers();
+                map.addListener('click', ClickSquare);
+            }
+
+            function GetOffers() {
+                var xmlHttpReq = false;
+
+                if (window.XMLHttpRequest) {
+                    xmlHttpReq = new XMLHttpRequest();
+                }
+                else if (window.ActiveXObject) {
+                    xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlHttpReq.open('GET', "getOffers", true);
+                xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xmlHttpReq.onreadystatechange = function () {
+                    if (xmlHttpReq.readyState == 4) {
+                        GetMarkers(xmlHttpReq);
+                    }
+                }
+                xmlHttpReq.send();
+            }
+
+            function GetMarkers(xmlHttpReq) {
+                var offers = xmlHttpReq.responseXML.getElementsByTagName("offer");
+                var markers = [];
+                var ids = [];
+
+                for (i = 0; i < offers.length; i++) {
+                    ids[i] = xmlHttpReq.responseXML.getElementsByTagName("id")[i].childNodes[0].nodeValue;
+                    var longi = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
+                    var lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
+                    var typeOffer = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
+                    
+                    if (typeOffer === 'vendre') {
+                        markers[i] = new google.maps.Marker({
+                            position: new google.maps.LatLng(lati, longi),
+                            map: map,
+                            icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+                        });
+                     } else {
+                         markers[i] = new google.maps.Marker({
+                            position: new google.maps.LatLng(lati, longi),
+                            map: map,
+                            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                        });
+                     }
+
+                    markers[i].index = i; //add index property
+                    
+                    var prev_infoWindow =false;
+                    google.maps.event.addListener(markers[i], 'click', function () {
+                        
+                        var xmlHttpReq = false;
+                        var ind = this.index;
+
+                        if (window.XMLHttpRequest) {
+                            xmlHttpReq = new XMLHttpRequest();
+                        }
+                        else if (window.ActiveXObject) {
+                            xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+                        }
+                        xmlHttpReq.open('GET', "getOfferById?id=" + ids[ind], true);
+                        xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                        xmlHttpReq.onreadystatechange = function () {
+                            if (xmlHttpReq.readyState == 4) {
+                                var offer = xmlHttpReq.responseXML.getElementsByTagName("offer");
+                                for (var i = 0; i < offer.length; i++) {
+                                    var address = xmlHttpReq.responseXML.getElementsByTagName("address")[i].childNodes[0].nodeValue;
+                                    var type = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
+                                    var price = xmlHttpReq.responseXML.getElementsByTagName("price")[i].childNodes[0].nodeValue;
+                                    var link = xmlHttpReq.responseXML.getElementsByTagName("link")[i].childNodes[0].nodeValue;
+                                    var src = "http://localhost:8080/Habitou/editOfferImagesById?id="+ids[ind];
+                                    var infoWindow = new google.maps.InfoWindow({
+                                        content: '<div class="popup_container">' +
+                                                '<IMG ID="ImageOffer" BORDER="0" ALIGN="Top" SRC='+src+ ' width="100" height="100" >' +
+                                                '<br> <br> Address : ' + address + 
+                                                '<br> Type : ' + type + 
+                                                '<br> Price : &euro; ' + parseFloat(price).toFixed(2) + 
+                                                '<br> <a href="' + link + '">' + 'Lien vers l annonce' +'</a>'+
+                                                ' </div>',
+                                        maxWidth: 300
+                                    });
+                                    
+                                    if( prev_infoWindow ) {
+                                        prev_infoWindow.close();
+                                    }
+                                    
+                                    
+                                    infoWindow.open(map, markers[ind]);
+                                    prev_infoWindow = infoWindow;
+                                    map.panTo(markers[ind].getPosition());
+                                }
+                            }
+                        }
+                        xmlHttpReq.send();
+                    });
+                }
             }
             
             function setIndicatorColor(id, distance, distanceMax) {
@@ -594,28 +756,28 @@
                 var nodes = document.getElementById('listCriteresDiv').children;
                 for(var i=0; i<nodes.length; i+=1) {
                     if(i == numCritere) {
-                        if(nodes[i].children[0].checked) {
-                            nodes[i].children[3].className = "cursorEnabled";
-                            nodes[i].children[3].disabled = false;
-                            nodes[i].children[4].style="visibility: visible";
-                            GrabCursor(numCritere);
-                            if(i == 0) {
-                                nodes[0].children[6].select();
-                                nodes[0].children[6].disabled = false;
-                                nodes[0].children[6].focus();
-                            }
-                        } else {
-                            nodes[i].children[3].className = "cursorDisabled";
-                            nodes[i].children[3].disabled = true;
-                            nodes[i].children[4].style="visibility: hidden";
-                            if(i == 0) {
-                                nodes[i].children[6].disabled = true;
+                        if(i!=1 && i!=2) {
+                            if(nodes[i].children[0].checked) {
+                                nodes[i].children[3].className = "cursorEnabled";
+                                nodes[i].children[3].disabled = false;
+                                nodes[i].children[4].style="visibility: visible";
+                                GrabCursor(numCritere);
+                                if(i == 0) {
+                                    nodes[0].children[6].select();
+                                    nodes[0].children[6].disabled = false;
+                                    nodes[0].children[6].focus();
+                                }
+                            } else {
+                                nodes[i].children[3].className = "cursorDisabled";
+                                nodes[i].children[3].disabled = true;
+                                nodes[i].children[4].style="visibility: hidden";
+                                if(i == 0) {
+                                    nodes[i].children[6].disabled = true;
+                                }
                             }
                         }
                     }
                 }
-                //document.getElementById('searchButton').disabled = false;
-                
             }
             
             function GrabCursor(numCursor) {
@@ -630,24 +792,26 @@
             
             function ClickSearchButton(button) {
                 button.disabled = true;
-                setTimeout(function(button){button.disabled = false;}, 1000, button);
+                setTimeout(function(button){button.disabled = false;}, 1500, button);
                 var parameters = "?";
                 var triggerChecked = false;
                 
                 var nodes = document.getElementById('listCriteresDiv').children;
                 for(var i=0; i<nodes.length; i+=1) {
-                    if(!(parameters == "?")) parameters += "&";
+                    if(i!=1 && i!=2) {
+                        if(!(parameters == "?")) parameters += "&";
                         
-                    if(nodes[i].children[0].checked) {
-                        triggerChecked = true;
-                        parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
-                        if(nodes[i].id == "adress") {
-                            parameters += "adressstring" + "=" + nodes[i].children[6].value;
-                        }
-                    } else {
-                        parameters += nodes[i].id + "=null";
-                        if(nodes[i].id == "adress") {
-                            parameters += "adressstring=null";
+                        if(nodes[i].children[0].checked) {
+                            triggerChecked = true;
+                            parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
+                            if(nodes[i].id == "adress") {
+                                parameters += "adressstring" + "=" + nodes[i].children[6].value;
+                            }
+                        } else {
+                            parameters += nodes[i].id + "=null";
+                            if(nodes[i].id == "adress") {
+                                parameters += "adressstring=null";
+                            }
                         }
                     }
                 } 
@@ -726,6 +890,8 @@
             }
             
             function ClickSquare(event) {
+                document.getElementById("squareInfosDiv").hidden = true;
+                
                 var lat = event.latLng.lat();
                 var lng = event.latLng.lng();
                 
@@ -742,6 +908,7 @@
                     if(lat < north && lat > south) {
                         if(lng < east && lng > west) {
                             var parameter = "?id=" + rectanglesId[i];
+                            //document.getElementById("parameter").innerHTML = parameter;
                             GetOneSquareRequest(parameter);
                             return;
                         }
@@ -760,7 +927,7 @@
                     var lat = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
                     
-                    largeur = 0.0025;
+                    largeur = 0.0015;
                     
                     
                     if(rectangles.length != squares.length) {
@@ -803,21 +970,34 @@
             function RefreshSquareInfos(xmlHttpReq) {
                 //alert(xmlHttpReq.responseXML.getElementsByTagName("id")[0].childNodes[0].nodeValue);
                 //setIndicatorColor("star1", 1, 1);
-                /*
+                document.getElementById("squareInfosDiv").hidden = false;
+                
                 var walkTime;
                 var driveTime;
                 var result;
+                var carChecked;
                 
-                walkTime = parseInt(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].nodeValue);
-                driveTime = parseInt(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].nodeValue);
-                result = (walkTime > driveTime ? driveTime : walkTime);
-                document.getElementById("supermarketResultTime").innerHTML = result;
+                carChecked = document.getElementById("carCheck").checked ;
+                if(!carChecked) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                else {
+                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                    result = (walkTime > driveTime ? driveTime : walkTime) ;
+                }
+                result = Math.round(result/60) ;
+                document.getElementById("supermarkerResultTime").innerHTML = result + " min";
                 
-                /*
-                var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
-                var lat = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
-                var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
-                */
+                
+                carChecked = document.getElementById("carCheck").checked ;
+                if(!carChecked) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                else {
+                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                    result = (walkTime > driveTime ? driveTime : walkTime) ;
+                }
+                result = Math.round(result/60) ;
+                document.getElementById("atmResultTime").innerHTML = result + " min";
+                
             }
             
             function LaunchRemoteInterval(score, i) {
@@ -831,8 +1011,8 @@
                 var west = rectangles[i].getBounds().getSouthWest().lng();
                 
                 if(animationTab[i] == 0) {
-                    north -= 0.0002;
-                    south += 0.0002;
+                    north -= 0.0001;
+                    south += 0.0001;
                     if(north > south) {
                         
                         rectangles[i].setOptions({
@@ -850,26 +1030,9 @@
                         var fillOpacity;
                         var strokeOpacity;
                         
-                        /*
-                        if(score > 0.9) {
-                            //fillColor = "#9DF215";
-                            //strokeColor = "#6D8E39";
-                            fillOpacity = 0.4;
-                            strokeOpacity = 0.9;
-                        } else if (score > 0.6) {
-                            //fillColor = "#FFC300";
-                            //strokeColor = "#A57224";
-                            fillOpacity = 0.6;
-                            strokeOpacity = 0.9;
-                        } else {
-                            //fillColor = "#EF2C0E";
-                            //strokeColor = "#EF2C0E";
-                            fillOpacity = 0.20;
-                            strokeOpacity = 0.50;
-                        }
-                        */
                         fillOpacity = opacity;
                         strokeOpacity = opacity+0.05;
+
                         fillColor = getSquareColor(score);
                         strokeColor = getSquareColor(score);
                         rectangles[i].setOptions({
@@ -881,8 +1044,8 @@
                         animationTab[i] = 1;
                     }
                 } else {
-                    north += 0.0002;
-                    south -= 0.0002;
+                    north += 0.0001;
+                    south -= 0.0001;
                     
                     var diff = (north-south) - (largeur);
                     if(diff >= 0) {
