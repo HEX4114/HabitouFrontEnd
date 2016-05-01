@@ -28,13 +28,14 @@
                 font-family : AR DESTINE;
                 color : #FFFFFF;
                 font-size : 92px;
+                text-shadow: 0px 4px 9px #000000;
                 margin: -10px 0px 0px -8px;
                 padding: 0px;
                 width: 102%;
                 height: 100px;
                 background-image: linear-gradient(120deg, #41AF8E, #7F3499);
                 box-shadow: 0 2px 6px rgba(0,0,0,0.6);
-                z-index: 200;
+                z-index: 2;
                 position:relative;
             }
             
@@ -502,6 +503,7 @@
             </div>
         </div>
         
+        <div id="requestAdressResult"></div>
         
         <script type="text/javascript">
             var largeur = 0.00075;
@@ -848,7 +850,7 @@
                             triggerChecked = true;
                             parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
                             if(nodes[i].id == "adress") {
-                                var adressString = nodes[i].children[6].value;
+                                var adressString = nodes[i].children[6].value.replace(" ", "%20");
                                 parameters += "adressstring" + "=" + adressString;
                                 critAdress = true;
                                 critAdressSeuil = nodes[i].children[3].value * 60;
@@ -924,10 +926,19 @@
                 xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlHttpReq.onreadystatechange = function() {
                     if (xmlHttpReq.readyState == 4) {
-                        RefreshSquares(xmlHttpReq);
+                        if(xmlHttpReq.status == 204) {
+                            WrongAdress();
+                        } else {
+                            RefreshSquares(xmlHttpReq);
+                        }
                     }
                 }
                 xmlHttpReq.send();
+            }
+            
+            function WrongAdress() {
+                document.getElementById('searchAlert').innerHTML = "L'adresse saisie est introuvable";
+                DeleteAllSquares();
             }
             
             function GetOneSquareRequest(parameters) {
@@ -943,7 +954,11 @@
                 xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlHttpReq.onreadystatechange = function() {
                     if (xmlHttpReq.readyState == 4) {
-                        RefreshSquareInfos(xmlHttpReq);
+                        if(xmlHttpReq.status == 204) {
+                            WrongAdress();
+                        } else {
+                            RefreshSquareInfos(xmlHttpReq);
+                        }
                     }
                 }
                 xmlHttpReq.send();
@@ -1086,10 +1101,10 @@
                             map: map,
                             clickable: true,
                             bounds: {
-                                north: lat + hauteur,
-                                south: lat,
-                                east: long + largeur,
-                                west: long 
+                                north: lat + hauteur / 2,
+                                south: lat - hauteur / 2,
+                                east: long + largeur / 2,
+                                west: long - largeur / 2
                             }
                         });
                         //map.event.addListener(rectangles[i], 'click', ClickSquare);
