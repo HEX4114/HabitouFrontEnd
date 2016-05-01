@@ -494,6 +494,7 @@
             </div>
         </div>
         
+        <div id="parameters"></div>
         
         <script type="text/javascript">
             var largeur = 0.00075;
@@ -958,7 +959,7 @@
                     parameters += "null";
                 }
                 parameters += "&supermarket=";
-                if(critAtm){
+                if(critSupermarket){
                     parameters += critSupermarketSeuil;
                 } else {
                     parameters += "null";
@@ -1046,7 +1047,7 @@
                                 document.getElementById("squareInfosDiv").hidden = true;
                             } else {
                                 parameters += "&id=" + rectanglesId[i];
-                                //document.getElementById("parameters").innerHTML = parameters;
+                                document.getElementById("parameters").innerHTML = parameters;
                                 HighlightRectangle(selectedRectangle, false);
                                 DeleteAllSelectedRectangleMarkers();
                                 selectedRectangle = i;
@@ -1141,8 +1142,7 @@
                 var long;
                 var icon;
                 
-                carChecked = document.getElementById("carCheck").checked ;
-                if(!carChecked) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                if(!critCar) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                 else {
                     driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
                     walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
@@ -1163,8 +1163,7 @@
                 });
                 
                 
-                carChecked = document.getElementById("carCheck").checked ;
-                if(!carChecked) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                if(!critCar) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                 else {
                     driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
                     walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
