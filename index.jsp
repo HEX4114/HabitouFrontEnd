@@ -336,18 +336,6 @@
                 margin: 0px 5px 0px 5px;
             }
             
-            .iconSupermarket {
-                background-image: url(img/icon_supermarket.png);
-            }
-            .iconAtm {
-                background-image: url(img/icon_atm.png);
-            }
-            .iconSupermarketBlack {
-                background-image: url(img/icon_supermarket_black.png);
-            }
-            .iconAtmBlack {
-                background-image: url(img/icon_atm_black.png);
-            }
             
             
             
@@ -474,7 +462,7 @@
                             <div id="adressResultTime" class="resultInfos"></div>
                         </div>
                         <div id="superMarketResultDiv" class="critereResultDiv">
-                            <div class="pastille iconSupermarket" id="pastilleSupermarket"></div>
+                            <div class="pastille" id="pastilleSupermarket"></div>
                             <div class="critereNameInfos">Supermarché</div>
                             <div id="supermarkerResultTime" class="resultInfos"></div>
                         </div>
@@ -515,11 +503,23 @@
             var animationTab = new Array;
             var intervals = new Array;
             var opacity = 0.45;
+            
             var selectedRectangle = -1;
             var selectedRectangleFillColor;
             var selectedRectangleStrokeColor;
             var markersSquareSelected = new Array;
             var infoWindow;
+            
+            var critSupermarket;
+            var critAtm;
+            var critAdress;
+            var critSupermarketSeuil;
+            var critAtmSeuil;
+            var critAdressSeuil;
+            var critAdressString;
+            var critCar;
+            var critBike;
+            var critTransport;
             
             function OpacityControl(controlDiv, map) {
                 // Set CSS for the control border.
@@ -644,6 +644,7 @@
                     document.getElementById("squareInfosDiv").hidden = true; 
                     HighlightRectangle(selectedRectangle, false);
                     DeleteAllSelectedRectangleMarkers();
+                    selectedRectangle = -1;
                     if(infoWindow != null) {
                         infoWindow.close();
                     }
@@ -810,14 +811,22 @@
             }
             
             function ClickSearchButton(button) {
+                critAtm = false;
+                critSupermarket = false;
+                critAdress = false;
+                critCar = false;
+                critBike = false;
+                critTransport = false;
+                
                 button.disabled = true;
                 document.getElementById("squareInfosDiv").hidden = true;
                 HighlightRectangle(selectedRectangle, false);
                 DeleteAllSelectedRectangleMarkers();
+                selectedRectangle = -1;
                 if(infoWindow != null) {
                     infoWindow.close();
                 }
-                HighlightRectangle(selectedRectangle, false);
+                
                 setTimeout(function(button){button.disabled = false;}, 1400, button);
                 var parameters = "?";
                 var triggerChecked = false;
@@ -833,6 +842,17 @@
                             if(nodes[i].id == "adress") {
                                 var adressString = nodes[i].children[6].value;
                                 parameters += "adressstring" + "=" + adressString;
+                                critAdress = true;
+                                critAdressSeuil = nodes[i].children[3].value * 60;
+                                critAdressString = nodes[i].children[6].value;
+                            }
+                            if(nodes[i].id == "supermarket"){
+                                critSupermarket = true;
+                                critSupermarketSeuil = nodes[i].children[3].value * 60;
+                            }
+                            if(nodes[i].id == "atm"){
+                                critAtm = true;
+                                critAtmSeuil = nodes[i].children[3].value * 60;
                             }
                         } else {
                             parameters += nodes[i].id + "=null";
@@ -846,6 +866,15 @@
                 nodes = document.getElementById('listTransportsDiv').children;
                 for(var i=0; i<nodes.length; i+=1) {
                     if(nodes[i].children[1].children[0].checked) {
+                        if(nodes[i].id == "car"){
+                            critCar = true;
+                        }
+                        if(nodes[i].id == "bike"){
+                            critBike = true;
+                        }
+                        if(nodes[i].id == "transport"){
+                            critTransport = true;
+                        }
                         parameters += "&" + nodes[i].id + "=y";
                     } else {
                         parameters += "&" + nodes[i].id + "=n";
@@ -922,6 +951,48 @@
                     infoWindow.close();
                 }
                 
+                parameters += "atm=";
+                if(critAtm){
+                    parameters += critAtmSeuil;
+                } else {
+                    parameters += "null";
+                }
+                parameters += "&supermarket=";
+                if(critAtm){
+                    parameters += critSupermarketSeuil;
+                } else {
+                    parameters += "null";
+                }
+                parameters += "&adress=";
+                if(critAdress){
+                    parameters += critAdressSeuil;
+                    parameters += "&adressstring=";
+                    parameters += critAdressString;
+                } else {
+                    parameters += "null";
+                    parameters += "&adressstring=";
+                    parameters += "null";
+                }
+                parameters += "&car=";
+                if(critCar){
+                    parameters += "y";
+                } else {
+                    parameters += "n";
+                }
+                parameters += "&bike=";
+                if(critBike){
+                    parameters += "y";
+                } else {
+                    parameters += "n";
+                }
+                parameters += "&transport=";
+                if(critTransport){
+                    parameters += "y";
+                } else {
+                    parameters += "n";
+                }
+                
+                /*
                 var nodes = document.getElementById('listCriteresDiv').children;
                 for(var i=0; i<nodes.length; i+=1) {
                     if(i!=1 && i!=2) {
@@ -951,6 +1022,7 @@
                         parameters += "&" + nodes[i].id + "=n";
                     }
                 } 
+                */
                 
                 var lat = event.latLng.lat();
                 var lng = event.latLng.lng();
@@ -1080,7 +1152,7 @@
                 document.getElementById("supermarkerResultTime").innerHTML = result + " min";
                 score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[2].childNodes[0].nodeValue);
                 icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
-                document.getElementById("pastilleAtm").style.backgroundImage = icon;
+                document.getElementById("pastilleSupermarket").style.backgroundImage = icon;
                 document.getElementById("pastilleSupermarket").style.backgroundColor = GetColorFromScore(score);
                 lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
                 long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
@@ -1129,9 +1201,10 @@
             
             function DeleteAllSquares() {
                 for (var k=0; k<rectangles.length; k++) {
-                    rectangle[k].setMap(null);
-                    rectangle[k] = null;
+                    rectangles[k].setMap(null);
+                    rectangles[k] = null;
                 }
+                rectangles = new Array;
             }
             
             function HighlightRectangle(i, todo) {
