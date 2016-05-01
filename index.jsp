@@ -1335,8 +1335,18 @@
                 }
             }
             */
+          
             
             
         </script>
+        <form action="addOffer" method="post" enctype="multipart/form-data">
+            <input type="text" name="address" value ="Addresse" />
+            <input type="text" name="link" value="Lien" />
+            <input type="text" name="price" value="Prix" />
+            <input type="text" name="type" value="Type (location, achat)"/>
+            <input type="file" name="file"/>
+            <input type="submit" />
+        </form>
+        
     </body>
 </html>
