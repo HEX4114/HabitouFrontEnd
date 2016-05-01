@@ -26,13 +26,20 @@
                 vertical-align: top;
                 text-align: center;
                 font-family : AR DESTINE;
+                color : #FFFFFF;
                 font-size : 92px;
                 margin: -10px 0px 0px -8px;
+                border-bottom: outset 4px;
                 padding: 0px;
                 width: 102%;
                 height: 100px;
-                background-color: #A1C643;
+                background-image: linear-gradient(120deg, #00946A, #5C0079);
+                 
                 z-index: 2;
+            }
+            
+            save{
+                background-color: #A1C643;
             }
             
             #mapContainer{
@@ -494,7 +501,6 @@
             </div>
         </div>
         
-        <div id="parameters"></div>
         
         <script type="text/javascript">
             var largeur = 0.00075;
@@ -1047,7 +1053,7 @@
                                 document.getElementById("squareInfosDiv").hidden = true;
                             } else {
                                 parameters += "&id=" + rectanglesId[i];
-                                document.getElementById("parameters").innerHTML = parameters;
+                                //document.getElementById("parameters").innerHTML = parameters;
                                 HighlightRectangle(selectedRectangle, false);
                                 DeleteAllSelectedRectangleMarkers();
                                 selectedRectangle = i;
