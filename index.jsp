@@ -342,6 +342,13 @@
             .iconAtm {
                 background-image: url(img/icon_atm.png);
             }
+            .iconSupermarketBlack {
+                background-image: url(img/icon_supermarket_black.png);
+            }
+            .iconAtmBlack {
+                background-image: url(img/icon_atm_black.png);
+            }
+            
             
             
         </style>
@@ -482,7 +489,7 @@
                             <div id="transportResultTime" class="resultInfos"></div>
                         </div>
                         <div id="atmResultDiv" class="critereResultDiv">
-                            <div class="pastille iconAtm" id="pastilleAtm"></div>
+                            <div class="pastille" id="pastilleAtm"></div>
                             <div class="critereNameInfos">Borne de retrait</div>
                             <div id="atmResultTime" class="resultInfos"></div>
                         </div>
@@ -499,7 +506,6 @@
             </div>
         </div>
         
-        <div id="parameters"></div>
         
         <script type="text/javascript">
             var largeur = 0.00075;
@@ -807,6 +813,11 @@
                 button.disabled = true;
                 document.getElementById("squareInfosDiv").hidden = true;
                 HighlightRectangle(selectedRectangle, false);
+                DeleteAllSelectedRectangleMarkers();
+                if(infoWindow != null) {
+                    infoWindow.close();
+                }
+                HighlightRectangle(selectedRectangle, false);
                 setTimeout(function(button){button.disabled = false;}, 1400, button);
                 var parameters = "?";
                 var triggerChecked = false;
@@ -1047,8 +1058,6 @@
             
             
             function RefreshSquareInfos(xmlHttpReq) {
-                //alert(xmlHttpReq.responseXML.getElementsByTagName("id")[0].childNodes[0].nodeValue);
-                //setIndicatorColor("star1", 1, 1);
                 document.getElementById("squareInfosDiv").hidden = false;
                 
                 var walkTime;
@@ -1058,6 +1067,7 @@
                 var score;
                 var lati;
                 var long;
+                var icon;
                 
                 carChecked = document.getElementById("carCheck").checked ;
                 if(!carChecked) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
@@ -1069,6 +1079,8 @@
                 result = Math.round(result/60);
                 document.getElementById("supermarkerResultTime").innerHTML = result + " min";
                 score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[2].childNodes[0].nodeValue);
+                icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
+                document.getElementById("pastilleAtm").style.backgroundImage = icon;
                 document.getElementById("pastilleSupermarket").style.backgroundColor = GetColorFromScore(score);
                 lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
                 long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
@@ -1089,6 +1101,8 @@
                 result = Math.round(result/60) ;
                 document.getElementById("atmResultTime").innerHTML = result + " min";
                 score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[2].childNodes[0].nodeValue);
+                icon = (score > 0 ? 'url(img/icon_atm.png)' : 'url(img/icon_atm_black.png)');
+                document.getElementById("pastilleAtm").style.backgroundImage = icon;
                 document.getElementById("pastilleAtm").style.backgroundColor = GetColorFromScore(score);
                 lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
                 long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
