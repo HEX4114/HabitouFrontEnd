@@ -29,16 +29,17 @@
                 color : #FFFFFF;
                 font-size : 92px;
                 margin: -10px 0px 0px -8px;
-                border-bottom: outset 4px;
                 padding: 0px;
                 width: 102%;
                 height: 100px;
-                background-image: linear-gradient(120deg, #00946A, #5C0079);
-                 
-                z-index: 2;
+                background-image: linear-gradient(120deg, #41AF8E, #7F3499);
+                box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+                z-index: 200;
+                position:relative;
             }
             
             save{
+                background-image: linear-gradient(120deg, #00946A, #5C0079);
                 background-color: #A1C643;
             }
             
