@@ -462,27 +462,27 @@
                     </div>
                     <div id="listInfosDiv">
                         <div id="adressResultDiv" class="critereResultDiv" hidden>
-                            <div class="pastille"></div>
+                            <div class="pastille" id="pastilleAdress"></div>
                             <div class="critereNameInfos">Adresse</div>
                             <div id="adressResultTime" class="resultInfos"></div>
                         </div>
                         <div id="superMarketResultDiv" class="critereResultDiv">
-                            <div class="pastille iconSupermarket"></div>
+                            <div class="pastille iconSupermarket" id="pastilleSupermarket"></div>
                             <div class="critereNameInfos">Supermarché</div>
                             <div id="supermarkerResultTime" class="resultInfos"></div>
                         </div>
                         <div id="schoolResultDiv" class="critereResultDiv" hidden>
-                            <div class="pastille"></div>
+                            <div class="pastille" id="pastilleSchool"></div>
                             <div class="critereNameInfos">École</div>
                             <div id="schoolResultTime" class="resultInfos"></div>
                         </div>
                         <div id="transportResultDiv" class="critereResultDiv" hidden>
-                            <div class="pastille"></div>
+                            <div class="pastille" id="pastilleTransport"></div>
                             <div class="critereNameInfos">Station de transport</div>
                             <div id="transportResultTime" class="resultInfos"></div>
                         </div>
                         <div id="atmResultDiv" class="critereResultDiv">
-                            <div class="pastille iconAtm"></div>
+                            <div class="pastille iconAtm" id="pastilleAtm"></div>
                             <div class="critereNameInfos">Borne de retrait</div>
                             <div id="atmResultTime" class="resultInfos"></div>
                         </div>
@@ -499,6 +499,8 @@
             </div>
         </div>
         
+        <div id="parameters"></div>
+        
         <script type="text/javascript">
             var largeur = 0.00075;
             var hauteur = 0.0005;
@@ -507,6 +509,11 @@
             var animationTab = new Array;
             var intervals = new Array;
             var opacity = 0.45;
+            var selectedRectangle = -1;
+            var selectedRectangleFillColor;
+            var selectedRectangleStrokeColor;
+            var markersSquareSelected = new Array;
+            var infoWindow;
             
             function OpacityControl(controlDiv, map) {
                 // Set CSS for the control border.
@@ -591,9 +598,9 @@
             function updateSquaresOpacity() {
                 for(var i=0; i<rectangles.length; i++) {
                     rectangles[i].setOptions({
-                            strokeOpacity: opacity + 0.05,
-                            fillOpacity: opacity
-                        });
+                        strokeOpacity: opacity + 0.05,
+                        fillOpacity: opacity
+                    });
                 }
             }
             
@@ -626,8 +633,15 @@
                 opacityControlDiv.index = 1;
                 map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(opacityControlDiv);
 
-                //GetOffers();
-                map.addListener('click', ClickSquare);
+                GetOffers();
+                map.addListener('click', function(){
+                    document.getElementById("squareInfosDiv").hidden = true; 
+                    HighlightRectangle(selectedRectangle, false);
+                    DeleteAllSelectedRectangleMarkers();
+                    if(infoWindow != null) {
+                        infoWindow.close();
+                    }
+                });
             }
 
             function GetOffers() {
@@ -677,8 +691,8 @@
                     markers[i].index = i; //add index property
                     
                     var prev_infoWindow =false;
-                    google.maps.event.addListener(markers[i], 'click', function () {
-                        
+                    google.maps.event.addListener(markers[i], 'click', function (event) {
+                        ClickSquare(event);
                         var xmlHttpReq = false;
                         var ind = this.index;
 
@@ -700,7 +714,7 @@
                                     var price = xmlHttpReq.responseXML.getElementsByTagName("price")[i].childNodes[0].nodeValue;
                                     var link = xmlHttpReq.responseXML.getElementsByTagName("link")[i].childNodes[0].nodeValue;
                                     var src = "http://localhost:8080/Habitou/editOfferImagesById?id="+ids[ind];
-                                    var infoWindow = new google.maps.InfoWindow({
+                                    infoWindow = new google.maps.InfoWindow({
                                         content: '<div class="popup_container">' +
                                                 '<IMG ID="ImageOffer" BORDER="0" ALIGN="Top" SRC='+src+ ' width="100" height="100" >' +
                                                 '<br> <br> Address : ' + address + 
@@ -734,8 +748,11 @@
 		elem.style.color = rgbToHex(r, g, 0);
             }
             
-            function getSquareColor(score) {
+            function GetColorFromScore(score) {
               //score = 1 - score;
+              if(score<0) {
+                  return rgbToHex(255, 255, 255);
+              }
               var r = (score >= 0.5) ? 131 + (1-score)*94 : 225;
               var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
               //var r = (score <= 0.5) ? (score)/0.5*255 : 255; 
@@ -788,7 +805,9 @@
             
             function ClickSearchButton(button) {
                 button.disabled = true;
-                setTimeout(function(button){button.disabled = false;}, 1500, button);
+                document.getElementById("squareInfosDiv").hidden = true;
+                HighlightRectangle(selectedRectangle, false);
+                setTimeout(function(button){button.disabled = false;}, 1400, button);
                 var parameters = "?";
                 var triggerChecked = false;
                 
@@ -801,7 +820,8 @@
                             triggerChecked = true;
                             parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
                             if(nodes[i].id == "adress") {
-                                parameters += "adressstring" + "=" + nodes[i].children[6].value;
+                                var adressString = nodes[i].children[6].value;
+                                parameters += "adressstring" + "=" + adressString;
                             }
                         } else {
                             parameters += nodes[i].id + "=null";
@@ -886,7 +906,40 @@
             }
             
             function ClickSquare(event) {
-                document.getElementById("squareInfosDiv").hidden = true;
+                var parameters = "?";
+                if(infoWindow != null) {
+                    infoWindow.close();
+                }
+                
+                var nodes = document.getElementById('listCriteresDiv').children;
+                for(var i=0; i<nodes.length; i+=1) {
+                    if(i!=1 && i!=2) {
+                        if(!(parameters == "?")) parameters += "&";
+                        
+                        if(nodes[i].children[0].checked) {
+                            triggerChecked = true;
+                            parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
+                            if(nodes[i].id == "adress") {
+                                var adressString = nodes[i].children[6].value;
+                                parameters += "adressstring" + "=" + adressString;
+                            }
+                        } else {
+                            parameters += nodes[i].id + "=null";
+                            if(nodes[i].id == "adress") {
+                                parameters += "adressstring=null";
+                            }
+                        }
+                    }
+                } 
+                
+                nodes = document.getElementById('listTransportsDiv').children;
+                for(var i=0; i<nodes.length; i+=1) {
+                    if(nodes[i].children[1].children[0].checked) {
+                        parameters += "&" + nodes[i].id + "=y";
+                    } else {
+                        parameters += "&" + nodes[i].id + "=n";
+                    }
+                } 
                 
                 var lat = event.latLng.lat();
                 var lng = event.latLng.lng();
@@ -903,9 +956,20 @@
                     west = rectangles[i].getBounds().getSouthWest().lng();
                     if(lat < north && lat > south) {
                         if(lng < east && lng > west) {
-                            var parameter = "?id=" + rectanglesId[i];
-                            //document.getElementById("parameter").innerHTML = parameter;
-                            GetOneSquareRequest(parameter);
+                            if(i == selectedRectangle) {
+                                HighlightRectangle(i, false);
+                                DeleteAllSelectedRectangleMarkers();
+                                selectedRectangle = -1;
+                                document.getElementById("squareInfosDiv").hidden = true;
+                            } else {
+                                parameters += "&id=" + rectanglesId[i];
+                                //document.getElementById("parameters").innerHTML = parameters;
+                                HighlightRectangle(selectedRectangle, false);
+                                DeleteAllSelectedRectangleMarkers();
+                                selectedRectangle = i;
+                                HighlightRectangle(i, true);
+                                GetOneSquareRequest(parameters);
+                            }
                             return;
                         }
                     }
@@ -931,32 +995,54 @@
                             map: map,
                             clickable: true,
                             bounds: {
-                                north: lat + hauteur /2,
-                                south: lat + hauteur /2,
+                                north: lat + hauteur,
+                                south: lat,
                                 east: long + largeur,
                                 west: long 
                             }
                         });
                         //map.event.addListener(rectangles[i], 'click', ClickSquare);
                         rectangles[i].addListener('click', ClickSquare);
-                        animationTab[i] = 0;
+                        //animationTab[i] = false;
                     } 
                         
+                    fillOpacity = opacity;
+                    strokeOpacity = opacity+0.05;
+
+                    fillColor = GetColorFromScore(score);
+                    strokeColor = GetColorFromScore(score);
+                    rectangles[i].setOptions({
+                        strokeColor: strokeColor,
+                        strokeOpacity: strokeOpacity,
+                        fillColor: fillColor,
+                        fillOpacity: fillOpacity
+                    });
+                       
+                    /*
                     if(i<50) {
-                        intervals[i] = setInterval(ChangeSquare, 1, score, i);
+                        intervals[i] = setInterval(ChangeSquare, 5, score, i);
                     } else {
+                        
+                        
                         var triggerTimeOutLaunched = false;
-                        for(var coef=1; coef<10; coef++) {
+                        for(var coef=1; coef<100; coef++) {
                             if(i < 50 * (coef+1) && i >= 50 * coef) {
                                 setTimeout(LaunchRemoteInterval, 140*coef, score, i);
                                 triggerTimeOutLaunched = true;
                             }
                         }
                         if(triggerTimeOutLaunched == false) {
-                            setTimeout(LaunchRemoteInterval, 140*11, score, i);
+                            setTimeout(LaunchRemoteInterval, 140*101, score, i);
                         }
+                        
                     }
+                    */
                 }
+            }
+            
+            
+            function LaunchRemoteInterval(score, i) {
+                intervals[i] = setInterval(ChangeSquare, 1, score, i);
             }
             
             
@@ -969,6 +1055,9 @@
                 var driveTime;
                 var result;
                 var carChecked;
+                var score;
+                var lati;
+                var long;
                 
                 carChecked = document.getElementById("carCheck").checked ;
                 if(!carChecked) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
@@ -977,8 +1066,17 @@
                     walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                     result = (walkTime > driveTime ? driveTime : walkTime) ;
                 }
-                result = Math.round(result/60) ;
+                result = Math.round(result/60);
                 document.getElementById("supermarkerResultTime").innerHTML = result + " min";
+                score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[2].childNodes[0].nodeValue);
+                document.getElementById("pastilleSupermarket").style.backgroundColor = GetColorFromScore(score);
+                lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
+                long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
+                markersSquareSelected[0] = new google.maps.Marker({
+                    position: new google.maps.LatLng(lati, long),
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/convienancestore.png'
+                });
                 
                 
                 carChecked = document.getElementById("carCheck").checked ;
@@ -990,14 +1088,99 @@
                 }
                 result = Math.round(result/60) ;
                 document.getElementById("atmResultTime").innerHTML = result + " min";
+                score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[2].childNodes[0].nodeValue);
+                document.getElementById("pastilleAtm").style.backgroundColor = GetColorFromScore(score);
+                lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
+                long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
+                markersSquareSelected[1] = new google.maps.Marker({
+                    position: new google.maps.LatLng(lati, long),
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/micons/euro.png'
+                });
+        
+                
                 
             }
             
-            function LaunchRemoteInterval(score, i) {
-                intervals[i] = setInterval(ChangeSquare, 1, score, i);
+            function DeleteAllSelectedRectangleMarkers() {
+                if(markersSquareSelected != null) {
+                    for (var k=0; k<markersSquareSelected.length; k++) {
+                        if(markersSquareSelected[k] != null) {
+                            markersSquareSelected[k].setMap(null);
+                            markersSquareSelected[k] = null;
+                        }
+                    }
+                }
             }
             
+            function DeleteAllSquares() {
+                for (var k=0; k<rectangles.length; k++) {
+                    rectangle[k].setMap(null);
+                    rectangle[k] = null;
+                }
+            }
+            
+            function HighlightRectangle(i, todo) {
+                var fillColor;
+                var strokeColor;
+                var strokeWeight;
+                var strokeOpacity;
+                var zIndex;
+                
+                if(i != -1) {
+                    if(todo) {
+                        strokeWeight = 4;
+                        strokeOpacity = 1;
+                        fillColor = "#FFFFFF";
+                        strokeColor = "#FFFF00";
+                        selectedRectangleFillColor = rectangles[i].fillColor;
+                        selectedRectangleStrokeColor = rectangles[i].strokeColor;
+                        zIndex = 5;
+                    } else {
+                        strokeWeight = 1;
+                        strokeOpacity = opacity+0.05;
+                        fillColor = selectedRectangleFillColor;
+                        strokeColor = selectedRectangleStrokeColor;
+                        zIndex = 0;
+                    }
+                    rectangles[i].setOptions({
+                        strokeColor: strokeColor,
+                        fillColor: fillColor,
+                        strokeOpacity: strokeOpacity,
+                        strokeWeight: strokeWeight,
+                        zIndex: zIndex
+                    });
+                }
+            }
+            
+            /*
             function ChangeSquare(score,i) {
+                if(animationTab[i] == false) {
+                    rectangles[i].setOptions({
+                        strokeColor: "#DDDDDD",
+                        strokeOpacity: "#DDDDDD",
+                        fillColor: "#DDDDDD",
+                        fillOpacity: "#DDDDDD"
+                    });
+                    animationTab[i] = true;
+                } else {
+                    fillOpacity = opacity;
+                    strokeOpacity = opacity+0.05;
+
+                    fillColor = GetColorFromScore(score);
+                    strokeColor = GetColorFromScore(score);
+                    rectangles[i].setOptions({
+                        strokeColor: strokeColor,
+                        strokeOpacity: strokeOpacity,
+                        fillColor: fillColor,
+                        fillOpacity: fillOpacity
+                    });
+                    animationTab[i] = false;
+                    clearInterval(intervals[i]);
+                }
+            }
+            
+            function ChangeSquareOLD(score,i) {
                 var north = rectangles[i].getBounds().getNorthEast().lat();
                 var south = rectangles[i].getBounds().getSouthWest().lat();
                 var east = rectangles[i].getBounds().getNorthEast().lng();
@@ -1026,8 +1209,8 @@
                         fillOpacity = opacity;
                         strokeOpacity = opacity+0.05;
 
-                        fillColor = getSquareColor(score);
-                        strokeColor = getSquareColor(score);
+                        fillColor = GetColorFromScore(score);
+                        strokeColor = GetColorFromScore(score);
                         rectangles[i].setOptions({
                             strokeColor: strokeColor,
                             strokeOpacity: strokeOpacity,
@@ -1058,13 +1241,8 @@
                     });
                 }
             }
+            */
             
-            function DeleteAllSquares() {
-                for (var k=0; k<rectangles.length; k++) {
-                    rectangle[k].setMap(null);
-                    rectangle[k] = null;
-                }
-            }
             
         </script>
     </body>
