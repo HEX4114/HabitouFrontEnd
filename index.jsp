@@ -836,20 +836,20 @@
                                 for (var i = 0; i < offer.length; i++) {
                                     var address = xmlHttpReq.responseXML.getElementsByTagName("address")[i].childNodes[0].nodeValue;
                                     var type = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
-                                    var rooms = xmlHttpReq.responseXML.getElementsByTagName("rooms")[i].childNodes[0].nodeValue;
-                                    var floor = xmlHttpReq.responseXML.getElementsByTagName("floor")[i].childNodes[0].nodeValue;
-                                    var m2 = xmlHttpReq.responseXML.getElementsByTagName("m2")[i].childNodes[0].nodeValue;
+                                    //var rooms = xmlHttpReq.responseXML.getElementsByTagName("rooms")[i].childNodes[0].nodeValue;
+                                    //var floor = xmlHttpReq.responseXML.getElementsByTagName("floor")[i].childNodes[0].nodeValue;
+                                    //var m2 = xmlHttpReq.responseXML.getElementsByTagName("m2")[i].childNodes[0].nodeValue;
                                     var price = xmlHttpReq.responseXML.getElementsByTagName("price")[i].childNodes[0].nodeValue;
                                     var link = xmlHttpReq.responseXML.getElementsByTagName("link")[i].childNodes[0].nodeValue;
-                                    var src = "http://localhost:8080/Habitou/getOfferImagesById?id=" + ids[ind];
+                                    var src = window.location.href+"getOfferImagesById?id=" + ids[ind];
                                     infoWindow = new google.maps.InfoWindow({
                                         content: '<div class="popup_container">' +
                                                 '<IMG ID="ImageOffer" BORDER="0" ALIGN="Top" SRC=' + src + ' width="100" height="100" >' +
                                                 '<br> <br> Adresse : ' + address +
                                                 '<br> Type : ' + type +
-                                                '<br> No. chambres : ' + rooms +
-                                                '<br> No. étage : ' + floor +
-                                                '<br> Mètres carrés : ' + m2 +
+                                                '<br> No. chambres : ' + "rooms" +
+                                                '<br> No. étage : ' + "floor" +
+                                                '<br> Mètres carrés : ' + "m2" +
                                                 '<br> Prix : &euro; ' + parseFloat(price).toFixed(2) +
                                                 '<br> <a href="' + link + '">' + 'Lien vers l annonce' + '</a>' +
                                                 ' </div>',
