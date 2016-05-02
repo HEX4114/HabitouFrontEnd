@@ -8,6 +8,9 @@
         <script type="text/javascript" 
             src="http://maps.google.com/maps/api/js?key=AIzaSyAjCKf6zCL0EwJegJ4sV1wBu3T3gQ3fENA&sensor=false">
         </script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         
         <style type="text/css">
             @font-face { font-family: AR DESTINE; src: url('ARDESTINE.ttf'); }
@@ -53,6 +56,7 @@
             
             #rechercheDiv{
                 margin-top: 20px;
+                width: 425px;
             }
             
             .commandBorder {
@@ -190,8 +194,8 @@
                 height: 4px;
                 top: auto;
                 left: auto;
-                margin-top: 2px;
-                margin-left: -15px;
+                margin-top: 4px;
+                margin-left: -12px;
                 position: absolute;
                 background: transparent;
                 border: 3px solid #E8E8E8;
@@ -209,6 +213,7 @@
             input[type=checkbox]:checked + label {
                 opacity: 1;
                 border-color: #B9DB48;
+                margin-left: -12px;
             }
             
             .critereDiv{
@@ -343,6 +348,15 @@
                 display: inline-block;
                 margin: 0px 5px 0px 5px;
             }
+            .modal-header, h4, .close {
+                background-color: #5cb85c;
+                color:white !important;
+                text-align: center;
+                font-size: 30px;
+            }
+            .modal-footer {
+                background-color: #f9f9f9;
+            }
             
             
             
@@ -355,14 +369,14 @@
         
         <div id="mapContainer">
         </div>
-        <div id="rechercheDiv">
-            <div id="rechercheBord" class="commandBorder">
-                <div id="rechercheInter" class="commandInner">
+        <div id="rechercheDiv" >
+            <div id="rechercheBord" class="well">
+                <div id="rechercheInter">
                     <div id="titleCritere">
                         <b>Critères de recherche :</b>
                         </br>
                     </div>
-                    <div id="transportsCritDiv">
+                    <div id="transportsCritDiv" syle="height: inherit">
                         <div class="themeCritereTitle" id="transportsTitle">
                             Moyens de transport :
                         </div>
@@ -1335,18 +1349,101 @@
                 }
             }
             */
-          
+        </script>
+        <script>
+            $(document).ready(function(){
+                $("#myBtn").click(function(){
+                    $("#myModal").modal();
+                });
+            });
+        </script>
+        
+        <script>
+            $(document).ready(function() {
+    // Lorsque je soumets le formulaire
+            $('#addOfferForm').on('submit', function(e) {
+                e.preventDefault(); // J'empêche le comportement par défaut du navigateur, c-à-d de soumettre le formulaire
+
+                var $form = $(this); // L'objet jQuery du formulaire
+
+                // Je récupère les valeurs
+                var formdata = (window.FormData) ? new FormData($form[0]) : null;
+                var data = (formdata !== null) ? formdata : $form.serialize();
+                var address = $('#address').val();
+                var price = $('#price').val();
+                var type = $('#type').val();
+                var link = $('#link').val();
+                 
+
+                // Je vérifie une première fois pour ne pas lancer la requête HTTP
+                // si je sais que mon PHP renverra une erreur
+                if(address === '' || price === '' || link === '' || type === '') {
+                    alert('Les champs doivent êtres remplis');
+                    return;
+                } 
+                else {
+                    // Envoi de la requête HTTP en mode asynchrone
+                    $.ajax({
+                        url: $form.attr('action'),
+                        type: $form.attr('method'),
+                        contentType: false, // obligatoire pour de l'upload
+                        processData: false, // obligatoire pour de l'upload
+                        dataType: 'json', // selon le retour attendu
+                        data: data,
+                        success: function (response) {
+                         }
+                    });
+                }
+                alert("L'offre a bien été crée");
+                $('.modal.in').modal('hide');
+            });
+        });
+            
             
             
         </script>
-        <form action="addOffer" method="post" enctype="multipart/form-data">
-            <input type="text" name="address" value ="Addresse" />
-            <input type="text" name="link" value="Lien" />
-            <input type="text" name="price" value="Prix" />
-            <input type="text" name="type" value="Type (location, achat)"/>
-            <input type="file" name="file"/>
-            <input type="submit" />
-        </form>
+        
+        <button type="button" class="btn btn-default btn-lg" id="myBtn">Créer une offre</button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header" style="padding:35px 50px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4><span class="glyphicons glyphicons-building"></span> Ajouter une offre</h4>
+              </div>
+              <div class="modal-body" style="padding:40px 50px;">
+                <form id="addOfferForm" role="form" action="addOffer" method="post" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="address"><span class="glyphicons glyphicons-global"></span> Address</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Enter correct address">
+                  </div>
+                  <div class="form-group">
+                    <label for="link"><span class="glyphicons glyphicons-link"></span> Link to offer</label>
+                    <input type="text" class="form-control" id="link" name="link" placeholder="Enter link">
+                  </div>
+                  <div class="form-group">
+                    <label for="price"><span class="glyphicons glyphicons-fees-payments"></span> Price </label>
+                    <input type="text" class="form-control" id="price" name="price" placeholder="Enter price">
+                  </div>
+                  <div class="form-group">
+                    <label for="type"><span class="glyphicons glyphicons-mixed-buildings"></span> Type </label>
+                    <input type="text" class="form-control" id="type" name="type" placeholder="Enter type (location, buy)">
+                  </div>
+                  <div class="form-group">
+                    <label for="file"><span class="glyphicons glyphicons-file-plus"></span> Image to upload </label>
+                    <input type="file" class="form-control" id="file" name="file" placeholder="Enter file to upload">
+                  </div>
+                    <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Ajouter</button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
         
     </body>
 </html>
