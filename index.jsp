@@ -4,14 +4,14 @@
         <title>Criteri'Home</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
         <script type="text/javascript" 
-            src="http://maps.google.com/maps/api/js?key=AIzaSyAjCKf6zCL0EwJegJ4sV1wBu3T3gQ3fENA&sensor=false">
+                src="http://maps.google.com/maps/api/js?key=AIzaSyAjCKf6zCL0EwJegJ4sV1wBu3T3gQ3fENA&sensor=false">
         </script>
-        
+
         <style type="text/css">
             @font-face { font-family: AR DESTINE; src: url('ARDESTINE.ttf'); }
-            
+
             html {
                 height:100%;
                 display:block;
@@ -37,12 +37,12 @@
                 z-index: 200;
                 position:relative;
             }
-            
+
             save{
                 background-image: linear-gradient(120deg, #00946A, #5C0079);
                 background-color: #A1C643;
             }
-            
+
             #mapContainer{
                 margin-left: -8px;
                 padding: 0px;
@@ -50,11 +50,11 @@
                 height: 88%;
                 z-index: 1;
             }
-            
+
             #rechercheDiv{
                 margin-top: 20px;
             }
-            
+
             .commandBorder {
                 background-color: #fff;
                 border : 2px solid #fff;
@@ -64,7 +64,7 @@
                 margin-left : 22px;
                 text-align: left;
             }
-            
+
             .commandInner {
                 color : rgb(25,25,25);
                 font-family : Roboto,Arial,sans-serif;
@@ -72,7 +72,7 @@
                 padding-left : 5px;
                 padding-right : 5px;
             }
-            
+
             #transportsTitle {
                 float: left;
             }
@@ -105,7 +105,7 @@
                 float: right;
                 vertical-align: middle;
             }
-            
+
             .inputText {
                 font : inherit;
                 font-size : 15px;
@@ -125,7 +125,7 @@
                 background-color : #f0f0f0;
                 box-shadow: 0px 0px 0px 0px #000000 inset;
             }
-            
+
             .value {
                 color : #777777;
                 font-family : Arial;
@@ -138,7 +138,7 @@
                 text-align: right;
                 visibility: hidden;
             }
-            
+
             .boundValues{
                 color : #777777;
                 font-family : Arial;
@@ -155,15 +155,15 @@
             }
             .boundMax{
             }
-            
+
             .bound0{
                 margin-right: 20.3%;
             }
             .boundNumber{
                 margin-right: 19%;
             }
-            
-            
+
+
             input[type="checkbox"] {
                 cursor: pointer;
                 -webkit-appearance: none;
@@ -210,7 +210,7 @@
                 opacity: 1;
                 border-color: #B9DB48;
             }
-            
+
             .critereDiv{
                 margin: 0px 0px 8px 0px;
             }
@@ -245,12 +245,12 @@
             }
             .cursorEnabled:active::-webkit-slider-thumb {
                 background: #ddd;
-                
+
             }
             input[type=range]:focus {
                 outline: none;
             }
-            
+
             .cursorDisabled {
                 /*removes default webkit styles*/
                 -webkit-appearance: none;
@@ -271,14 +271,14 @@
             .cursorDisabled::-webkit-slider-thumb {
                 visibility: hidden;
             }
-            
+
             #titleCritere{
                 margin : 6px 0px 10px 5px;
             }
             .themeCritereTitle {
                 margin : 6px 0px 6px 5px;
             }
-            
+
             .button {
                 margin : 4px 0px 5px 0px;
                 width : 100%;
@@ -287,7 +287,7 @@
                 border : solid 2px #5f5f5f;
                 background-image:linear-gradient(120deg, #EFF2C6, #F8F9E0);
                 box-shadow: -1px 2px 20px rgba(255, 255, 255, 0.6) inset,
-                            0px -1px 1px 0px rgba(0, 0, 0, 0.3) inset;
+                    0px -1px 1px 0px rgba(0, 0, 0, 0.3) inset;
                 cursor: pointer;
             }
             .button:disabled {
@@ -297,7 +297,7 @@
                 border : solid 2px #9f9f9f;
                 cursor: default;
             }
-            
+
             #searchAlert {
                 color : red;
                 font-size : 12;
@@ -305,15 +305,15 @@
                 background-color:#f8dcdc;
                 margin-bottom : 2px;
             }
-            
+
             #squareInfosDiv {
                 width: 493px;
             }
-            
+
             #titleResult {
                 weight: 100%;
             }
-            
+
             .resultInfos {
                 display: inline-block;
                 text-align: right;
@@ -322,18 +322,18 @@
                 margin-top: 4px;
                 vertical-align: top;
             }
-            
+
             .critereResultDiv {
                 margin: 4px 0px 4px 0px;
             }
-            
+
             .critereNameInfos{
                 display: inline-block;
                 width: 30%;
                 margin-top: 4px;
                 vertical-align: top;
             }
-            
+
             .pastille{
                 width: 24px;
                 height: 24px;
@@ -343,16 +343,16 @@
                 display: inline-block;
                 margin: 0px 5px 0px 5px;
             }
-            
-            
-            
-            
+
+
+
+
         </style>
     </head>
     <body onload="GetMap()">
-        
+
         <div id="titleApp">Criteri'Home</div>
-        
+
         <div id="mapContainer">
         </div>
         <div id="rechercheDiv">
@@ -409,7 +409,7 @@
                             <a class="value">0</a>
                             </br>
                             <input type="text" id="adressInput" class="inputText" onkeydown="EnterPressed(this)" disabled value="Adresse..."/>
-                            
+
                         </div>
                         <div class="boundValues">
                             <span class="bound0">0</span>
@@ -444,17 +444,17 @@
                             <a class="value">0</a>
                         </div>
                     </div>
-                    
+
                     <button id="searchButton" type="button" onclick="ClickSearchButton(this)" class="button" > 
                         Rechercher
                     </button> 
-                    
+
                     <div id="searchAlert">
                     </div>
-                    
-                    
+
+
                 </div>
-                
+
             </div>
         </div>
         <div id="squareInfosDiv" hidden>
@@ -490,19 +490,19 @@
                             <div id="atmResultTime" class="resultInfos"></div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
-        
+
         <div id="opacityDiv">
             <div id="resultBord" class="commandBorder">
                 <div id="resultInter" class="commandInner">
                 </div>
             </div>
         </div>
-        
-        
+
+
         <script type="text/javascript">
             var largeur = 0.00075;
             var hauteur = 0.0005;
@@ -511,13 +511,13 @@
             var animationTab = new Array;
             var intervals = new Array;
             var opacity = 0.45;
-            
+
             var selectedRectangle = -1;
             var selectedRectangleFillColor;
             var selectedRectangleStrokeColor;
             var markersSquareSelected = new Array;
             var infoWindow;
-            
+
             var critSupermarket;
             var critAtm;
             var critAdress;
@@ -528,7 +528,7 @@
             var critCar;
             var critBike;
             var critTransport;
-            
+
             function OpacityControl(controlDiv, map) {
                 // Set CSS for the control border.
                 var controlUpUI = document.createElement('div');
@@ -557,12 +557,13 @@
                 controlUpUI.appendChild(controlUpText);
 
                 // Setup the click event listeners.
-                controlUpUI.addEventListener('click', function() {
+                controlUpUI.addEventListener('click', function () {
                     opacity = opacity + 0.1;
-                    if(opacity > 1) opacity = 0.95;
+                    if (opacity > 1)
+                        opacity = 0.95;
                     updateSquaresOpacity();
                 });
-                
+
                 var controlLabelUI = document.createElement('div');
                 controlLabelUI.style.marginRight = '10px';
                 controlLabelUI.style.textAlign = 'center';
@@ -576,7 +577,7 @@
                 controlLabelText.style.lineHeight = '30px';
                 controlLabelText.innerHTML = 'Opacity';
                 controlLabelUI.appendChild(controlLabelText);
-                
+
                 var controlDownUI = document.createElement('div');
                 controlDownUI.style.backgroundColor = '#fff';
                 controlDownUI.style.border = '2px solid #fff';
@@ -602,45 +603,46 @@
                 controlDownUI.appendChild(controlDownText);
 
                 // Setup the click event listeners: simply set the map to Chicago.
-                controlDownUI.addEventListener('click', function() {
+                controlDownUI.addEventListener('click', function () {
                     opacity = opacity - 0.1;
-                    if(opacity < 0) opacity = 0.05;
+                    if (opacity < 0)
+                        opacity = 0.05;
                     updateSquaresOpacity();
                 });
             }
 
             function updateSquaresOpacity() {
-                for(var i=0; i<rectangles.length; i++) {
+                for (var i = 0; i < rectangles.length; i++) {
                     rectangles[i].setOptions({
                         strokeOpacity: opacity + 0.05,
                         fillOpacity: opacity
                     });
                 }
             }
-            
+
             function GetMap() {
                 var origin = new google.maps.LatLng(45.760, 4.850);
                 var myOptions = {
-                   zoom: 13,
-                   center: origin,
-                   mapTypeId: google.maps.MapTypeId.ROADMAP,
-                   disableDefaultUI: true
+                    zoom: 13,
+                    center: origin,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    disableDefaultUI: true
                 };
                 var container = document.getElementById("mapContainer");
-                map = new google.maps.Map(container,myOptions);
-                
+                map = new google.maps.Map(container, myOptions);
+
                 map.controls[google.maps.ControlPosition.TOP_LEFT].push(rechercheDiv);
-                
+
                 var resultDiv = document.getElementById("squareInfosDiv");
                 map.controls[google.maps.ControlPosition.LEFT_TOP].push(resultDiv);
-                
+
                 /*
-                setIndicatorColor("star1", 1, 1);
-                setIndicatorColor("star2", 1.4, 1);
-                setIndicatorColor("star3", 1.8, 1);
-                setIndicatorColor("star4", 2.2, 1);
-                setIndicatorColor("star5", 2.6, 1);
-                */
+                 setIndicatorColor("star1", 1, 1);
+                 setIndicatorColor("star2", 1.4, 1);
+                 setIndicatorColor("star3", 1.8, 1);
+                 setIndicatorColor("star4", 2.2, 1);
+                 setIndicatorColor("star5", 2.6, 1);
+                 */
 
                 var opacityControlDiv = document.createElement('div');
                 var opacityControl = new OpacityControl(opacityControlDiv, map);
@@ -648,12 +650,12 @@
                 map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(opacityControlDiv);
 
                 GetOffers();
-                map.addListener('click', function(){
-                    document.getElementById("squareInfosDiv").hidden = true; 
+                map.addListener('click', function () {
+                    document.getElementById("squareInfosDiv").hidden = true;
                     HighlightRectangle(selectedRectangle, false);
                     DeleteAllSelectedRectangleMarkers();
                     selectedRectangle = -1;
-                    if(infoWindow != null) {
+                    if (infoWindow != null) {
                         infoWindow.close();
                     }
                 });
@@ -688,24 +690,24 @@
                     var longi = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
                     var lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var typeOffer = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
-                    
+
                     if (typeOffer === 'vendre') {
                         markers[i] = new google.maps.Marker({
                             position: new google.maps.LatLng(lati, longi),
                             map: map,
                             icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
                         });
-                     } else {
-                         markers[i] = new google.maps.Marker({
+                    } else {
+                        markers[i] = new google.maps.Marker({
                             position: new google.maps.LatLng(lati, longi),
                             map: map,
                             icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
                         });
-                     }
+                    }
 
                     markers[i].index = i; //add index property
-                    
-                    var prev_infoWindow =false;
+
+                    var prev_infoWindow = false;
                     google.maps.event.addListener(markers[i], 'click', function (event) {
                         ClickSquare(event);
                         var xmlHttpReq = false;
@@ -726,25 +728,31 @@
                                 for (var i = 0; i < offer.length; i++) {
                                     var address = xmlHttpReq.responseXML.getElementsByTagName("address")[i].childNodes[0].nodeValue;
                                     var type = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
+                                    var rooms = xmlHttpReq.responseXML.getElementsByTagName("rooms")[i].childNodes[0].nodeValue;
+                                    var floor = xmlHttpReq.responseXML.getElementsByTagName("floor")[i].childNodes[0].nodeValue;
+                                    var m2 = xmlHttpReq.responseXML.getElementsByTagName("m2")[i].childNodes[0].nodeValue;
                                     var price = xmlHttpReq.responseXML.getElementsByTagName("price")[i].childNodes[0].nodeValue;
                                     var link = xmlHttpReq.responseXML.getElementsByTagName("link")[i].childNodes[0].nodeValue;
-                                    var src = window.location.href +"getOfferImagesById?id="+ids[ind];
+                                    var src = "http://localhost:8080/Habitou/getOfferImagesById?id=" + ids[ind];
                                     infoWindow = new google.maps.InfoWindow({
                                         content: '<div class="popup_container">' +
-                                                '<IMG ID="ImageOffer" BORDER="0" ALIGN="Top" SRC='+src+ ' width="100" height="100" >' +
-                                                '<br> <br> Address : ' + address + 
-                                                '<br> Type : ' + type + 
-                                                '<br> Price : &euro; ' + parseFloat(price).toFixed(2) + 
-                                                '<br> <a href="' + link + '">' + 'Lien vers l annonce' +'</a>'+
+                                                '<IMG ID="ImageOffer" BORDER="0" ALIGN="Top" SRC=' + src + ' width="100" height="100" >' +
+                                                '<br> <br> Adresse : ' + address +
+                                                '<br> Type : ' + type +
+                                                '<br> No. chambres : ' + rooms +
+                                                '<br> No. étage : ' + floor +
+                                                '<br> Mètres carrés : ' + m2 +
+                                                '<br> Prix : &euro; ' + parseFloat(price).toFixed(2) +
+                                                '<br> <a href="' + link + '">' + 'Lien vers l annonce' + '</a>' +
                                                 ' </div>',
                                         maxWidth: 300
                                     });
-                                    
-                                    if( prev_infoWindow ) {
+
+                                    if (prev_infoWindow) {
                                         prev_infoWindow.close();
                                     }
-                                    
-                                    
+
+
                                     infoWindow.open(map, markers[ind]);
                                     prev_infoWindow = infoWindow;
                                     map.panTo(markers[ind].getPosition());
@@ -755,42 +763,42 @@
                     });
                 }
             }
-            
+
             function setIndicatorColor(id, distance, distanceMax) {
-                var r = (distance >= distanceMax) ? (distance >= 2*distanceMax) ? 255 : (distance-distanceMax)/distanceMax*255 : 0;
-                var g = (distance >= 2*distanceMax) ? (distance >= 3*distanceMax) ? 0 : (1 - (distance-distanceMax)/(2*distanceMax))*255 : 255;
+                var r = (distance >= distanceMax) ? (distance >= 2 * distanceMax) ? 255 : (distance - distanceMax) / distanceMax * 255 : 0;
+                var g = (distance >= 2 * distanceMax) ? (distance >= 3 * distanceMax) ? 0 : (1 - (distance - distanceMax) / (2 * distanceMax)) * 255 : 255;
                 var elem = document.getElementById(id);
-		elem.style.color = rgbToHex(r, g, 0);
+                elem.style.color = rgbToHex(r, g, 0);
             }
-            
+
             function GetColorFromScore(score) {
-              //score = 1 - score;
-              if(score<0) {
-                  return rgbToHex(255, 255, 255);
-              }
-              var r = (score >= 0.5) ? 131 + (1-score)*94 : 225;
-              var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
-              //var r = (score <= 0.5) ? (score)/0.5*255 : 255; 
-              //var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
-	      return rgbToHex(r, g, 0);
+                //score = 1 - score;
+                if (score < 0) {
+                    return rgbToHex(255, 255, 255);
+                }
+                var r = (score >= 0.5) ? 131 + (1 - score) * 94 : 225;
+                var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
+                //var r = (score <= 0.5) ? (score)/0.5*255 : 255; 
+                //var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
+                return rgbToHex(r, g, 0);
             }
-            
+
             function rgbToHex(r, g, b) {
                 return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-	    }
-           
-           
+            }
+
+
             function EnableCritere(numCritere) {
                 var nodes = document.getElementById('listCriteresDiv').children;
-                for(var i=0; i<nodes.length; i+=1) {
-                    if(i == numCritere) {
-                        if(i!=1 && i!=2) {
-                            if(nodes[i].children[0].checked) {
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (i == numCritere) {
+                        if (i != 1 && i != 2) {
+                            if (nodes[i].children[0].checked) {
                                 nodes[i].children[3].className = "cursorEnabled";
                                 nodes[i].children[3].disabled = false;
-                                nodes[i].children[4].style="visibility: visible";
+                                nodes[i].children[4].style = "visibility: visible";
                                 GrabCursor(numCritere);
-                                if(i == 0) {
+                                if (i == 0) {
                                     nodes[0].children[6].select();
                                     nodes[0].children[6].disabled = false;
                                     nodes[0].children[6].focus();
@@ -798,8 +806,8 @@
                             } else {
                                 nodes[i].children[3].className = "cursorDisabled";
                                 nodes[i].children[3].disabled = true;
-                                nodes[i].children[4].style="visibility: hidden";
-                                if(i == 0) {
+                                nodes[i].children[4].style = "visibility: hidden";
+                                if (i == 0) {
                                     nodes[i].children[6].disabled = true;
                                 }
                             }
@@ -807,17 +815,17 @@
                     }
                 }
             }
-            
+
             function GrabCursor(numCursor) {
                 var nodes = document.getElementById('listCriteresDiv').children;
-                for(var j=0; j<nodes.length; j+=1) {
-                    if(j == numCursor) {
+                for (var j = 0; j < nodes.length; j += 1) {
+                    if (j == numCursor) {
                         var value = nodes[j].children[3].value;
                         nodes[j].children[4].innerHTML = value;
                     }
-                } 
+                }
             }
-            
+
             function ClickSearchButton(button) {
                 critAtm = false;
                 critSupermarket = false;
@@ -825,70 +833,73 @@
                 critCar = false;
                 critBike = false;
                 critTransport = false;
-                
+
                 button.disabled = true;
                 document.getElementById("squareInfosDiv").hidden = true;
                 HighlightRectangle(selectedRectangle, false);
                 DeleteAllSelectedRectangleMarkers();
                 selectedRectangle = -1;
-                if(infoWindow != null) {
+                if (infoWindow != null) {
                     infoWindow.close();
                 }
-                
-                setTimeout(function(button){button.disabled = false;}, 1400, button);
+
+                setTimeout(function (button) {
+                    button.disabled = false;
+                }, 1400, button);
                 var parameters = "?";
                 var triggerChecked = false;
-                
+
                 var nodes = document.getElementById('listCriteresDiv').children;
-                for(var i=0; i<nodes.length; i+=1) {
-                    if(i!=1 && i!=2) {
-                        if(!(parameters == "?")) parameters += "&";
-                        
-                        if(nodes[i].children[0].checked) {
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (i != 1 && i != 2) {
+                        if (!(parameters == "?"))
+                            parameters += "&";
+
+                        if (nodes[i].children[0].checked) {
                             triggerChecked = true;
                             parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
-                            if(nodes[i].id == "adress") {
+                            if (nodes[i].id == "adress") {
                                 var adressString = nodes[i].children[6].value;
                                 parameters += "adressstring" + "=" + adressString;
                                 critAdress = true;
                                 critAdressSeuil = nodes[i].children[3].value * 60;
                                 critAdressString = nodes[i].children[6].value;
                             }
-                            if(nodes[i].id == "supermarket"){
+                            if (nodes[i].id == "supermarket") {
                                 critSupermarket = true;
                                 critSupermarketSeuil = nodes[i].children[3].value * 60;
                             }
-                            if(nodes[i].id == "atm"){
+                            if (nodes[i].id == "atm") {
                                 critAtm = true;
                                 critAtmSeuil = nodes[i].children[3].value * 60;
                             }
                         } else {
                             parameters += nodes[i].id + "=null";
-                            if(nodes[i].id == "adress") {
+                            if (nodes[i].id == "adress") {
                                 parameters += "adressstring=null";
                             }
                         }
                     }
-                } 
-                
+                }
+
                 nodes = document.getElementById('listTransportsDiv').children;
-                for(var i=0; i<nodes.length; i+=1) {
-                    if(nodes[i].children[1].children[0].checked) {
-                        if(nodes[i].id == "car"){
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (nodes[i].children[1].children[0].checked) {
+                        if (nodes[i].id == "car") {
                             critCar = true;
                         }
-                        if(nodes[i].id == "bike"){
+                        if (nodes[i].id == "bike") {
                             critBike = true;
                         }
-                        if(nodes[i].id == "transport"){
+                        if (nodes[i].id == "transport") {
                             critTransport = true;
                         }
                         parameters += "&" + nodes[i].id + "=y";
                     } else {
                         parameters += "&" + nodes[i].id + "=n";
                     }
-                } 
-                
+                }
+
                 if (!triggerChecked) {
                     document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
                     DeleteAllSquares();
@@ -898,8 +909,8 @@
                     //alert(parameters);
                 }
             }
-            
-            
+
+
             function EnterPressed(textBox) {
                 //document.getElementById('searchButton').disabled = false;
                 if (event.keyCode == 13) {
@@ -908,71 +919,71 @@
                     document.getElementById('searchButton').focus();
                 }
             }
-            
-            
-            
+
+
+
             function GetSquaresRequest(parameters) {
                 var xmlHttpReq = false;
 
                 if (window.XMLHttpRequest) {
-                   xmlHttpReq = new XMLHttpRequest();
+                    xmlHttpReq = new XMLHttpRequest();
                 }
                 else if (window.ActiveXObject) {
                     xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
                 }
                 xmlHttpReq.open('GET', "getSquares" + parameters, true);
                 xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xmlHttpReq.onreadystatechange = function() {
+                xmlHttpReq.onreadystatechange = function () {
                     if (xmlHttpReq.readyState == 4) {
                         RefreshSquares(xmlHttpReq);
                     }
                 }
                 xmlHttpReq.send();
             }
-            
+
             function GetOneSquareRequest(parameters) {
                 var xmlHttpReq = false;
 
                 if (window.XMLHttpRequest) {
-                   xmlHttpReq = new XMLHttpRequest();
+                    xmlHttpReq = new XMLHttpRequest();
                 }
                 else if (window.ActiveXObject) {
                     xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
                 }
                 xmlHttpReq.open('GET', "getSquareById" + parameters, true);
                 xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xmlHttpReq.onreadystatechange = function() {
+                xmlHttpReq.onreadystatechange = function () {
                     if (xmlHttpReq.readyState == 4) {
                         RefreshSquareInfos(xmlHttpReq);
                     }
                 }
                 xmlHttpReq.send();
             }
-            
+
             function EnableMode() {
                 //document.getElementById('searchButton').disabled = false;
             }
-            
+
             function ClickSquare(event) {
                 var parameters = "?";
-                if(infoWindow != null) {
+                if (infoWindow != null) {
                     infoWindow.close();
                 }
-                
+
                 parameters += "atm=";
-                if(critAtm){
+                if (critAtm) {
                     parameters += critAtmSeuil;
                 } else {
                     parameters += "null";
                 }
                 parameters += "&supermarket=";
-                if(critSupermarket){
+                if (critSupermarket) {
                     parameters += critSupermarketSeuil;
                 } else {
                     parameters += "null";
                 }
                 parameters += "&adress=";
-                if(critAdress){
+                if (critAdress) {
                     parameters += critAdressSeuil;
                     parameters += "&adressstring=";
                     parameters += critAdressString;
@@ -982,72 +993,72 @@
                     parameters += "null";
                 }
                 parameters += "&car=";
-                if(critCar){
+                if (critCar) {
                     parameters += "y";
                 } else {
                     parameters += "n";
                 }
                 parameters += "&bike=";
-                if(critBike){
+                if (critBike) {
                     parameters += "y";
                 } else {
                     parameters += "n";
                 }
                 parameters += "&transport=";
-                if(critTransport){
+                if (critTransport) {
                     parameters += "y";
                 } else {
                     parameters += "n";
                 }
-                
+
                 /*
-                var nodes = document.getElementById('listCriteresDiv').children;
-                for(var i=0; i<nodes.length; i+=1) {
-                    if(i!=1 && i!=2) {
-                        if(!(parameters == "?")) parameters += "&";
-                        
-                        if(nodes[i].children[0].checked) {
-                            triggerChecked = true;
-                            parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
-                            if(nodes[i].id == "adress") {
-                                var adressString = nodes[i].children[6].value;
-                                parameters += "adressstring" + "=" + adressString;
-                            }
-                        } else {
-                            parameters += nodes[i].id + "=null";
-                            if(nodes[i].id == "adress") {
-                                parameters += "adressstring=null";
-                            }
-                        }
-                    }
-                } 
-                
-                nodes = document.getElementById('listTransportsDiv').children;
-                for(var i=0; i<nodes.length; i+=1) {
-                    if(nodes[i].children[1].children[0].checked) {
-                        parameters += "&" + nodes[i].id + "=y";
-                    } else {
-                        parameters += "&" + nodes[i].id + "=n";
-                    }
-                } 
-                */
-                
+                 var nodes = document.getElementById('listCriteresDiv').children;
+                 for(var i=0; i<nodes.length; i+=1) {
+                 if(i!=1 && i!=2) {
+                 if(!(parameters == "?")) parameters += "&";
+                 
+                 if(nodes[i].children[0].checked) {
+                 triggerChecked = true;
+                 parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
+                 if(nodes[i].id == "adress") {
+                 var adressString = nodes[i].children[6].value;
+                 parameters += "adressstring" + "=" + adressString;
+                 }
+                 } else {
+                 parameters += nodes[i].id + "=null";
+                 if(nodes[i].id == "adress") {
+                 parameters += "adressstring=null";
+                 }
+                 }
+                 }
+                 } 
+                 
+                 nodes = document.getElementById('listTransportsDiv').children;
+                 for(var i=0; i<nodes.length; i+=1) {
+                 if(nodes[i].children[1].children[0].checked) {
+                 parameters += "&" + nodes[i].id + "=y";
+                 } else {
+                 parameters += "&" + nodes[i].id + "=n";
+                 }
+                 } 
+                 */
+
                 var lat = event.latLng.lat();
                 var lng = event.latLng.lng();
-                
+
                 var north;
                 var south;
                 var east;
                 var west;
-                
-                for(var i=0; i<rectangles.length; i++) {
+
+                for (var i = 0; i < rectangles.length; i++) {
                     north = rectangles[i].getBounds().getNorthEast().lat();
                     south = rectangles[i].getBounds().getSouthWest().lat();
                     east = rectangles[i].getBounds().getNorthEast().lng();
                     west = rectangles[i].getBounds().getSouthWest().lng();
-                    if(lat < north && lat > south) {
-                        if(lng < east && lng > west) {
-                            if(i == selectedRectangle) {
+                    if (lat < north && lat > south) {
+                        if (lng < east && lng > west) {
+                            if (i == selectedRectangle) {
                                 HighlightRectangle(i, false);
                                 DeleteAllSelectedRectangleMarkers();
                                 selectedRectangle = -1;
@@ -1066,19 +1077,19 @@
                     }
                 }
             }
-            
-            
+
+
             function RefreshSquares(xmlHttpReq) {
                 var squares = xmlHttpReq.responseXML.getElementsByTagName("square");
-                
-                for (var i=0; i<squares.length; i++) {
+
+                for (var i = 0; i < squares.length; i++) {
                     var result = "";
                     rectanglesId[i] = xmlHttpReq.responseXML.getElementsByTagName("id")[i].childNodes[0].nodeValue;
                     var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
                     var lat = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
-                    
-                    if(rectangles.length != squares.length) {
+
+                    if (rectangles.length != squares.length) {
                         rectangles[i] = new google.maps.Rectangle({
                             strokeOpacity: 0,
                             fillOpacity: 0,
@@ -1089,16 +1100,16 @@
                                 north: lat + hauteur,
                                 south: lat,
                                 east: long + largeur,
-                                west: long 
+                                west: long
                             }
                         });
                         //map.event.addListener(rectangles[i], 'click', ClickSquare);
                         rectangles[i].addListener('click', ClickSquare);
                         //animationTab[i] = false;
-                    } 
-                        
+                    }
+
                     fillOpacity = opacity;
-                    strokeOpacity = opacity+0.05;
+                    strokeOpacity = opacity + 0.05;
 
                     fillColor = GetColorFromScore(score);
                     strokeColor = GetColorFromScore(score);
@@ -1108,38 +1119,38 @@
                         fillColor: fillColor,
                         fillOpacity: fillOpacity
                     });
-                       
+
                     /*
-                    if(i<50) {
-                        intervals[i] = setInterval(ChangeSquare, 5, score, i);
-                    } else {
-                        
-                        
-                        var triggerTimeOutLaunched = false;
-                        for(var coef=1; coef<100; coef++) {
-                            if(i < 50 * (coef+1) && i >= 50 * coef) {
-                                setTimeout(LaunchRemoteInterval, 140*coef, score, i);
-                                triggerTimeOutLaunched = true;
-                            }
-                        }
-                        if(triggerTimeOutLaunched == false) {
-                            setTimeout(LaunchRemoteInterval, 140*101, score, i);
-                        }
-                        
-                    }
-                    */
+                     if(i<50) {
+                     intervals[i] = setInterval(ChangeSquare, 5, score, i);
+                     } else {
+                     
+                     
+                     var triggerTimeOutLaunched = false;
+                     for(var coef=1; coef<100; coef++) {
+                     if(i < 50 * (coef+1) && i >= 50 * coef) {
+                     setTimeout(LaunchRemoteInterval, 140*coef, score, i);
+                     triggerTimeOutLaunched = true;
+                     }
+                     }
+                     if(triggerTimeOutLaunched == false) {
+                     setTimeout(LaunchRemoteInterval, 140*101, score, i);
+                     }
+                     
+                     }
+                     */
                 }
             }
-            
-            
+
+
             function LaunchRemoteInterval(score, i) {
                 intervals[i] = setInterval(ChangeSquare, 1, score, i);
             }
-            
-            
+
+
             function RefreshSquareInfos(xmlHttpReq) {
                 document.getElementById("squareInfosDiv").hidden = false;
-                
+
                 var walkTime;
                 var driveTime;
                 var result;
@@ -1148,14 +1159,15 @@
                 var lati;
                 var long;
                 var icon;
-                
-                if(!critCar) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+
+                if (!critCar)
+                    result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                 else {
                     driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
                     walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
-                    result = (walkTime > driveTime ? driveTime : walkTime) ;
+                    result = (walkTime > driveTime ? driveTime : walkTime);
                 }
-                result = Math.round(result/60);
+                result = Math.round(result / 60);
                 document.getElementById("supermarkerResultTime").innerHTML = result + " min";
                 score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[2].childNodes[0].nodeValue);
                 icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
@@ -1168,15 +1180,16 @@
                     map: map,
                     icon: 'http://maps.google.com/mapfiles/ms/icons/convienancestore.png'
                 });
-                
-                
-                if(!critCar) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+
+
+                if (!critCar)
+                    result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                 else {
                     driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
                     walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
-                    result = (walkTime > driveTime ? driveTime : walkTime) ;
+                    result = (walkTime > driveTime ? driveTime : walkTime);
                 }
-                result = Math.round(result/60) ;
+                result = Math.round(result / 60);
                 document.getElementById("atmResultTime").innerHTML = result + " min";
                 score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[2].childNodes[0].nodeValue);
                 icon = (score > 0 ? 'url(img/icon_atm.png)' : 'url(img/icon_atm_black.png)');
@@ -1189,39 +1202,39 @@
                     map: map,
                     icon: 'http://maps.google.com/mapfiles/ms/micons/euro.png'
                 });
-        
-                
-                
+
+
+
             }
-            
+
             function DeleteAllSelectedRectangleMarkers() {
-                if(markersSquareSelected != null) {
-                    for (var k=0; k<markersSquareSelected.length; k++) {
-                        if(markersSquareSelected[k] != null) {
+                if (markersSquareSelected != null) {
+                    for (var k = 0; k < markersSquareSelected.length; k++) {
+                        if (markersSquareSelected[k] != null) {
                             markersSquareSelected[k].setMap(null);
                             markersSquareSelected[k] = null;
                         }
                     }
                 }
             }
-            
+
             function DeleteAllSquares() {
-                for (var k=0; k<rectangles.length; k++) {
+                for (var k = 0; k < rectangles.length; k++) {
                     rectangles[k].setMap(null);
                     rectangles[k] = null;
                 }
                 rectangles = new Array;
             }
-            
+
             function HighlightRectangle(i, todo) {
                 var fillColor;
                 var strokeColor;
                 var strokeWeight;
                 var strokeOpacity;
                 var zIndex;
-                
-                if(i != -1) {
-                    if(todo) {
+
+                if (i != -1) {
+                    if (todo) {
                         strokeWeight = 4;
                         strokeOpacity = 1;
                         fillColor = "#FFFFFF";
@@ -1231,7 +1244,7 @@
                         zIndex = 5;
                     } else {
                         strokeWeight = 1;
-                        strokeOpacity = opacity+0.05;
+                        strokeOpacity = opacity + 0.05;
                         fillColor = selectedRectangleFillColor;
                         strokeColor = selectedRectangleStrokeColor;
                         zIndex = 0;
@@ -1245,99 +1258,99 @@
                     });
                 }
             }
-            
+
             /*
-            function ChangeSquare(score,i) {
-                if(animationTab[i] == false) {
-                    rectangles[i].setOptions({
-                        strokeColor: "#DDDDDD",
-                        strokeOpacity: "#DDDDDD",
-                        fillColor: "#DDDDDD",
-                        fillOpacity: "#DDDDDD"
-                    });
-                    animationTab[i] = true;
-                } else {
-                    fillOpacity = opacity;
-                    strokeOpacity = opacity+0.05;
+             function ChangeSquare(score,i) {
+             if(animationTab[i] == false) {
+             rectangles[i].setOptions({
+             strokeColor: "#DDDDDD",
+             strokeOpacity: "#DDDDDD",
+             fillColor: "#DDDDDD",
+             fillOpacity: "#DDDDDD"
+             });
+             animationTab[i] = true;
+             } else {
+             fillOpacity = opacity;
+             strokeOpacity = opacity+0.05;
+             
+             fillColor = GetColorFromScore(score);
+             strokeColor = GetColorFromScore(score);
+             rectangles[i].setOptions({
+             strokeColor: strokeColor,
+             strokeOpacity: strokeOpacity,
+             fillColor: fillColor,
+             fillOpacity: fillOpacity
+             });
+             animationTab[i] = false;
+             clearInterval(intervals[i]);
+             }
+             }
+             
+             function ChangeSquareOLD(score,i) {
+             var north = rectangles[i].getBounds().getNorthEast().lat();
+             var south = rectangles[i].getBounds().getSouthWest().lat();
+             var east = rectangles[i].getBounds().getNorthEast().lng();
+             var west = rectangles[i].getBounds().getSouthWest().lng();
+             
+             if(animationTab[i] == 0) {
+             north -= 0.0001;
+             south += 0.0001;
+             if(north > south) {
+             
+             rectangles[i].setOptions({
+             bounds: {
+             north:north,
+             south:south,
+             east:east,
+             west:west
+             }
+             });
+             } else {    
+             
+             var fillColor;
+             var strokeColor;
+             var fillOpacity;
+             var strokeOpacity;
+             
+             fillOpacity = opacity;
+             strokeOpacity = opacity+0.05;
+             
+             fillColor = GetColorFromScore(score);
+             strokeColor = GetColorFromScore(score);
+             rectangles[i].setOptions({
+             strokeColor: strokeColor,
+             strokeOpacity: strokeOpacity,
+             fillColor: fillColor,
+             fillOpacity: fillOpacity
+             });
+             animationTab[i] = 1;
+             }
+             } else {
+             north += 0.0001;
+             south -= 0.0001;
+             
+             var diff = (north-south) - (hauteur);
+             if(diff >= 0) {
+             north -= diff/2;
+             south += diff/2;
+             
+             animationTab[i] = 0;
+             clearInterval(intervals[i]);
+             }
+             rectangles[i].setOptions({
+             bounds: {
+             north:north,
+             south:south,
+             east:east,
+             west:west
+             }
+             });
+             }
+             }
+             */
 
-                    fillColor = GetColorFromScore(score);
-                    strokeColor = GetColorFromScore(score);
-                    rectangles[i].setOptions({
-                        strokeColor: strokeColor,
-                        strokeOpacity: strokeOpacity,
-                        fillColor: fillColor,
-                        fillOpacity: fillOpacity
-                    });
-                    animationTab[i] = false;
-                    clearInterval(intervals[i]);
-                }
-            }
-            
-            function ChangeSquareOLD(score,i) {
-                var north = rectangles[i].getBounds().getNorthEast().lat();
-                var south = rectangles[i].getBounds().getSouthWest().lat();
-                var east = rectangles[i].getBounds().getNorthEast().lng();
-                var west = rectangles[i].getBounds().getSouthWest().lng();
-                
-                if(animationTab[i] == 0) {
-                    north -= 0.0001;
-                    south += 0.0001;
-                    if(north > south) {
-                        
-                        rectangles[i].setOptions({
-                            bounds: {
-                                north:north,
-                                south:south,
-                                east:east,
-                                west:west
-                            }
-                        });
-                    } else {    
-                        
-                        var fillColor;
-                        var strokeColor;
-                        var fillOpacity;
-                        var strokeOpacity;
-                        
-                        fillOpacity = opacity;
-                        strokeOpacity = opacity+0.05;
 
-                        fillColor = GetColorFromScore(score);
-                        strokeColor = GetColorFromScore(score);
-                        rectangles[i].setOptions({
-                            strokeColor: strokeColor,
-                            strokeOpacity: strokeOpacity,
-                            fillColor: fillColor,
-                            fillOpacity: fillOpacity
-                        });
-                        animationTab[i] = 1;
-                    }
-                } else {
-                    north += 0.0001;
-                    south -= 0.0001;
-                    
-                    var diff = (north-south) - (hauteur);
-                    if(diff >= 0) {
-                        north -= diff/2;
-                        south += diff/2;
-                        
-                        animationTab[i] = 0;
-                        clearInterval(intervals[i]);
-                    }
-                    rectangles[i].setOptions({
-                        bounds: {
-                            north:north,
-                            south:south,
-                            east:east,
-                            west:west
-                        }
-                    });
-                }
-            }
-            */
-          
-            
-            
+
         </script>
         <form action="addOffer" method="post" enctype="multipart/form-data">
             <input type="text" name="address" value ="Addresse" />
@@ -1347,6 +1360,6 @@
             <input type="file" name="file"/>
             <input type="submit" />
         </form>
-        
+
     </body>
 </html>
