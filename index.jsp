@@ -159,19 +159,29 @@
                 font-weight: bold;
             }
             .boundMin{
-                margin-right: 44.5%;
+                margin-left: 14%;
             }
             .boundMiddle{
-                margin-right: 41%;
+                margin-left: 39%;
             }
             .boundMax{
+                margin-left: 34%;
             }
 
             .bound0{
-                margin-right: 20.3%;
+                margin-left: 14%;
             }
-            .boundNumber{
-                margin-right: 19%;
+            .bound5{
+                margin-left: 18.5%;
+            }
+            .bound10{
+                margin-left: 15.7%;
+            }
+            .bound15{
+                margin-left: 14.5%;
+            }
+            .bound20{
+                margin-left: 14.5%;
             }
 
 
@@ -259,8 +269,9 @@
                 background: #ddd;
 
             }
-            input[type=range]:focus {
+            input[type=range] {
                 outline: none;
+                width: 66%;
             }
 
             .cursorDisabled {
@@ -269,7 +280,7 @@
                 /*fix for FF unable to apply focus style bug */
                 border: 1px solid white;
                 /*required for proper track sizing in FF*/
-                width: 300px;
+                width: 250px;
                 float: right;
                 margin-top : 4px;
                 cursor: default;
@@ -447,10 +458,10 @@
                                 </div>
                                 <div class="boundValues">
                                     <span class="bound0">0</span>
-                                    <span class="boundNumber">5</span>
-                                    <span class="boundNumber">10</span>
-                                    <span class="boundNumber">15</span>
-                                    <span >20</span>
+                                    <span class="bound5">5</span>
+                                    <span class="bound10">10</span>
+                                    <span class="bound15">15</span>
+                                    <span class="bound20">20</span>
                                 </div>
                                 </br>
                                 <div id="supermarket" class="critereDiv">
