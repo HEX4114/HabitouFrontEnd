@@ -55,6 +55,9 @@
                 margin-top: 20px;
             }
 
+            #rechercheOffreDiv{
+                //margin-top: 500px;
+            }
             .commandBorder {
                 background-color: #fff;
                 border : 2px solid #fff;
@@ -79,6 +82,13 @@
             .modeTransportDiv{
                 float: right;
                 margin-left: 20px;
+                margin-bottom: 12px;
+                margin-top : 6px;
+            }
+
+            .modeRentBuyDiv{
+                float: left;
+                margin-left: 0px;
                 margin-bottom: 12px;
                 margin-top : 6px;
             }
@@ -275,6 +285,19 @@
             #titleCritere{
                 margin : 6px 0px 10px 5px;
             }
+
+            #minMaxButton{
+                border:solid 1px;
+                width: 18px;
+                height: 18px;
+                margin-right: 10px;
+                float:left;
+                cursor:pointer;
+            }
+
+            .targetZone { display: none; }
+            .targetOffer { display: none; }
+
             .themeCritereTitle {
                 margin : 6px 0px 6px 5px;
             }
@@ -355,145 +378,221 @@
 
         <div id="mapContainer">
         </div>
-        <div id="rechercheDiv">
-            <div id="rechercheBord" class="commandBorder">
-                <div id="rechercheInter" class="commandInner">
-                    <div id="titleCritere">
-                        <b>Critères de recherche :</b>
-                        </br>
-                    </div>
-                    <div id="transportsCritDiv">
-                        <div class="themeCritereTitle" id="transportsTitle">
-                            Moyens de transport :
-                        </div>
-                        <div id="listTransportsDiv">
-                            <div id="transport" class="modeTransportDiv" aria-label="En transports en commun">
-                                <div class="iconDiv iconTransit">
-                                </div>
-                                <div class="checkTransportDiv">
-                                    <input type="checkbox" id="transportCheck" onclick="EnableMode()"/><label for="transportCheck"></label>
-                                </div>
-                            </div>
-                            <div id="car" class="modeTransportDiv" aria-label="En voiture">
-                                <div class="iconDiv iconCar">
-                                </div>
-                                <div class="checkTransportDiv">
-                                    <input type="checkbox" id="carCheck" onclick="EnableMode()"/><label for="carCheck"></label>
-                                </div>
-                            </div>
-                            <div id="bike" class="modeTransportDiv" aria-label="À vélo">
-                                <div class="iconDiv iconBike">
-                                </div>
-                                <div class="checkTransportDiv">
-                                    <input type="checkbox" id="bikeCheck" onclick="EnableMode()"/><label for="bikeCheck"></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div></div>
-                    </br></br>
-                    <div class="themeCritereTitle">
-                        À moins de (distance en min) :
-                        </br>
-                    </div>
-                    <div class="boundValues">
-                        <span class="boundMin">0</span><span class="boundMiddle">50</span><span class="boundMax">100</span>
-                        </br>
-                    </div>
-                    </br>
-                    <div id="listCriteresDiv">
-                        <div id="adress" class="critereDiv">
-                            <input type="checkbox" id="critAdressCheck" onclick="EnableCritere(0)"/><label for="critAdressCheck"></label>
-                            <a class="critereName">Adresse </a>
-                            <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(0)" disabled>
-                            <a class="value">0</a>
+        <div id="recherches">
+            <div id="rechercheDiv">
+                <div id="rechercheBord" class="commandBorder">
+                    <div id="rechercheInter" class="commandInner">
+                        <div id="titleCritere">
+                            <button id="minMaxButton" onclick="toggle(document.querySelectorAll('.targetZone'))"></button>
+                            <b>Critères de recherche de zone</b>
                             </br>
-                            <input type="text" id="adressInput" class="inputText" onkeydown="EnterPressed(this)" disabled value="Adresse..."/>
+                        </div>
+                        <div class="targetZone">
+                            <div id="transportsCritDiv">
+                                <div class="themeCritereTitle" id="transportsTitle">
+                                    Moyens de transport :
+                                </div>
+                                <div id="listTransportsDiv">
+                                    <div id="transport" class="modeTransportDiv" aria-label="En transports en commun">
+                                        <div class="iconDiv iconTransit">
+                                        </div>
+                                        <div class="checkTransportDiv">
+                                            <input type="checkbox" id="transportCheck" onclick="EnableMode()"/><label for="transportCheck"></label>
+                                        </div>
+                                    </div>
+                                    <div id="car" class="modeTransportDiv" aria-label="En voiture">
+                                        <div class="iconDiv iconCar">
+                                        </div>
+                                        <div class="checkTransportDiv">
+                                            <input type="checkbox" id="carCheck" onclick="EnableMode()"/><label for="carCheck"></label>
+                                        </div>
+                                    </div>
+                                    <div id="bike" class="modeTransportDiv" aria-label="À vélo">
+                                        <div class="iconDiv iconBike">
+                                        </div>
+                                        <div class="checkTransportDiv">
+                                            <input type="checkbox" id="bikeCheck" onclick="EnableMode()"/><label for="bikeCheck"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div></div>
+                            </br></br>
+                            <div class="themeCritereTitle">
+                                À moins de (distance en min) :
+                                </br>
+                            </div>
+                            <div class="boundValues">
+                                <span class="boundMin">0</span><span class="boundMiddle">50</span><span class="boundMax">100</span>
+                                </br>
+                            </div>
+                            </br>
+                            <div id="listCriteresDiv">
+                                <div id="adress" class="critereDiv">
+                                    <input type="checkbox" id="critAddresseCheck" onclick="EnableCritere(0)"/><label for="critAddresseCheck"></label>
+                                    <a class="critereName">Adresse </a>
+                                    <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(0)" disabled>
+                                    <a class="value">0</a>
+                                    </br>
+                                    <input type="text" id="adressInput" class="inputText" onkeydown="EnterPressed(this)" disabled value="Adresse..."/>
 
+                                </div>
+                                <div class="boundValues">
+                                    <span class="bound0">0</span>
+                                    <span class="boundNumber">5</span>
+                                    <span class="boundNumber">10</span>
+                                    <span class="boundNumber">15</span>
+                                    <span >20</span>
+                                </div>
+                                </br>
+                                <div id="supermarket" class="critereDiv">
+                                    <input type="checkbox" id="crit1Check" onclick="EnableCritere(3)"/><label for="crit1Check"></label>
+                                    <a class="critereName">Supermarché</a>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
+                                    <a class="value">0</a>
+                                </div>
+                                <div id="school" class="critereDiv" hidden>
+                                    <input type="checkbox" id="crit2Check" onclick="EnableCritere(4)"/><label for="crit2Check"></label>
+                                    <a class="critereName">École</a>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
+                                    <a class="value">0</a>
+                                </div>
+                                <div id="transport" class="critereDiv" hidden>
+                                    <input type="checkbox" id="crit3Check" onclick="EnableCritere(5)"/><label for="crit3Check"></label>
+                                    <a class="critereName">Station de transport</a>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5)" disabled>
+                                    <a class="value">0</a>
+                                </div>
+                                <div id="atm" class="critereDiv">
+                                    <input type="checkbox" id="crit4Check" onclick="EnableCritere(6)"/><label for="crit4Check"></label>
+                                    <a class="critereName">Borne de retrait</a>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6)" disabled>
+                                    <a class="value">0</a>
+                                </div>
+                            </div>
+
+                            <button id="searchButton" type="button" onclick="ClickSearchButton(this)" class="button" > 
+                                Rechercher
+                            </button> 
+
+                            <div id="searchAlert">
+                            </div>
                         </div>
-                        <div class="boundValues">
-                            <span class="bound0">0</span>
-                            <span class="boundNumber">5</span>
-                            <span class="boundNumber">10</span>
-                            <span class="boundNumber">15</span>
-                            <span >20</span>
-                        </div>
-                        </br>
-                        <div id="supermarket" class="critereDiv">
-                            <input type="checkbox" id="crit1Check" onclick="EnableCritere(3)"/><label for="crit1Check"></label>
-                            <a class="critereName">Supermarché</a>
-                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
-                            <a class="value">0</a>
-                        </div>
-                        <div id="school" class="critereDiv" hidden>
-                            <input type="checkbox" id="crit2Check" onclick="EnableCritere(4)"/><label for="crit2Check"></label>
-                            <a class="critereName">École</a>
-                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
-                            <a class="value">0</a>
-                        </div>
-                        <div id="transport" class="critereDiv" hidden>
-                            <input type="checkbox" id="crit3Check" onclick="EnableCritere(5)"/><label for="crit3Check"></label>
-                            <a class="critereName">Station de transport</a>
-                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5)" disabled>
-                            <a class="value">0</a>
-                        </div>
-                        <div id="atm" class="critereDiv">
-                            <input type="checkbox" id="crit4Check" onclick="EnableCritere(6)"/><label for="crit4Check"></label>
-                            <a class="critereName">Borne de retrait</a>
-                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6)" disabled>
-                            <a class="value">0</a>
-                        </div>
+
                     </div>
-
-                    <button id="searchButton" type="button" onclick="ClickSearchButton(this)" class="button" > 
-                        Rechercher
-                    </button> 
-
-                    <div id="searchAlert">
-                    </div>
-
 
                 </div>
-
             </div>
-        </div>
-        <div id="squareInfosDiv" hidden>
-            <div id="resultBord" class="commandBorder">
-                <div id="resultInter" class="commandInner">
-                    <div id="titleResult">
-                        <b></b>
-                    </div>
-                    <div id="listInfosDiv">
-                        <div id="adressResultDiv" class="critereResultDiv" hidden>
-                            <div class="pastille" id="pastilleAdress"></div>
-                            <div class="critereNameInfos">Adresse</div>
-                            <div id="adressResultTime" class="resultInfos"></div>
+
+            <div id="rechercheOffreDiv">
+                <div id="rechercheBord" class="commandBorder">
+                    <div id="rechercheInter" class="commandInner">
+                        <div id="titleCritere">
+                            <button id="minMaxButton" onclick="toggle(document.querySelectorAll('.targetOffer'))"></button>
+                            <b>Critères de recherche d'appartement</b>
+                            </br>
                         </div>
-                        <div id="superMarketResultDiv" class="critereResultDiv">
-                            <div class="pastille" id="pastilleSupermarket"></div>
-                            <div class="critereNameInfos">Supermarché</div>
-                            <div id="supermarkerResultTime" class="resultInfos"></div>
+                        <div class="targetOffer">
+                            <div id="listCriteresDiv">
+                                <div id="listRentBuysDiv">
+                                    <div id="buy" class="modeRentBuyDiv" aria-label="Vendre">
+                                        <input type="checkbox" id="buyCheck" onclick="EnableOfferMode()"/><label for="buyCheck"></label>
+                                        <a class="critereName">Vendre</a>
+                                    </div>
+                                    <div id="rent" class="modeRentBuyDiv" aria-label="Louer">
+                                        <input type="checkbox" id="rentCheck" onclick="EnableOfferMode()"/><label for="rentCheck"></label>
+                                        <a class="critereName">Louer</a>
+                                    </div>
+                                </div>
+                                <div></div>
+                                </br></br>
+                                <div class="boundValues">
+                                    <span class="bound0">0</span>
+                                    <span class="boundNumber">5</span>
+                                    <span class="boundNumber">10</span>
+                                    <span class="boundNumber">15</span>
+                                    <span >20</span>
+                                </div>
+                                </br>
+                                <div id="rooms" class="critereDiv">
+                                    <input type="checkbox" id="crit1Check" onclick="EnableCritere(3)"/><label for="crit1Check"></label>
+                                    <a class="critereName">No. chambres</a>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
+                                    <a class="value">0</a>
+                                </div>
+                                <div id="floor" class="critereDiv">
+                                    <input type="checkbox" id="crit2Check" onclick="EnableCritere(4)"/><label for="crit2Check"></label>
+                                    <a class="critereName">No. étage</a>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
+                                    <a class="value">0</a>
+                                </div>
+                                <div class="boundValues">
+                                    <span class="bound0">0</span>
+                                    <span class="boundNumber">75</span>
+                                    <span class="boundNumber">150</span>
+                                    <span class="boundNumber">225</span>
+                                    <span >300</span>
+                                </div>
+                                </br>
+                                <div id="price" class="critereDiv">
+                                    <input type="checkbox" id="crit3Check" onclick="EnableCritere(5)"/><label for="crit3Check"></label>
+                                    <a class="critereName">Prix</a>
+                                    <input type="range" min="0" max="300000" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5)" disabled>
+                                    <a class="value">0</a>
+                                </div>
+                            </div>
+
+                            <button id="searchOfferButton" type="button" onclick="ClickSearchOfferButton(this)" class="button" > 
+                                Rechercher
+                            </button> 
+
+                            <div id="searchOfferAlert">
+                            </div>
                         </div>
-                        <div id="schoolResultDiv" class="critereResultDiv" hidden>
-                            <div class="pastille" id="pastilleSchool"></div>
-                            <div class="critereNameInfos">École</div>
-                            <div id="schoolResultTime" class="resultInfos"></div>
-                        </div>
-                        <div id="transportResultDiv" class="critereResultDiv" hidden>
-                            <div class="pastille" id="pastilleTransport"></div>
-                            <div class="critereNameInfos">Station de transport</div>
-                            <div id="transportResultTime" class="resultInfos"></div>
-                        </div>
-                        <div id="atmResultDiv" class="critereResultDiv">
-                            <div class="pastille" id="pastilleAtm"></div>
-                            <div class="critereNameInfos">Borne de retrait</div>
-                            <div id="atmResultTime" class="resultInfos"></div>
-                        </div>
+
                     </div>
 
                 </div>
             </div>
+            <div id="squareInfosDiv" hidden>
+                <div id="resultBord" class="commandBorder">
+                    <div id="resultInter" class="commandInner">
+                        <div id="titleResult">
+                            <b></b>
+                        </div>
+                        <div id="listInfosDiv">
+                            <div id="adressResultDiv" class="critereResultDiv" hidden>
+                                <div class="pastille" id="pastilleAdress"></div>
+                                <div class="critereNameInfos">Adresse</div>
+                                <div id="adressResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="superMarketResultDiv" class="critereResultDiv">
+                                <div class="pastille" id="pastilleSupermarket"></div>
+                                <div class="critereNameInfos">Supermarché</div>
+                                <div id="supermarkerResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="schoolResultDiv" class="critereResultDiv" hidden>
+                                <div class="pastille" id="pastilleSchool"></div>
+                                <div class="critereNameInfos">École</div>
+                                <div id="schoolResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="transportResultDiv" class="critereResultDiv" hidden>
+                                <div class="pastille" id="pastilleTransport"></div>
+                                <div class="critereNameInfos">Station de transport</div>
+                                <div id="transportResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="atmResultDiv" class="critereResultDiv">
+                                <div class="pastille" id="pastilleAtm"></div>
+                                <div class="critereNameInfos">Borne de retrait</div>
+                                <div id="atmResultTime" class="resultInfos"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
+
 
         <div id="opacityDiv">
             <div id="resultBord" class="commandBorder">
@@ -520,11 +619,11 @@
 
             var critSupermarket;
             var critAtm;
-            var critAdress;
+            var critAddresse;
             var critSupermarketSeuil;
             var critAtmSeuil;
-            var critAdressSeuil;
-            var critAdressString;
+            var critAddresseSeuil;
+            var critAddresseString;
             var critCar;
             var critBike;
             var critTransport;
@@ -631,10 +730,10 @@
                 var container = document.getElementById("mapContainer");
                 map = new google.maps.Map(container, myOptions);
 
-                map.controls[google.maps.ControlPosition.TOP_LEFT].push(rechercheDiv);
+                map.controls[google.maps.ControlPosition.TOP_LEFT].push(recherches);
 
-                var resultDiv = document.getElementById("squareInfosDiv");
-                map.controls[google.maps.ControlPosition.LEFT_TOP].push(resultDiv);
+                //var resultDiv = document.getElementById("squareInfosDiv");
+                //map.controls[google.maps.ControlPosition.LEFT_TOP].push(resultDiv);
 
                 /*
                  setIndicatorColor("star1", 1, 1);
@@ -648,6 +747,7 @@
                 var opacityControl = new OpacityControl(opacityControlDiv, map);
                 opacityControlDiv.index = 1;
                 map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(opacityControlDiv);
+
 
                 GetOffers();
                 map.addListener('click', function () {
@@ -826,10 +926,42 @@
                 }
             }
 
+            var open = true;
+            var heightChecked = false;
+            var initHeight = 0;
+            var intval = null;
+
+            //document.getElementById('minMaxButton').addEventListener('click', function () {
+            //    toggle(document.querySelectorAll('.target'));
+            //});
+
+            function toggle(elements, specifiedDisplay) {
+                var element, index;
+
+                elements = elements.length ? elements : [elements];
+                for (index = 0; index < elements.length; index++) {
+                    element = elements[index];
+
+                    if (isElementHidden(element)) {
+                        element.style.display = '';
+
+                        // If the element is still hidden after removing the inline display
+                        if (isElementHidden(element)) {
+                            element.style.display = specifiedDisplay || 'block';
+                        }
+                    } else {
+                        element.style.display = 'none';
+                    }
+                }
+                function isElementHidden(element) {
+                    return window.getComputedStyle(element, null).getPropertyValue('display') === 'none';
+                }
+            }
+
             function ClickSearchButton(button) {
                 critAtm = false;
                 critSupermarket = false;
-                critAdress = false;
+                critAddresse = false;
                 critCar = false;
                 critBike = false;
                 critTransport = false;
@@ -861,9 +993,9 @@
                             if (nodes[i].id == "adress") {
                                 var adressString = nodes[i].children[6].value;
                                 parameters += "adressstring" + "=" + adressString;
-                                critAdress = true;
-                                critAdressSeuil = nodes[i].children[3].value * 60;
-                                critAdressString = nodes[i].children[6].value;
+                                critAddresse = true;
+                                critAddresseSeuil = nodes[i].children[3].value * 60;
+                                critAddresseString = nodes[i].children[6].value;
                             }
                             if (nodes[i].id == "supermarket") {
                                 critSupermarket = true;
@@ -910,6 +1042,89 @@
                 }
             }
 
+            function ClickSearchOfferButton(button) {
+                critPrice = false;
+                critRooms = false;
+                critFloor = false;
+
+                critRent = false;
+                critBuy = false;
+
+                button.disabled = true;
+                //document.getElementById("squareInfosDiv").hidden = true;
+                //HighlightRectangle(selectedRectangle, false);
+                //DeleteAllSelectedRectangleMarkers();
+                //selectedRectangle = -1;
+                //if (infoWindow != null) {
+                //    infoWindow.close();
+                //}
+
+                setTimeout(function (button) {
+                    button.disabled = false;
+                }, 1400, button);
+                var parameters = "?";
+                var triggerChecked = false;
+
+                var nodes = document.getElementById('listCriteresOffreDiv').children;
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (i != 1 && i != 2) {
+                        if (!(parameters == "?"))
+                            parameters += "&";
+
+                        if (nodes[i].children[0].checked) {
+                            triggerChecked = true;
+                            parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
+                            if (nodes[i].id == "adress") {
+                                var adressString = nodes[i].children[6].value;
+                                parameters += "adressstring" + "=" + adressString;
+                                critAddresse = true;
+                                critAddresseSeuil = nodes[i].children[3].value * 60;
+                                critAddresseString = nodes[i].children[6].value;
+                            }
+                            if (nodes[i].id == "supermarket") {
+                                critSupermarket = true;
+                                critSupermarketSeuil = nodes[i].children[3].value * 60;
+                            }
+                            if (nodes[i].id == "atm") {
+                                critAtm = true;
+                                critAtmSeuil = nodes[i].children[3].value * 60;
+                            }
+                        } else {
+                            parameters += nodes[i].id + "=null";
+                            if (nodes[i].id == "adress") {
+                                parameters += "adressstring=null";
+                            }
+                        }
+                    }
+                }
+
+                nodes = document.getElementById('listTransportsDiv').children;
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (nodes[i].children[1].children[0].checked) {
+                        if (nodes[i].id == "car") {
+                            critCar = true;
+                        }
+                        if (nodes[i].id == "bike") {
+                            critBike = true;
+                        }
+                        if (nodes[i].id == "transport") {
+                            critTransport = true;
+                        }
+                        parameters += "&" + nodes[i].id + "=y";
+                    } else {
+                        parameters += "&" + nodes[i].id + "=n";
+                    }
+                }
+
+                if (!triggerChecked) {
+                    document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
+                    DeleteAllSquares();
+                } else {
+                    document.getElementById('searchAlert').innerHTML = "";
+                    GetSquaresRequest(parameters);
+                    //alert(parameters);
+                }
+            }
 
             function EnterPressed(textBox) {
                 //document.getElementById('searchButton').disabled = false;
@@ -983,10 +1198,10 @@
                     parameters += "null";
                 }
                 parameters += "&adress=";
-                if (critAdress) {
-                    parameters += critAdressSeuil;
+                if (critAddresse) {
+                    parameters += critAddresseSeuil;
                     parameters += "&adressstring=";
-                    parameters += critAdressString;
+                    parameters += critAddresseString;
                 } else {
                     parameters += "null";
                     parameters += "&adressstring=";
