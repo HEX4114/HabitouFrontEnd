@@ -50,6 +50,7 @@
                 width: 101%;
                 height: 88%;
                 z-index: 1;
+                position: relative;
             }
             
             #rechercheDiv{
@@ -348,6 +349,197 @@
             
             
             
+            .cssload-thecube {
+                    width: 73px;
+                    height: 73px;
+                    margin: 0 auto;
+                    margin-top: 49px;
+                    position: relative;
+                    transform: rotateZ(45deg);
+                            -o-transform: rotateZ(45deg);
+                            -ms-transform: rotateZ(45deg);
+                            -webkit-transform: rotateZ(45deg);
+                            -moz-transform: rotateZ(45deg);
+            }
+            .cssload-thecube .cssload-cube {
+                    position: relative;
+                    transform: rotateZ(45deg);
+                            -o-transform: rotateZ(45deg);
+                            -ms-transform: rotateZ(45deg);
+                            -webkit-transform: rotateZ(45deg);
+                            -moz-transform: rotateZ(45deg);
+            }
+            .cssload-thecube .cssload-cube {
+                    float: left;
+                    width: 50%;
+                    height: 50%;
+                    position: relative;
+                    transform: scale(1.1);
+                            -o-transform: scale(1.1);
+                            -ms-transform: scale(1.1);
+                            -webkit-transform: scale(1.1);
+                            -moz-transform: scale(1.1);
+            }
+            .cssload-thecube .cssload-cube:before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgb(65,175,142);
+                    animation: cssload-fold-thecube 2.76s infinite linear both;
+                            -o-animation: cssload-fold-thecube 2.76s infinite linear both;
+                            -ms-animation: cssload-fold-thecube 2.76s infinite linear both;
+                            -webkit-animation: cssload-fold-thecube 2.76s infinite linear both;
+                            -moz-animation: cssload-fold-thecube 2.76s infinite linear both;
+                    transform-origin: 100% 100%;
+                            -o-transform-origin: 100% 100%;
+                            -ms-transform-origin: 100% 100%;
+                            -webkit-transform-origin: 100% 100%;
+                            -moz-transform-origin: 100% 100%;
+            }
+            .cssload-thecube .cssload-c2 {
+                    transform: scale(1.1) rotateZ(90deg);
+                            -o-transform: scale(1.1) rotateZ(90deg);
+                            -ms-transform: scale(1.1) rotateZ(90deg);
+                            -webkit-transform: scale(1.1) rotateZ(90deg);
+                            -moz-transform: scale(1.1) rotateZ(90deg);
+            }
+            .cssload-thecube .cssload-c3 {
+                    transform: scale(1.1) rotateZ(180deg);
+                            -o-transform: scale(1.1) rotateZ(180deg);
+                            -ms-transform: scale(1.1) rotateZ(180deg);
+                            -webkit-transform: scale(1.1) rotateZ(180deg);
+                            -moz-transform: scale(1.1) rotateZ(180deg);
+            }
+            .cssload-thecube .cssload-c4 {
+                    transform: scale(1.1) rotateZ(270deg);
+                            -o-transform: scale(1.1) rotateZ(270deg);
+                            -ms-transform: scale(1.1) rotateZ(270deg);
+                            -webkit-transform: scale(1.1) rotateZ(270deg);
+                            -moz-transform: scale(1.1) rotateZ(270deg);
+            }
+            .cssload-thecube .cssload-c2:before {
+                background-color: #4C9990; 
+                    animation-delay: 0.35s;
+                            -o-animation-delay: 0.35s;
+                            -ms-animation-delay: 0.35s;
+                            -webkit-animation-delay: 0.35s;
+                            -moz-animation-delay: 0.35s;
+            }
+            .cssload-thecube .cssload-c3:before {
+                background-color: #588292; 
+                    animation-delay: 0.69s;
+                            -o-animation-delay: 0.69s;
+                            -ms-animation-delay: 0.69s;
+                            -webkit-animation-delay: 0.69s;
+                            -moz-animation-delay: 0.69s;
+            }
+            .cssload-thecube .cssload-c4:before {
+                background-color: #695F96;
+                    animation-delay: 1.04s;
+                            -o-animation-delay: 1.04s;
+                            -ms-animation-delay: 1.04s;
+                            -webkit-animation-delay: 1.04s;
+                            -moz-animation-delay: 1.04s;
+            }
+
+
+
+            @keyframes cssload-fold-thecube {
+                    0%, 10% {
+                            transform: perspective(136px) rotateX(-180deg);
+                            opacity: 0;
+                    }
+                    25%,
+                                            75% {
+                            transform: perspective(136px) rotateX(0deg);
+                            opacity: 1;
+                    }
+                    90%,
+                                            100% {
+                            transform: perspective(136px) rotateY(180deg);
+                            opacity: 0;
+                    }
+            }
+
+            @-o-keyframes cssload-fold-thecube {
+                    0%, 10% {
+                            -o-transform: perspective(136px) rotateX(-180deg);
+                            opacity: 0;
+                    }
+                    25%,
+                                            75% {
+                            -o-transform: perspective(136px) rotateX(0deg);
+                            opacity: 1;
+                    }
+                    90%,
+                                            100% {
+                            -o-transform: perspective(136px) rotateY(180deg);
+                            opacity: 0;
+                    }
+            }
+
+            @-ms-keyframes cssload-fold-thecube {
+                    0%, 10% {
+                            -ms-transform: perspective(136px) rotateX(-180deg);
+                            opacity: 0;
+                    }
+                    25%,
+                                            75% {
+                            -ms-transform: perspective(136px) rotateX(0deg);
+                            opacity: 1;
+                    }
+                    90%,
+                                            100% {
+                            -ms-transform: perspective(136px) rotateY(180deg);
+                            opacity: 0;
+                    }
+            }
+
+            @-webkit-keyframes cssload-fold-thecube {
+                    0%, 10% {
+                            -webkit-transform: perspective(136px) rotateX(-180deg);
+                            opacity: 0;
+                    }
+                    25%,
+                                            75% {
+                            -webkit-transform: perspective(136px) rotateX(0deg);
+                            opacity: 1;
+                    }
+                    90%,
+                                            100% {
+                            -webkit-transform: perspective(136px) rotateY(180deg);
+                            opacity: 0;
+                    }
+            }
+
+            @-moz-keyframes cssload-fold-thecube {
+                    0%, 10% {
+                            -moz-transform: perspective(136px) rotateX(-180deg);
+                            opacity: 0;
+                    }
+                    25%,
+                                            75% {
+                            -moz-transform: perspective(136px) rotateX(0deg);
+                            opacity: 1;
+                    }
+                    90%,
+                                            100% {
+                            -moz-transform: perspective(136px) rotateY(180deg);
+                            opacity: 0;
+                    }
+            }
+            
+            #loadingSquare{
+                position: absolute;
+                top: 45%;
+                left: 48%;
+                z-index: 30;
+            }
+            
+            
         </style>
     </head>
     <body onload="GetMap()">
@@ -465,7 +657,7 @@
                         <b></b>
                     </div>
                     <div id="listInfosDiv">
-                        <div id="adressResultDiv" class="critereResultDiv" hidden>
+                        <div id="adressResultDiv" class="critereResultDiv">
                             <div class="pastille" id="pastilleAdress"></div>
                             <div class="critereNameInfos">Adresse</div>
                             <div id="adressResultTime" class="resultInfos"></div>
@@ -503,7 +695,12 @@
             </div>
         </div>
         
-        <div id="requestAdressResult"></div>
+        <div class="cssload-thecube" id="loadingSquare" hidden>
+            <div class="cssload-cube cssload-c1"></div>
+            <div class="cssload-cube cssload-c2"></div>
+            <div class="cssload-cube cssload-c4"></div>
+            <div class="cssload-cube cssload-c3"></div>
+        </div>
         
         <script type="text/javascript">
             var largeur = 0.00075;
@@ -836,8 +1033,8 @@
                 if(infoWindow != null) {
                     infoWindow.close();
                 }
+                document.getElementById("loadingSquare").hidden = false;
                 
-                setTimeout(function(button){button.disabled = false;}, 1400, button);
                 var parameters = "?";
                 var triggerChecked = false;
                 
@@ -850,8 +1047,8 @@
                             triggerChecked = true;
                             parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
                             if(nodes[i].id == "adress") {
-                                var adressString = nodes[i].children[6].value.replace(" ", "%20");
-                                parameters += "adressstring" + "=" + adressString;
+                                var adressString = nodes[i].children[6].value.replace(/ /g, "+");
+                                parameters += "&adressstring" + "=" + adressString;
                                 critAdress = true;
                                 critAdressSeuil = nodes[i].children[3].value * 60;
                                 critAdressString = nodes[i].children[6].value;
@@ -867,7 +1064,7 @@
                         } else {
                             parameters += nodes[i].id + "=null";
                             if(nodes[i].id == "adress") {
-                                parameters += "adressstring=null";
+                                parameters += "&adressstring=null";
                             }
                         }
                     }
@@ -893,9 +1090,12 @@
                 
                 if (!triggerChecked) {
                     document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
+                    document.getElementById("loadingSquare").hidden = true;
+                    button.disabled = false;
                     DeleteAllSquares();
                 } else {
                     document.getElementById('searchAlert').innerHTML = "";
+                    //document.getElementById('requestAdressResult').innerHTML = parameters;
                     GetSquaresRequest(parameters);
                     //alert(parameters);
                 }
@@ -1015,37 +1215,6 @@
                     parameters += "n";
                 }
                 
-                /*
-                var nodes = document.getElementById('listCriteresDiv').children;
-                for(var i=0; i<nodes.length; i+=1) {
-                    if(i!=1 && i!=2) {
-                        if(!(parameters == "?")) parameters += "&";
-                        
-                        if(nodes[i].children[0].checked) {
-                            triggerChecked = true;
-                            parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
-                            if(nodes[i].id == "adress") {
-                                var adressString = nodes[i].children[6].value;
-                                parameters += "adressstring" + "=" + adressString;
-                            }
-                        } else {
-                            parameters += nodes[i].id + "=null";
-                            if(nodes[i].id == "adress") {
-                                parameters += "adressstring=null";
-                            }
-                        }
-                    }
-                } 
-                
-                nodes = document.getElementById('listTransportsDiv').children;
-                for(var i=0; i<nodes.length; i+=1) {
-                    if(nodes[i].children[1].children[0].checked) {
-                        parameters += "&" + nodes[i].id + "=y";
-                    } else {
-                        parameters += "&" + nodes[i].id + "=n";
-                    }
-                } 
-                */
                 
                 var lat = event.latLng.lat();
                 var lng = event.latLng.lng();
@@ -1069,7 +1238,7 @@
                                 document.getElementById("squareInfosDiv").hidden = true;
                             } else {
                                 parameters += "&id=" + rectanglesId[i];
-                                //document.getElementById("parameters").innerHTML = parameters;
+                                //document.getElementById("requestAdressResult").innerHTML = parameters;
                                 HighlightRectangle(selectedRectangle, false);
                                 DeleteAllSelectedRectangleMarkers();
                                 selectedRectangle = i;
@@ -1085,6 +1254,7 @@
             
             function RefreshSquares(xmlHttpReq) {
                 var squares = xmlHttpReq.responseXML.getElementsByTagName("square");
+                var firstTime = false;
                 
                 for (var i=0; i<squares.length; i++) {
                     var result = "";
@@ -1094,6 +1264,7 @@
                     var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
                     
                     if(rectangles.length != squares.length) {
+                        firstTime = true;
                         rectangles[i] = new google.maps.Rectangle({
                             strokeOpacity: 0,
                             fillOpacity: 0,
@@ -1123,27 +1294,19 @@
                         fillColor: fillColor,
                         fillOpacity: fillOpacity
                     });
-                       
-                    /*
-                    if(i<50) {
-                        intervals[i] = setInterval(ChangeSquare, 5, score, i);
-                    } else {
-                        
-                        
-                        var triggerTimeOutLaunched = false;
-                        for(var coef=1; coef<100; coef++) {
-                            if(i < 50 * (coef+1) && i >= 50 * coef) {
-                                setTimeout(LaunchRemoteInterval, 140*coef, score, i);
-                                triggerTimeOutLaunched = true;
-                            }
-                        }
-                        if(triggerTimeOutLaunched == false) {
-                            setTimeout(LaunchRemoteInterval, 140*101, score, i);
-                        }
-                        
-                    }
-                    */
                 }
+                if(firstTime) {
+                    setTimeout(function(){ 
+                        document.getElementById("loadingSquare").hidden = true; 
+                        document.getElementById("searchButton").disabled = false;
+                    }, 1500);
+                } else {
+                    setTimeout(function(){ 
+                        document.getElementById("searchButton").disabled = false;
+                        document.getElementById("loadingSquare").hidden = true; 
+                    }, 800);
+                }
+                
             }
             
             
@@ -1164,6 +1327,26 @@
                 var long;
                 var icon;
                 
+                if(!critCar) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                else {
+                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                    result = (walkTime > driveTime ? driveTime : walkTime) ;
+                }
+                result = Math.round(result/60) ;
+                document.getElementById("adressResultTime").innerHTML = result + " min";
+                score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[2].childNodes[0].nodeValue);
+                icon = (score > 0 ? 'url(img/icon_adress.png)' : 'url(img/icon_adress_black.png)');
+                document.getElementById("pastilleAdress").style.backgroundImage = icon;
+                document.getElementById("pastilleAdress").style.backgroundColor = GetColorFromScore(score);
+                lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
+                long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
+                markersSquareSelected[0] = new google.maps.Marker({
+                    position: new google.maps.LatLng(lati, long),
+                    map: map
+                });
+                
+                
                 if(!critCar) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                 else {
                     driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
@@ -1178,7 +1361,7 @@
                 document.getElementById("pastilleSupermarket").style.backgroundColor = GetColorFromScore(score);
                 lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
                 long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
-                markersSquareSelected[0] = new google.maps.Marker({
+                markersSquareSelected[1] = new google.maps.Marker({
                     position: new google.maps.LatLng(lati, long),
                     map: map,
                     icon: 'http://maps.google.com/mapfiles/ms/icons/convienancestore.png'
@@ -1199,7 +1382,7 @@
                 document.getElementById("pastilleAtm").style.backgroundColor = GetColorFromScore(score);
                 lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
                 long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
-                markersSquareSelected[1] = new google.maps.Marker({
+                markersSquareSelected[2] = new google.maps.Marker({
                     position: new google.maps.LatLng(lati, long),
                     map: map,
                     icon: 'http://maps.google.com/mapfiles/ms/micons/euro.png'
