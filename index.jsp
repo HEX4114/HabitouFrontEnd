@@ -1143,11 +1143,11 @@
                                 critAtm = true;
                                 critAtmSeuil = nodes[i].children[3].value * 60;
                             }
-                        } else {
-                            parameters += nodes[i].id + "=null";
-                            if (nodes[i].id == "adress") {
-                                parameters += "adressstring=null";
-                            }
+//                        } else {
+//                            parameters += nodes[i].id + "=null";
+//                            if (nodes[i].id == "adress") {
+//                                parameters += "adressstring=null";
+//                            }
                         }
                     }
                 }
