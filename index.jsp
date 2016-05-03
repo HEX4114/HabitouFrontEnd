@@ -399,7 +399,7 @@
                 <div id="rechercheBord" class="commandBorder">
                     <div id="rechercheInter" class="commandInner">
                         <div id="titleCritere">
-                            <button id="minMaxButton" onclick="toggle(document.querySelectorAll('.targetZone'))"></button>
+                            <button id="minMaxButton" onclick="ToggleCriteria(document.querySelectorAll('.targetZone'))"></button>
                             <b>Critères de recherche de zone</b>
                         </div>
                         <div class="targetZone">
@@ -505,7 +505,7 @@
                 <div id="rechercheBord" class="commandBorder">
                     <div id="rechercheInter" class="commandInner">
                         <div id="titleCritere">
-                            <button id="minMaxButton" onclick="toggle(document.querySelectorAll('.targetOffer'))"></button>
+                            <button id="minMaxButton" onclick="ToggleCriteria(document.querySelectorAll('.targetOffer'))"></button>
                             <b>Critères de recherche d'appartement</b>
                             </br>
                         </div>
@@ -513,11 +513,11 @@
                             <div id="listCriteresOffreDiv">
                                 <div id="listRentBuysDiv">
                                     <div id="buy" class="modeRentBuyDiv" aria-label="Vendre">
-                                        <input type="checkbox" id="buyCheck" checked/><label for="buyCheck"></label>
+                                        <input type="checkbox" id="buyCheck" onclick="EnablePriceBuyCheck(this)" checked/><label for="buyCheck"></label>
                                         <a class="critereName">Vendre</a>
                                     </div>
                                     <div id="rent" class="modeRentBuyDiv" aria-label="Louer">
-                                        <input type="checkbox" id="rentCheck" checked/><label for="rentCheck"></label>
+                                        <input type="checkbox" id="rentCheck" onclick="EnablePriceRentCheck(this)" checked/><label for="rentCheck"></label>
                                         <a class="critereName">Louer</a>
                                     </div>
                                 </div>
@@ -540,15 +540,26 @@
                                     <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled" oninput="GrabCursor(5, 2)" disabled>
                                     <a class="value">0</a>
                                 </div>
-                                <div class="boundValues">
+                                <div id="boundRent" class="boundValues">
                                     <span class="boundMin">0</span>
-                                    <span class="boundMiddle">150</span>
-                                    <span class="boundMax">300</span>
+                                    <span class="boundMiddle">500</span>
+                                    <span class="boundMax">1000</span>
                                 </div>
-                                <div id="price" class="critereDiv">
-                                    <input type="checkbox" id="priceCheck" onclick="EnableCritere(7, 2)"/><label for="priceCheck"></label>
-                                    <a class="critereName">Prix</a>
-                                    <input type="range" min="0" max="300" step="1" value="150" class="cursorDisabled" oninput="GrabCursor(7, 2)" disabled>
+                                <div id="priceRent" class="critereDiv">
+                                    <input type="checkbox" id="priceRentCheck" onclick="EnableCritere(7, 2)"/><label for="priceRentCheck"></label>
+                                    <a class="critereName">Prix location</a>
+                                    <input type="range" min="0" max="1000" step="10" value="500" class="cursorDisabled" oninput="GrabCursor(7, 2)" disabled>
+                                    <a class="value">0</a>
+                                </div>
+                                <div id="boundBuy" class="boundValues">
+                                    <span class="boundMin">0</span>
+                                    <span class="boundMiddle">250</span>
+                                    <span class="boundMax">500</span>
+                                </div>
+                                <div id="priceBuy" class="critereDiv">
+                                    <input type="checkbox" id="priceBuyCheck" onclick="EnableCritere(9, 2)"/><label for="priceBuyCheck"></label>
+                                    <a class="critereName">Prix achat</a>
+                                    <input type="range" min="0" max="500" step="10" value="250" class="cursorDisabled" oninput="GrabCursor(9, 2)" disabled>
                                     <a class="value">0</a>
                                 </div>
                             </div>
@@ -673,7 +684,7 @@
                     opacity = opacity + 0.1;
                     if (opacity > 1)
                         opacity = 0.95;
-                    updateSquaresOpacity();
+                    UpdateSquaresOpacity();
                 });
 
                 var controlLabelUI = document.createElement('div');
@@ -719,11 +730,11 @@
                     opacity = opacity - 0.1;
                     if (opacity < 0)
                         opacity = 0.05;
-                    updateSquaresOpacity();
+                    UpdateSquaresOpacity();
                 });
             }
 
-            function updateSquaresOpacity() {
+            function UpdateSquaresOpacity() {
                 for (var i = 0; i < rectangles.length; i++) {
                     rectangles[i].setOptions({
                         strokeOpacity: opacity + 0.05,
@@ -749,11 +760,11 @@
                 //map.controls[google.maps.ControlPosition.LEFT_TOP].push(resultDiv);
 
                 /*
-                 setIndicatorColor("star1", 1, 1);
-                 setIndicatorColor("star2", 1.4, 1);
-                 setIndicatorColor("star3", 1.8, 1);
-                 setIndicatorColor("star4", 2.2, 1);
-                 setIndicatorColor("star5", 2.6, 1);
+                 SetIndicatorColor("star1", 1, 1);
+                 SetIndicatorColor("star2", 1.4, 1);
+                 SetIndicatorColor("star3", 1.8, 1);
+                 SetIndicatorColor("star4", 2.2, 1);
+                 SetIndicatorColor("star5", 2.6, 1);
                  */
 
                 var opacityControlDiv = document.createElement('div');
@@ -877,7 +888,7 @@
                 }
             }
 
-            function clearOverlays() {
+            function ClearOverlays() {
                 for (var i = 0; i < markers.length; i++) {
                     markers[i].setMap(null);
                 }
@@ -885,26 +896,26 @@
             }
 
             /* Coloring squares */
-            function setIndicatorColor(id, distance, distanceMax) {
+            function SetIndicatorColor(id, distance, distanceMax) {
                 var r = (distance >= distanceMax) ? (distance >= 2 * distanceMax) ? 255 : (distance - distanceMax) / distanceMax * 255 : 0;
                 var g = (distance >= 2 * distanceMax) ? (distance >= 3 * distanceMax) ? 0 : (1 - (distance - distanceMax) / (2 * distanceMax)) * 255 : 255;
                 var elem = document.getElementById(id);
-                elem.style.color = rgbToHex(r, g, 0);
+                elem.style.color = RgbToHex(r, g, 0);
             }
 
             function GetColorFromScore(score) {
                 //score = 1 - score;
                 if (score < 0) {
-                    return rgbToHex(255, 255, 255);
+                    return RgbToHex(255, 255, 255);
                 }
                 var r = (score >= 0.5) ? 131 + (1 - score) * 94 : 225;
                 var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
                 //var r = (score <= 0.5) ? (score)/0.5*255 : 255; 
                 //var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
-                return rgbToHex(r, g, 0);
+                return RgbToHex(r, g, 0);
             }
 
-            function rgbToHex(r, g, b) {
+            function RgbToHex(r, g, b) {
                 return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
             }
 
@@ -957,8 +968,28 @@
                 }
             }
 
+            function EnablePriceRentCheck(checkbox) {
+                if (checkbox.checked) {
+                    document.getElementById("priceRentCheck").disabled = false;
+                } else {
+                    document.getElementById("priceRentCheck").checked = false;
+                    document.getElementById("priceRentCheck").disabled = true;
+                }
+                EnableCritere(7, 2);
+            }
+
+            function EnablePriceBuyCheck(checkbox) {
+                if (checkbox.checked) {
+                    document.getElementById("priceBuyCheck").disabled = false;
+                } else {
+                    document.getElementById("priceBuyCheck").checked = false;
+                    document.getElementById("priceBuyCheck").disabled = true;
+                }
+                EnableCritere(9, 2);
+            }
+
             /* Toggle criteres windows */
-            function toggle(elements, specifiedDisplay) {
+            function ToggleCriteria(elements, specifiedDisplay) {
                 var element, index;
 
                 elements = elements.length ? elements : [elements];
@@ -1006,7 +1037,7 @@
 
                 nodes = document.getElementById('listCriteresOffreDiv').children;
                 for (var i = 0; i < nodes.length; i += 1) {
-                    if (i == 4 || i == 5 || i == 7) {
+                    if (i == 4 || i == 5 || i == 7 || i == 9) {
                         if (nodes[i].children[0].checked) {
                             triggerChecked = true;
                             parameters += "&";
@@ -1017,9 +1048,10 @@
 
                 if (!triggerChecked) {
                     document.getElementById('searchOfferAlert').innerHTML = "Aucun critère n'est sélectionné !";
-                    clearOverlays();
+                    ClearOverlays();
                 } else {
                     document.getElementById('searchOfferAlert').innerHTML = "";
+                    console.log(parameters);
                     GetOffersRequest(parameters);
                 }
             }
@@ -1037,7 +1069,7 @@
                 xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlHttpReq.onreadystatechange = function () {
                     if (xmlHttpReq.readyState == 4) {
-                        clearOverlays();
+                        ClearOverlays();
                         GetMarkers(xmlHttpReq);
                     }
                 }
@@ -1354,11 +1386,9 @@
                 }
             }
 
-
             function LaunchRemoteInterval(score, i) {
                 intervals[i] = setInterval(ChangeSquare, 1, score, i);
             }
-
 
             function RefreshSquareInfos(xmlHttpReq) {
                 document.getElementById("squareInfosDiv").hidden = false;
@@ -1561,8 +1591,6 @@
              }
              */
 
-
-
             /*fillColor = GetColorFromScore(score);
              strokeColor = GetColorFromScore(score);
              rectangles[i].setOptions({
@@ -1573,7 +1601,6 @@
              });
              animationTab[i] = false;
              clearInterval(intervals[i]);*/
-
 
             function ChangeSquareOLD(score, i) {
                 var north = rectangles[i].getBounds().getNorthEast().lat();
@@ -1690,47 +1717,46 @@
 
         </script>
 
-        <!-- Modal -->
         <button type="button" class="btn btn-default btn-lg" id="myBtn">Créer une offre</button>
-        
+
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
+            <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header" style="padding:35px 50px;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4><span class="glyphicon glyphicon-list-alt"></span> Ajouter une offre</h4>
-              </div>
-              <div class="modal-body" style="padding:40px 50px;">
-                <form id="addOfferForm" role="form" action="addOffer" method="post" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <p><span class="glyphicon glyphicon-home"></span> Adresse : </p>
-                    <input type="text" class="form-control" id="address" name="address" placeholder="Enter correct address">
-                  </div>
-                  <div class="form-group">
-                    <p><span class="glyphicon glyphicon-link"></span> Lien vers l'offre : </p>
-                    <input type="text" class="form-control" id="link" name="link" placeholder="Enter link">
-                  </div>
-                  <div class="form-group">
-                    <p><span class="glyphicon glyphicon-euro"></span> Prix : </p>
-                    <input type="text" class="form-control" id="price" name="price" placeholder="Enter price">
-                  </div>
-                  <div class="form-group">
-                    <p><span class="glyphicon glyphicon-transfer"></span> Type de contrat : </p>
-                    <input type="text" class="form-control" id="type" name="type" placeholder="Enter type (location, buy)">
-                  </div>
-                  <div class="form-group">
-                    <p><span class="glyphicon glyphicon-file"></span> Image : </p>
-                    <input type="file" class="form-control" id="file" name="file" placeholder="Enter file to upload">
-                  </div>
-                    <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
-                </form>
-              </div>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:35px 50px;">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4><span class="glyphicons glyphicons-building"></span> Ajouter une offre</h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <form id="addOfferForm" role="form" action="addOffer" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="address"><span class="glyphicons glyphicons-global"></span> Address</label>
+                                <input type="text" class="form-control" id="address" name="address" placeholder="Enter correct address">
+                            </div>
+                            <div class="form-group">
+                                <label for="link"><span class="glyphicons glyphicons-link"></span> Link to offer</label>
+                                <input type="text" class="form-control" id="link" name="link" placeholder="Enter link">
+                            </div>
+                            <div class="form-group">
+                                <label for="price"><span class="glyphicons glyphicons-fees-payments"></span> Price </label>
+                                <input type="text" class="form-control" id="price" name="price" placeholder="Enter price">
+                            </div>
+                            <div class="form-group">
+                                <label for="type"><span class="glyphicons glyphicons-mixed-buildings"></span> Type </label>
+                                <input type="text" class="form-control" id="type" name="type" placeholder="Enter type (location, buy)">
+                            </div>
+                            <div class="form-group">
+                                <label for="file"><span class="glyphicons glyphicons-file-plus"></span> Image to upload </label>
+                                <input type="file" class="form-control" id="file" name="file" placeholder="Enter file to upload">
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Ajouter</button>
+                        </form>
+                    </div>
+                </div>
+
             </div>
-
-          </div>
         </div>
     </body>
 </html>
