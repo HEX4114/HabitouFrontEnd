@@ -1853,12 +1853,13 @@
                 var data = (formdata !== null) ? formdata : $form.serialize();
                 var address = $('#address').val();
                 var price = $('#price').val();
-                var type = $('#type').val();
                 var link = $('#link').val();
+                var size = $('#size').val();
+                
                  
                 // Je vérifie une première fois pour ne pas lancer la requête HTTP
                 // si je sais que mon PHP renverra une erreur
-                if(address === '' || price === '' || link === '' || type === '') {
+                if(address === '' || price === '' || link === '') {
                     alert('Les champs doivent êtres remplis');
                     return;
                 } 
@@ -1912,14 +1913,14 @@
                   <div class="form-group">
                     <div class="floating-box">
                       <p><span class="glyphicon glyphicon-transfer"></span> Type de contrat : </p>
-                      <select class="selectpicker">
+                      <select class="selectpicker" name="type" id="selectType">
                           <option>Location</option>
                           <option>Achat</option>
                       </select>
                     </div>
                     <div class="floating-box" style=" margin-left: 10%;">
                       <p><span class="glyphicon glyphicon-th-large"></span> Nombre de pièces : </p>
-                      <select class="selectpicker">
+                      <select class="selectpicker" name="nbroom" id="selectNumberRoom">
                           <option>1</option>
                           <option>2</option>
                           <option>3</option>
@@ -1932,9 +1933,9 @@
                           <option>10</option>
                       </select>
                     </div>
-                    <div class="floating-box" style=" margin-left: 10%;">
+                    <div class="floating-box"  style=" margin-left: 10%;">
                       <p><span class="glyphicon glyphicon-arrow-up"></span> N° étage : </p>
-                      <select class="selectpicker">
+                      <select class="selectpicker" name="numfloor" id="selectFloor">
                           <option>0</option>
                           <option>1</option>
                           <option>2</option>
@@ -1951,7 +1952,7 @@
                   </div>
                   <div class="form-group">
                     <p><span class="glyphicon glyphicon-resize-full"></span> Taille(en mètre carré) : </p>
-                    <input type="number" class="form-control" id="taille" name="taille" placeholder="Enter size">
+                    <input type="number" class="form-control" id="size" name="size" placeholder="Enter size">
                   </div>
                   <div class="form-group">
                     <p><span class="glyphicon glyphicon-file"></span> Image : </p>
