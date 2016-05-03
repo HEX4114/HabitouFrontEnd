@@ -785,11 +785,11 @@
                                 <div id="listRentBuysDiv">
                                     <div id="buy" class="modeRentBuyDiv" aria-label="Vendre">
                                         <input class="critCheck" type="checkbox" id="buyCheck" onclick="EnablePriceBuyCheck(this)" checked/><label class="labelChek" for="buyCheck"></label>
-                                        <span class="critereName">Vendre</span>
+                                        <span class="critereName">achat</span>
                                     </div>
                                     <div id="rent" class="modeRentBuyDiv" aria-label="Louer">
                                         <input class="critCheck" type="checkbox" id="rentCheck" onclick="EnablePriceRentCheck(this)" checked/><label class="labelChek" for="rentCheck"></label>
-                                        <span class="critereName">Louer</span>
+                                        <span class="critereName">location</span>
                                     </div>
                                 </div>
                                 </br>
@@ -1096,7 +1096,7 @@
                     var longi = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
                     var lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var typeOffer = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
-                    if (typeOffer === 'vendre') {
+                    if (typeOffer === "Vente") {
                         markers[i] = new google.maps.Marker({
                             position: new google.maps.LatLng(lati, longi),
                             map: map,
@@ -2054,7 +2054,7 @@
                       <p><span class="glyphicon glyphicon-transfer"></span> Type de contrat : </p>
                       <select class="selectpicker" name="type" id="selectType">
                           <option>Location</option>
-                          <option>Achat</option>
+                          <option>Vente</option>
                       </select>
                     </div>
                     <div class="floating-box" style=" margin-left: 10%;">
