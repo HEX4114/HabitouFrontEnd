@@ -447,6 +447,9 @@
                             -webkit-animation-delay: 1.04s;
                             -moz-animation-delay: 1.04s;
             }
+            .floating-box {
+                display: inline-block;
+            }
             @keyframes cssload-fold-thecube {
                     0%, 10% {
                             transform: perspective(136px) rotateX(-180deg);
@@ -1903,12 +1906,52 @@
                     <input type="text" class="form-control" id="link" name="link" placeholder="Enter link">
                   </div>
                   <div class="form-group">
-                    <p><span class="glyphicon glyphicon-euro"></span> Prix : </p>
-                    <input type="text" class="form-control" id="price" name="price" placeholder="Enter price">
+                    <p><span class="glyphicon glyphicon-euro"></span> Prix (en euros/mois si l'offre est une location, en euros sinon) : </p>
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter price">
                   </div>
                   <div class="form-group">
-                    <p><span class="glyphicon glyphicon-transfer"></span> Type de contrat : </p>
-                    <input type="text" class="form-control" id="type" name="type" placeholder="Enter type (location, buy)">
+                    <div class="floating-box">
+                      <p><span class="glyphicon glyphicon-transfer"></span> Type de contrat : </p>
+                      <select class="selectpicker">
+                          <option>Location</option>
+                          <option>Achat</option>
+                      </select>
+                    </div>
+                    <div class="floating-box" style=" margin-left: 10%;">
+                      <p><span class="glyphicon glyphicon-th-large"></span> Nombre de pièces : </p>
+                      <select class="selectpicker">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                          <option>9</option>
+                          <option>10</option>
+                      </select>
+                    </div>
+                    <div class="floating-box" style=" margin-left: 10%;">
+                      <p><span class="glyphicon glyphicon-arrow-up"></span> N° étage : </p>
+                      <select class="selectpicker">
+                          <option>0</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                          <option>9</option>
+                          <option>10</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <p><span class="glyphicon glyphicon-resize-full"></span> Taille(en mètre carré) : </p>
+                    <input type="number" class="form-control" id="taille" name="taille" placeholder="Enter size">
                   </div>
                   <div class="form-group">
                     <p><span class="glyphicon glyphicon-file"></span> Image : </p>
