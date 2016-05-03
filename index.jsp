@@ -897,8 +897,8 @@
                 }
                 var r = (score >= 0.5) ? 131 + (1 - score) * 94 : 225;
                 var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
-                //var r = (score <= 0.5) ? (score)/0.5*255 : 255; 
-                //var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
+                var r = (score >= 0.5) ? (1-score)/0.5*255 : 255; 
+                var g = (score >= 0.5) ? 255 : score/0.5*255;
                 return rgbToHex(r, g, 0);
             }
 
