@@ -785,11 +785,11 @@
                                 <div id="listRentBuysDiv">
                                     <div id="buy" class="modeRentBuyDiv" aria-label="Vendre">
                                         <input class="critCheck" type="checkbox" id="buyCheck" onclick="EnablePriceBuyCheck(this)" checked/><label class="labelChek" for="buyCheck"></label>
-                                        <span class="critereName">Vente</span>
+                                        <span class="critereName">achat</span>
                                     </div>
                                     <div id="rent" class="modeRentBuyDiv" aria-label="Louer">
                                         <input class="critCheck" type="checkbox" id="rentCheck" onclick="EnablePriceRentCheck(this)" checked/><label class="labelChek" for="rentCheck"></label>
-                                        <span class="critereName">Location</span>
+                                        <span class="critereName">location</span>
                                     </div>
                                 </div>
                                 </br>
