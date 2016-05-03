@@ -698,7 +698,7 @@
                                 </div>
                                 <div id="doctor" class="critereDiv">
                                     <input class="critCheck" type="checkbox" id="crit3Check" onclick="EnableCritereZone(5)"/><label class="labelChek" for="crit3Check"></label>
-                                    <a class="critereName">Docteur</a>
+                                    <span class="critereName">Docteur</span>
                                     <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5, 1)" disabled>
                                     <span class="value">0</span>
                                 </div>
