@@ -14,7 +14,6 @@
         
         <style type="text/css">
             @font-face { font-family: AR DESTINE; src: url('ARDESTINE.ttf'); }
-
             html {
                 height:100%;
                 display:block;
@@ -46,19 +45,15 @@
                 z-index: 1;
                 flex-grow: 1;
             }
-
             save{
                 background-image: linear-gradient(120deg, #00946A, #5C0079);
                 background-color: #A1C643;
             }
-
             
-
             #rechercheDiv{
                 margin-top: 20px;
                 width: 425px;
             }
-
             .commandBorder {
                 background-color: #fff;
                 border : 2px solid #fff;
@@ -68,7 +63,6 @@
                 margin-left : 22px;
                 text-align: left;
             }
-
             .commandInner {
                 color : rgb(25,25,25);
                 font-family : Roboto,Arial,sans-serif;
@@ -76,7 +70,6 @@
                 padding-left : 5px;
                 padding-right : 5px;
             }
-
             #transportsTitle {
                 float: left;
             }
@@ -86,7 +79,6 @@
                 margin-bottom: 12px;
                 margin-top : 6px;
             }
-
             .modeRentBuyDiv{
                 float: left;
                 margin-left: 0px;
@@ -116,7 +108,6 @@
                 float: right;
                 vertical-align: middle;
             }
-
             .inputText {
                 font : inherit;
                 font-size : 15px;
@@ -136,7 +127,6 @@
                 background-color : #f0f0f0;
                 box-shadow: 0px 0px 0px 0px #000000 inset;
             }
-
             .value {
                 color : #777777;
                 font-family : Arial;
@@ -150,7 +140,6 @@
                 visibility: hidden;
                 display: block;
             }
-
             .boundValues{
                 color : #777777;
                 font-family : Arial;
@@ -168,7 +157,6 @@
             .boundMax{
                 margin-left: 34%;
             }
-
             .bound0{
                 margin-left: 14%;
             }
@@ -184,8 +172,6 @@
             .bound20{
                 margin-left: 14.5%;
             }
-
-
             input[type="checkbox"].critCheck {
                 cursor: pointer;
                 -webkit-appearance: none;
@@ -232,7 +218,6 @@
                 opacity: 1;
                 border-color: #B9DB48;
             }
-
             .critereDiv{
                 margin: 0px 0px 8px 0px;
             }
@@ -267,13 +252,11 @@
             }
             .cursorEnabled:active::-webkit-slider-thumb {
                 background: #ddd;
-
             }
             input[type=range] {
                 outline: none;
                 width: 66%;
             }
-
             .cursorDisabled {
                 /*removes default webkit styles*/
                 -webkit-appearance: none;
@@ -294,19 +277,14 @@
             .cursorDisabled::-webkit-slider-thumb {
                 visibility: hidden;
             }
-
             #titleCritere{
                 margin : 6px 0px 6px 5px;
             }
-
-
             .targetZone { display: none; }
             .targetOffer { display: none; }
-
             .themeCritereTitle {
                 margin : 6px 0px 6px 5px;
             }
-
             .button {
                 margin : 4px 0px 5px 0px;
                 width : 100%;
@@ -325,7 +303,6 @@
                 border : solid 2px #9f9f9f;
                 cursor: default;
             }
-
             #searchAlert {
                 color : red;
                 font-size : 12px;
@@ -333,15 +310,12 @@
                 background-color:#f8dcdc;
                 margin-bottom : 2px;
             }
-
             #squareInfosDiv {
                 width: 100%;
             }
-
             #titleResult {
                 width: 100%;
             }
-
             .resultInfos {
                 display: inline-block;
                 text-align: right;
@@ -350,18 +324,15 @@
                 margin-top: 4px;
                 vertical-align: top;
             }
-
             .critereResultDiv {
                 margin: 4px 0px 4px 0px;
             }
-
             .critereNameInfos{
                 display: inline-block;
                 width: 30%;
                 margin-top: 4px;
                 vertical-align: top;
             }
-
             .pastille{
                 width: 24px;
                 height: 24px;
@@ -476,9 +447,6 @@
                             -webkit-animation-delay: 1.04s;
                             -moz-animation-delay: 1.04s;
             }
-
-
-
             @keyframes cssload-fold-thecube {
                     0%, 10% {
                             transform: perspective(136px) rotateX(-180deg);
@@ -495,7 +463,6 @@
                             opacity: 0;
                     }
             }
-
             @-o-keyframes cssload-fold-thecube {
                     0%, 10% {
                             -o-transform: perspective(136px) rotateX(-180deg);
@@ -512,7 +479,6 @@
                             opacity: 0;
                     }
             }
-
             @-ms-keyframes cssload-fold-thecube {
                     0%, 10% {
                             -ms-transform: perspective(136px) rotateX(-180deg);
@@ -529,7 +495,6 @@
                             opacity: 0;
                     }
             }
-
             @-webkit-keyframes cssload-fold-thecube {
                     0%, 10% {
                             -webkit-transform: perspective(136px) rotateX(-180deg);
@@ -546,7 +511,6 @@
                             opacity: 0;
                     }
             }
-
             @-moz-keyframes cssload-fold-thecube {
                     0%, 10% {
                             -moz-transform: perspective(136px) rotateX(-180deg);
@@ -646,7 +610,7 @@
                 <div id="rechercheBord" class="commandBorder">
                     <div id="rechercheInter" class="commandInner">
                         <div id="titleCritere">
-                            <input type="checkbox" id="minMaxButton" onclick="toggle(document.querySelectorAll('.targetZone'))" class="displayButton" >
+                            <input type="checkbox" id="minMaxButton" onclick="ToggleCriteria(document.querySelectorAll('.targetZone'))" class="displayButton" >
                             <div class="displayTitle">Chercher un quartier</div>
                         </div>
                         <div class="targetZone">
@@ -659,21 +623,21 @@
                                         <div class="iconDiv iconTransit">
                                         </div>
                                         <div class="checkTransportDiv">
-                                            <input class="critCheck" type="checkbox" id="transportCheck" onclick="EnableMode()"/><label class="labelChek" for="transportCheck"></label>
+                                            <input class="critCheck" type="checkbox" id="transportCheck" /><label class="labelChek" for="transportCheck"></label>
                                         </div>
                                     </div>
                                     <div id="car" class="modeTransportDiv" >
                                         <div class="iconDiv iconCar">
                                         </div>
                                         <div class="checkTransportDiv">
-                                            <input class="critCheck" type="checkbox" id="carCheck" onclick="EnableMode()"/><label class="labelChek" for="carCheck"></label>
+                                            <input class="critCheck" type="checkbox" id="carCheck" /><label class="labelChek" for="carCheck"></label>
                                         </div>
                                     </div>
                                     <div id="bike" class="modeTransportDiv" >
                                         <div class="iconDiv iconBike">
                                         </div>
                                         <div class="checkTransportDiv">
-                                            <input class="critCheck" type="checkbox" id="bikeCheck" onclick="EnableMode()"/><label class="labelChek" for="bikeCheck"></label>
+                                            <input class="critCheck" type="checkbox" id="bikeCheck" /><label class="labelChek" for="bikeCheck"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -691,9 +655,9 @@
                             </br>
                             <div id="listCriteresDiv">
                                 <div id="adress" class="critereDiv">
-                                    <input class="critCheck" type="checkbox" id="critAddresseCheck" onclick="EnableCritere(0)"/><label class="labelChek" for="critAddresseCheck"></label>
+                                    <input class="critCheck" type="checkbox" id="critAddresseCheck" onclick="EnableCritereZone(0)"/><label class="labelChek" for="critAddresseCheck"></label>
                                     <span class="critereName">Adresse </span>
-                                    <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(0)" disabled>
+                                    <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(0, 1)" disabled>
                                     <span class="value">0</span>
                                     </br>
                                     <input type="text" id="adressInput" class="inputText" onkeydown="EnterPressed(this)" disabled value="Adresse..."/>
@@ -708,27 +672,27 @@
                                 </div>
                                 </br>
                                 <div id="supermarket" class="critereDiv">
-                                    <input class="critCheck" type="checkbox" id="crit1Check" onclick="EnableCritere(3)"/><label class="labelChek" for="crit1Check"></label>
+                                    <input class="critCheck" type="checkbox" id="crit1Check" onclick="EnableCritereZone(3)"/><label class="labelChek" for="crit1Check"></label>
                                     <span class="critereName">Supermarché</span>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3, 1)" disabled>
                                     <span class="value">0</span>
                                 </div>
                                 <div id="school" class="critereDiv" hidden>
-                                    <input class="critCheck" type="checkbox" id="crit2Check" onclick="EnableCritere(4)"/><label class="labelChek" for="crit2Check"></label>
+                                    <input class="critCheck" type="checkbox" id="crit2Check" onclick="EnableCritereZone(4)"/><label class="labelChek" for="crit2Check"></label>
                                     <span class="critereName">École</span>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4, 1)" disabled>
                                     <span class="value">0</span>
                                 </div>
                                 <div id="transport" class="critereDiv" hidden>
-                                    <input class="critCheck" type="checkbox" id="crit3Check" onclick="EnableCritere(5)"/><label class="labelChek" for="crit3Check"></label>
+                                    <input class="critCheck" type="checkbox" id="crit3Check" onclick="EnableCritereZone(5)"/><label class="labelChek" for="crit3Check"></label>
                                     <span class="critereName">Station de transport</span>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5)" disabled>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5, 1)" disabled>
                                     <span class="value">0</span>
                                 </div>
                                 <div id="atm" class="critereDiv">
-                                    <input class="critCheck" type="checkbox" id="crit4Check" onclick="EnableCritere(6)"/><label class="labelChek" for="crit4Check"></label>
+                                    <input class="critCheck" type="checkbox" id="crit4Check" onclick="EnableCritereZone(6)"/><label class="labelChek" for="crit4Check"></label>
                                     <span class="critereName">Borne de retrait</span>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6)" disabled>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6, 1)" disabled>
                                     <span class="value">0</span>
                                 </div>
                             </div>
@@ -750,55 +714,60 @@
                 <div id="rechercheBord" class="commandBorder">
                     <div id="rechercheInter" class="commandInner">
                         <div id="titleCritere">
-                            <input type="checkbox" id="minMaxButton" onclick="toggle(document.querySelectorAll('.targetOffer'))" class="displayButton" >
+                            <input type="checkbox" id="minMaxButton" onclick="ToggleCriteria(document.querySelectorAll('.targetOffer'))" class="displayButton" >
                             <div class="displayTitle">Offres immobilières</div>
                         </div>
                         <div class="targetOffer">
-                            <div id="listCriteresDiv">
+                            <div id="listCriteresOffreDiv">
                                 <div id="listRentBuysDiv">
                                     <div id="buy" class="modeRentBuyDiv" aria-label="Vendre">
-                                        <input class="critCheck" type="checkbox" id="buyCheck" onclick="EnableOfferMode()"/><label class="labelChek" for="buyCheck"></label>
+                                        <input class="critCheck" type="checkbox" id="buyCheck" onclick="EnablePriceBuyCheck(this)" checked/><label class="labelChek" for="buyCheck"></label>
                                         <span class="critereName">Vendre</span>
                                     </div>
                                     <div id="rent" class="modeRentBuyDiv" aria-label="Louer">
-                                        <input class="critCheck" type="checkbox" id="rentCheck" onclick="EnableOfferMode()"/><label class="labelChek" for="rentCheck"></label>
+                                        <input class="critCheck" type="checkbox" id="rentCheck" onclick="EnablePriceRentCheck(this)" checked/><label class="labelChek" for="rentCheck"></label>
                                         <span class="critereName">Louer</span>
                                     </div>
                                 </div>
-                                <div></div>
-                                </br></br>
+                                </br>
                                 <div class="boundValues">
-                                    <span class="bound0">0</span>
-                                    <span class="boundNumber">5</span>
-                                    <span class="boundNumber">10</span>
-                                    <span class="boundNumber">15</span>
-                                    <span >20</span>
+                                    <span class="boundMin">0</span>
+                                    <span class="boundMiddle">5</span>
+                                    <span class="boundMax">10+</span>
                                 </div>
                                 </br>
                                 <div id="rooms" class="critereDiv">
-                                    <input class="critCheck" type="checkbox" id="crit5Check" onclick="EnableCritere(7)"/><label class="labelChek" for="crit5Check"></label>
+                                    <input class="critCheck" type="checkbox" id="roomCheck" onclick="EnableCritereOffers(4)"/><label class="labelChek" for="roomCheck"></label>
                                     <span class="critereName">No. chambres</span>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
+                                    <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled" oninput="GrabCursor(4, 2)" disabled>
                                     <span class="value">0</span>
                                 </div>
                                 <div id="floor" class="critereDiv">
-                                    <input class="critCheck" type="checkbox" id="crit6Check" onclick="EnableCritere(8)"/><label class="labelChek" for="crit6Check"></label>
+                                    <input class="critCheck" type="checkbox" id="floorCheck" onclick="EnableCritereOffers(5)"/><label class="labelChek" for="floorCheck"></label>
                                     <span class="critereName">No. étage</span>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
+                                    <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled" oninput="GrabCursor(5, 2)" disabled>
                                     <span class="value">0</span>
                                 </div>
-                                <div class="boundValues">
-                                    <span class="bound0">0</span>
-                                    <span class="boundNumber">75</span>
-                                    <span class="boundNumber">150</span>
-                                    <span class="boundNumber">225</span>
-                                    <span >300</span>
+                                <div id="boundRent" class="boundValues">
+                                    <span class="boundMin">0</span>
+                                    <span class="boundMiddle">500</span>
+                                    <span class="boundMax">1000</span>
                                 </div>
-                                </br>
-                                <div id="price" class="critereDiv">
-                                    <input class="critCheck" type="checkbox" id="crit7Check" onclick="EnableCritere(9)"/><label class="labelChek" for="crit7Check"></label>
-                                    <span class="critereName">Prix</span>
-                                    <input type="range" min="0" max="300000" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5)" disabled>
+                                <div id="priceRent" class="critereDiv">
+                                    <input class="critCheck" type="checkbox" id="priceRentCheck" onclick="EnableCritereOffers(7)"/><label class="labelChek" for="priceRentCheck"></label>
+                                    <span class="critereName">Prix location</span>
+                                    <input type="range" min="0" max="1000" step="10" value="500" class="cursorDisabled" oninput="GrabCursor(7, 2)" disabled>
+                                    <span class="value">0</span>
+                                </div>
+                                <div id="boundBuy" class="boundValues">
+                                    <span class="boundMin">0</span>
+                                    <span class="boundMiddle">250</span>
+                                    <span class="boundMax">500</span>
+                                </div>
+                                <div id="priceBuy" class="critereDiv">
+                                    <input class="critCheck" type="checkbox" id="priceBuyCheck" onclick="EnableCritereOffers(9)"/><label class="labelChek" for="priceBuyCheck"></label>
+                                    <span class="critereName">Prix achat</span>
+                                    <input type="range" min="0" max="500" step="10" value="250" class="cursorDisabled" oninput="GrabCursor(9, 2)" disabled>
                                     <span class="value">0</span>
                                 </div>
                             </div>
@@ -815,6 +784,8 @@
 
                 </div>
             </div>
+			
+			
             <div id="squareInfosDiv" hidden>
                 <div id="resultBord" class="commandBorder">
                     <div id="resultInter" class="commandInner">
@@ -853,7 +824,12 @@
             </div>
         </div>
         
-
+		<div id="opacityDiv">
+            <div id="resultBord" class="commandBorder">
+                <div id="resultInter" class="commandInner">
+                </div>
+            </div>
+        </div>
 
         
         <div class="cssload-thecube" id="loadingSquare" hidden>
@@ -871,13 +847,11 @@
             var animationTab = new Array;
             var intervals = new Array;
             var opacity = 0.45;
-
             var selectedRectangle = -1;
             var selectedRectangleFillColor;
             var selectedRectangleStrokeColor;
             var markersSquareSelected = new Array;
             var infoWindow;
-
             var critSupermarket;
             var critAtm;
             var critAddress;
@@ -888,7 +862,7 @@
             var critCar;
             var critBike;
             var critTransport;
-
+			var markers = [];
             function OpacityControl(controlDiv, map) {
                 // Set CSS for the control border.
                 var controlUpUI = document.createElement('div');
@@ -902,7 +876,6 @@
                 controlUpUI.style.width = '30px';
                 controlUpUI.title = 'Click to increase opacity';
                 controlDiv.appendChild(controlUpUI);
-
                 // Set CSS for the control interior.
                 var controlUpText = document.createElement('div');
                 //controlUpText.setAttribute("class", "iconDiv iconCar");
@@ -915,20 +888,17 @@
                 controlUpText.innerHTML = '&#x02C4';
                 controlUpText.setAttribute("class", "democlass");
                 controlUpUI.appendChild(controlUpText);
-
                 // Setup the click event listeners.
                 controlUpUI.addEventListener('click', function () {
                     opacity = opacity + 0.1;
                     if (opacity > 1)
                         opacity = 0.95;
-                    updateSquaresOpacity();
+                    UpdateSquaresOpacity();
                 });
-
                 var controlLabelUI = document.createElement('div');
                 controlLabelUI.style.marginRight = '10px';
                 controlLabelUI.style.textAlign = 'center';
                 controlDiv.appendChild(controlLabelUI);
-
                 // Set CSS for the control interior.
                 var controlLabelText = document.createElement('div');
                 controlLabelText.style.color = 'rgb(25,25,25)';
@@ -937,7 +907,6 @@
                 controlLabelText.style.lineHeight = '30px';
                 controlLabelText.innerHTML = 'Opacity';
                 controlLabelUI.appendChild(controlLabelText);
-
                 var controlDownUI = document.createElement('div');
                 controlDownUI.style.backgroundColor = '#fff';
                 controlDownUI.style.border = '2px solid #fff';
@@ -950,7 +919,6 @@
                 controlDownUI.style.width = '30px';
                 controlDownUI.title = 'Click to decrease opacity';
                 controlDiv.appendChild(controlDownUI);
-
                 // Set CSS for the control interior.
                 var controlDownText = document.createElement('div');
                 controlDownText.style.color = 'rgb(25,25,25)';
@@ -961,17 +929,15 @@
                 controlDownText.style.paddingRight = '2px';
                 controlDownText.innerHTML = '&#x02C5';
                 controlDownUI.appendChild(controlDownText);
-
                 // Setup the click event listeners: simply set the map to Chicago.
                 controlDownUI.addEventListener('click', function () {
                     opacity = opacity - 0.1;
                     if (opacity < 0)
                         opacity = 0.05;
-                    updateSquaresOpacity();
+                    UpdateSquaresOpacity();
                 });
             }
-
-            function updateSquaresOpacity() {
+            function UpdateSquaresOpacity() {
                 for (var i = 0; i < rectangles.length; i++) {
                     rectangles[i].setOptions({
                         strokeOpacity: opacity + 0.05,
@@ -979,7 +945,8 @@
                     });
                 }
             }
-
+			
+			
             function GetMap() {
                 var origin = new google.maps.LatLng(45.760, 4.850);
                 var myOptions = {
@@ -990,18 +957,12 @@
                 };
                 var container = document.getElementById("mapContainer");
                 map = new google.maps.Map(container, myOptions);
-
                 map.controls[google.maps.ControlPosition.LEFT_TOP].push(recherches);
-
-                //var resultDiv = document.getElementById("squareInfosDiv");
-                //map.controls[google.maps.ControlPosition.LEFT_TOP].push(resultDiv);
-
+				
                 var opacityControlDiv = document.createElement('div');
                 var opacityControl = new OpacityControl(opacityControlDiv, map);
                 opacityControlDiv.index = 1;
                 map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(opacityControlDiv);
-
-
                 GetOffers();
                 map.addListener('click', function () {
                     document.getElementById("squareInfosDiv").hidden = true;
@@ -1013,10 +974,8 @@
                     }
                 });
             }
-
             function GetOffers() {
                 var xmlHttpReq = false;
-
                 if (window.XMLHttpRequest) {
                     xmlHttpReq = new XMLHttpRequest();
                 }
@@ -1032,18 +991,14 @@
                 }
                 xmlHttpReq.send();
             }
-
             function GetMarkers(xmlHttpReq) {
                 var offers = xmlHttpReq.responseXML.getElementsByTagName("offer");
-                var markers = [];
                 var ids = [];
-
                 for (i = 0; i < offers.length; i++) {
                     ids[i] = xmlHttpReq.responseXML.getElementsByTagName("id")[i].childNodes[0].nodeValue;
                     var longi = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
                     var lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var typeOffer = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
-
                     if (typeOffer === 'vendre') {
                         markers[i] = new google.maps.Marker({
                             position: new google.maps.LatLng(lati, longi),
@@ -1057,15 +1012,12 @@
                             icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
                         });
                     }
-
                     markers[i].index = i; //add index property
-
                     var prev_infoWindow = false;
                     google.maps.event.addListener(markers[i], 'click', function (event) {
                         ClickSquare(event);
                         var xmlHttpReq = false;
                         var ind = this.index;
-
                         if (window.XMLHttpRequest) {
                             xmlHttpReq = new XMLHttpRequest();
                         }
@@ -1074,38 +1026,34 @@
                         }
                         xmlHttpReq.open('GET', "getOfferById?id=" + ids[ind], true);
                         xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
                         xmlHttpReq.onreadystatechange = function () {
                             if (xmlHttpReq.readyState == 4) {
                                 var offer = xmlHttpReq.responseXML.getElementsByTagName("offer");
                                 for (var i = 0; i < offer.length; i++) {
                                     var address = xmlHttpReq.responseXML.getElementsByTagName("address")[i].childNodes[0].nodeValue;
                                     var type = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
-                                    //var rooms = xmlHttpReq.responseXML.getElementsByTagName("rooms")[i].childNodes[0].nodeValue;
-                                    //var floor = xmlHttpReq.responseXML.getElementsByTagName("floor")[i].childNodes[0].nodeValue;
-                                    //var m2 = xmlHttpReq.responseXML.getElementsByTagName("m2")[i].childNodes[0].nodeValue;
+                                    var rooms = xmlHttpReq.responseXML.getElementsByTagName("rooms")[i].childNodes[0].nodeValue;
+                                    var floor = xmlHttpReq.responseXML.getElementsByTagName("floor")[i].childNodes[0].nodeValue;
+                                    var m2 = xmlHttpReq.responseXML.getElementsByTagName("m2")[i].childNodes[0].nodeValue;
                                     var price = xmlHttpReq.responseXML.getElementsByTagName("price")[i].childNodes[0].nodeValue;
                                     var link = xmlHttpReq.responseXML.getElementsByTagName("link")[i].childNodes[0].nodeValue;
-                                    var src = window.location.href+"getOfferImagesById?id=" + ids[ind];
+                                    var src = window.location.href + "getOfferImagesById?id=" + ids[ind];
                                     infoWindow = new google.maps.InfoWindow({
                                         content: '<div class="popup_container">' +
                                                 '<IMG ID="ImageOffer" BORDER="0" ALIGN="Top" SRC=' + src + ' width="100" height="100" >' +
                                                 '<br> <br> Adresse : ' + address +
                                                 '<br> Type : ' + type +
-                                                '<br> No. chambres : ' + "rooms" +
-                                                '<br> No. étage : ' + "floor" +
-                                                '<br> Mètres carrés : ' + "m2" +
+                                                '<br> No. chambres : ' + rooms +
+                                                '<br> No. étage : ' + floor +
+                                                '<br> Mètres carrés : ' + m2 +
                                                 '<br> Prix : &euro; ' + parseFloat(price).toFixed(2) +
                                                 '<br> <a href="' + link + '">' + 'Lien vers l annonce' + '</a>' +
                                                 ' </div>',
                                         maxWidth: 300
                                     });
-
                                     if (prev_infoWindow) {
                                         prev_infoWindow.close();
                                     }
-
-
                                     infoWindow.open(map, markers[ind]);
                                     prev_infoWindow = infoWindow;
                                     map.panTo(markers[ind].getPosition());
@@ -1116,32 +1064,34 @@
                     });
                 }
             }
-
-            function setIndicatorColor(id, distance, distanceMax) {
+            function ClearOverlays() {
+                for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(null);
+                }
+                markers.length = 0;
+            }
+            /* Coloring squares */
+            function SetIndicatorColor(id, distance, distanceMax) {
                 var r = (distance >= distanceMax) ? (distance >= 2 * distanceMax) ? 255 : (distance - distanceMax) / distanceMax * 255 : 0;
                 var g = (distance >= 2 * distanceMax) ? (distance >= 3 * distanceMax) ? 0 : (1 - (distance - distanceMax) / (2 * distanceMax)) * 255 : 255;
                 var elem = document.getElementById(id);
-                elem.style.color = rgbToHex(r, g, 0);
+                elem.style.color = RgbToHex(r, g, 0);
             }
-
             function GetColorFromScore(score) {
                 //score = 1 - score;
                 if (score < 0) {
-                    return rgbToHex(255, 255, 255);
+                    return RgbToHex(255, 255, 255);
                 }
                 var r = (score >= 0.5) ? 131 + (1 - score) * 94 : 225;
                 var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
                 //var r = (score <= 0.5) ? (score)/0.5*255 : 255; 
                 //var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
-                return rgbToHex(r, g, 0);
+                return RgbToHex(r, g, 0);
             }
-
-            function rgbToHex(r, g, b) {
+            function RgbToHex(r, g, b) {
                 return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
             }
-
-
-            function EnableCritere(numCritere) {
+            function EnableCritereZone(numCritere) {
                 var nodes = document.getElementById('listCriteresDiv').children;
                 for (var i = 0; i < nodes.length; i += 1) {
                     if (i == numCritere) {
@@ -1150,7 +1100,7 @@
                                 nodes[i].children[3].className = "cursorEnabled";
                                 nodes[i].children[3].disabled = false;
                                 nodes[i].children[4].style = "visibility: visible";
-                                GrabCursor(numCritere);
+                                GrabCursor(numCritere, 1);
                                 if (i == 0) {
                                     nodes[0].children[6].select();
                                     nodes[0].children[6].disabled = false;
@@ -1168,9 +1118,31 @@
                     }
                 }
             }
-
-            function GrabCursor(numCursor) {
+			function EnableCritereOffers(numCritere) {
                 var nodes = document.getElementById('listCriteresDiv').children;
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (i == numCritere) {
+						if (nodes[i].children[0].checked) {
+							nodes[i].children[3].className = "cursorEnabled";
+							nodes[i].children[3].disabled = false;
+							nodes[i].children[4].style = "visibility: visible";
+							GrabCursor(numCritere, 2);
+						} else {
+							nodes[i].children[3].className = "cursorDisabled";
+							nodes[i].children[3].disabled = true;
+							nodes[i].children[4].style = "visibility: hidden";
+						}
+                    }
+                }
+            }
+			
+            function GrabCursor(numCursor, opt) {
+                var nodes;
+                if (opt === 1) {
+                    nodes = document.getElementById('listCriteresDiv').children;
+                } else if (opt === 2) {
+                    nodes = document.getElementById('listCriteresOffreDiv').children;
+                }
                 for (var j = 0; j < nodes.length; j += 1) {
                     if (j == numCursor) {
                         var value = nodes[j].children[3].value;
@@ -1178,26 +1150,34 @@
                     }
                 }
             }
-
-            var open = true;
-            var heightChecked = false;
-            var initHeight = 0;
-            var intval = null;
-
-            //document.getElementById('minMaxButton').addEventListener('click', function () {
-            //    toggle(document.querySelectorAll('.target'));
-            //});
-
-            function toggle(elements, specifiedDisplay) {
+			
+			
+            function EnablePriceRentCheck(checkbox) {
+                if (checkbox.checked) {
+                    document.getElementById("priceRentCheck").disabled = false;
+                } else {
+                    document.getElementById("priceRentCheck").checked = false;
+                    document.getElementById("priceRentCheck").disabled = true;
+                }
+                EnableCritere(7, 2);
+            }
+            function EnablePriceBuyCheck(checkbox) {
+                if (checkbox.checked) {
+                    document.getElementById("priceBuyCheck").disabled = false;
+                } else {
+                    document.getElementById("priceBuyCheck").checked = false;
+                    document.getElementById("priceBuyCheck").disabled = true;
+                }
+                EnableCritere(9, 2);
+            }
+            /* Toggle criteres windows */
+            function ToggleCriteria(elements, specifiedDisplay) {
                 var element, index;
-
                 elements = elements.length ? elements : [elements];
                 for (index = 0; index < elements.length; index++) {
                     element = elements[index];
-
                     if (isElementHidden(element)) {
                         element.style.display = '';
-
                         // If the element is still hidden after removing the inline display
                         if (isElementHidden(element)) {
                             element.style.display = specifiedDisplay || 'block';
@@ -1210,7 +1190,9 @@
                     return window.getComputedStyle(element, null).getPropertyValue('display') === 'none';
                 }
             }
-
+			
+			
+			
             function ClickSearchButton(button) {
                 critAtm = false;
                 critSupermarket = false;
@@ -1218,7 +1200,6 @@
                 critCar = false;
                 critBike = false;
                 critTransport = false;
-
                 button.disabled = true;
                 document.getElementById("squareInfosDiv").hidden = true;
                 HighlightRectangle(selectedRectangle, false);
@@ -1231,17 +1212,14 @@
                 
                 var parameters = "?";
                 var triggerChecked = false;
-
                 var nodes = document.getElementById('listCriteresDiv').children;
                 for (var i = 0; i < nodes.length; i += 1) {
                     if (i != 1 && i != 2) {
                         if (!(parameters == "?"))
                             parameters += "&";
-
                         if (nodes[i].children[0].checked) {
                             triggerChecked = true;
                             parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
-
                             if(nodes[i].id == "adress") {
                                 document.getElementById("loadingSquare").hidden = false;
                                 var adressString = nodes[i].children[6].value.replace(/ /g, "+");
@@ -1249,7 +1227,6 @@
                                 critAddress = true;
                                 critAddressSeuil = nodes[i].children[3].value * 60;
                                 critAddressString = nodes[i].children[6].value;
-
                             }
                             if (nodes[i].id == "supermarket") {
                                 critSupermarket = true;
@@ -1267,7 +1244,6 @@
                         }
                     }
                 }
-
                 nodes = document.getElementById('listTransportsDiv').children;
                 for (var i = 0; i < nodes.length; i += 1) {
                     if (nodes[i].children[1].children[0].checked) {
@@ -1285,7 +1261,6 @@
                         parameters += "&" + nodes[i].id + "=n";
                     }
                 }
-
                 if (!triggerChecked) {
                     document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
                     document.getElementById("loadingSquare").hidden = true;
@@ -1298,91 +1273,68 @@
                     //alert(parameters);
                 }
             }
-
+			
+			
+			
+			
             function ClickSearchOfferButton(button) {
-                critPrice = false;
-                critRooms = false;
-                critFloor = false;
-
-                critRent = false;
-                critBuy = false;
-
                 button.disabled = true;
-                //document.getElementById("squareInfosDiv").hidden = true;
-                //HighlightRectangle(selectedRectangle, false);
-                //DeleteAllSelectedRectangleMarkers();
-                //selectedRectangle = -1;
-                //if (infoWindow != null) {
-                //    infoWindow.close();
-                //}
-
                 setTimeout(function (button) {
                     button.disabled = false;
                 }, 1400, button);
                 var parameters = "?";
                 var triggerChecked = false;
-
-                var nodes = document.getElementById('listCriteresOffreDiv').children;
+                var nodes = document.getElementById('listRentBuysDiv').children;
                 for (var i = 0; i < nodes.length; i += 1) {
-                    if (i != 1 && i != 2) {
-                        if (!(parameters == "?"))
-                            parameters += "&";
-
+                    if (!(parameters == "?")) {
+                        parameters += "&";
+                    }
+                    if (nodes[i].children[0].checked) {
+                        triggerChecked = true;
+                        parameters += nodes[i].id + "=y";
+                    } else {
+                        parameters += nodes[i].id + "=n";
+                    }
+                }
+                nodes = document.getElementById('listCriteresOffreDiv').children;
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (i == 4 || i == 5 || i == 7 || i == 9) {
                         if (nodes[i].children[0].checked) {
                             triggerChecked = true;
-                            parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
-                            if (nodes[i].id == "adress") {
-                                var adressString = nodes[i].children[6].value;
-                                parameters += "adressstring" + "=" + adressString;
-                                critAddress = true;
-                                critAddressSeuil = nodes[i].children[3].value * 60;
-                                critAddressString = nodes[i].children[6].value;
-                            }
-                            if (nodes[i].id == "supermarket") {
-                                critSupermarket = true;
-                                critSupermarketSeuil = nodes[i].children[3].value * 60;
-                            }
-                            if (nodes[i].id == "atm") {
-                                critAtm = true;
-                                critAtmSeuil = nodes[i].children[3].value * 60;
-                            }
-                        } else {
-                            parameters += nodes[i].id + "=null";
-                            if (nodes[i].id == "adress") {
-                                parameters += "adressstring=null";
-                            }
+                            parameters += "&";
+                            parameters += nodes[i].id + "=" + nodes[i].children[3].value;
                         }
                     }
                 }
-
-                nodes = document.getElementById('listTransportsDiv').children;
-                for (var i = 0; i < nodes.length; i += 1) {
-                    if (nodes[i].children[1].children[0].checked) {
-                        if (nodes[i].id == "car") {
-                            critCar = true;
-                        }
-                        if (nodes[i].id == "bike") {
-                            critBike = true;
-                        }
-                        if (nodes[i].id == "transport") {
-                            critTransport = true;
-                        }
-                        parameters += "&" + nodes[i].id + "=y";
-                    } else {
-                        parameters += "&" + nodes[i].id + "=n";
-                    }
-                }
-
                 if (!triggerChecked) {
-                    document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
-                    DeleteAllSquares();
+                    document.getElementById('searchOfferAlert').innerHTML = "Aucun critère n'est sélectionné !";
+                    ClearOverlays();
                 } else {
-                    document.getElementById('searchAlert').innerHTML = "";
-                    GetSquaresRequest(parameters);
-                    //alert(parameters);
+                    document.getElementById('searchOfferAlert').innerHTML = "";
+                    console.log(parameters);
+                    GetOffersRequest(parameters);
                 }
             }
-
+			function GetOffersRequest(parameters) {
+                var xmlHttpReq = false;
+                if (window.XMLHttpRequest) {
+                    xmlHttpReq = new XMLHttpRequest();
+                }
+                else if (window.ActiveXObject) {
+                    xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlHttpReq.open('GET', "getOffers" + parameters, true);
+                xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xmlHttpReq.onreadystatechange = function () {
+                    if (xmlHttpReq.readyState == 4) {
+                        ClearOverlays();
+                        GetMarkers(xmlHttpReq);
+                    }
+                }
+                xmlHttpReq.send();
+            }
+			
+			
             function EnterPressed(textBox) {
                 //document.getElementById('searchButton').disabled = false;
                 if (event.keyCode == 13) {
@@ -1391,12 +1343,8 @@
                     document.getElementById('searchButton').focus();
                 }
             }
-
-
-
             function GetSquaresRequest(parameters) {
                 var xmlHttpReq = false;
-
                 if (window.XMLHttpRequest) {
                     xmlHttpReq = new XMLHttpRequest();
                 }
@@ -1416,16 +1364,13 @@
                 }
                 xmlHttpReq.send();
             }
-
             function WrongAdress() {
                 document.getElementById('searchAlert').innerHTML = "L'adresse saisie est introuvable";
                 DeleteAllSquares();
             }
             
-
             function GetOneSquareRequest(parameters) {
                 var xmlHttpReq = false;
-
                 if (window.XMLHttpRequest) {
                     xmlHttpReq = new XMLHttpRequest();
                 }
@@ -1445,17 +1390,14 @@
                 }
                 xmlHttpReq.send();
             }
-
-            function EnableMode() {
-                //document.getElementById('searchButton').disabled = false;
-            }
-
+			
+			
+			
             function ClickSquare(event) {
                 var parameters = "?";
                 if (infoWindow != null) {
                     infoWindow.close();
                 }
-
                 parameters += "atm=";
                 if (critAtm) {
                     parameters += critAtmSeuil;
@@ -1496,15 +1438,12 @@
                 } else {
                     parameters += "n";
                 }
-
                 var lat = event.latLng.lat();
                 var lng = event.latLng.lng();
-
                 var north;
                 var south;
                 var east;
                 var west;
-
                 for (var i = 0; i < rectangles.length; i++) {
                     north = rectangles[i].getBounds().getNorthEast().lat();
                     south = rectangles[i].getBounds().getSouthWest().lat();
@@ -1531,11 +1470,8 @@
                     }
                 }
             }
-
-
             function RefreshSquares(xmlHttpReq) {
                 var squares = xmlHttpReq.responseXML.getElementsByTagName("square");
-
                 var firstTime = false;
                 
                 for (var i=0; i<squares.length; i++) {
@@ -1564,10 +1500,8 @@
                         rectangles[i].addListener('click', ClickSquare);
                         //animationTab[i] = false;
                     }
-
                     fillOpacity = opacity;
                     strokeOpacity = opacity + 0.05;
-
                     fillColor = GetColorFromScore(score);
                     strokeColor = GetColorFromScore(score);
                     rectangles[i].setOptions({
@@ -1590,16 +1524,11 @@
                 }
                 
             }
-
-
             function LaunchRemoteInterval(score, i) {
                 intervals[i] = setInterval(ChangeSquare, 1, score, i);
             }
-
-
             function RefreshSquareInfos(xmlHttpReq) {
                 document.getElementById("squareInfosDiv").hidden = false;
-
                 var walkTime;
                 var driveTime;
                 var result;
@@ -1661,8 +1590,6 @@
                     map: map,
                     icon: 'http://maps.google.com/mapfiles/ms/icons/convienancestore.png'
                 });
-
-
                 if (!critCar)
                     result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                 else {
@@ -1687,11 +1614,7 @@
                     map: map,
                     icon: 'http://maps.google.com/mapfiles/ms/micons/euro.png'
                 });
-
-
-
             }
-
             function DeleteAllSelectedRectangleMarkers() {
                 if (markersSquareSelected != null) {
                     for (var k = 0; k < markersSquareSelected.length; k++) {
@@ -1702,7 +1625,6 @@
                     }
                 }
             }
-
             function DeleteAllSquares() {
                 for (var k = 0; k < rectangles.length; k++) {
                     rectangles[k].setMap(null);
@@ -1710,14 +1632,12 @@
                 }
                 rectangles = new Array;
             }
-
             function HighlightRectangle(i, todo) {
                 var fillColor;
                 var strokeColor;
                 var strokeWeight;
                 var strokeOpacity;
                 var zIndex;
-
                 if (i != -1) {
                     if (todo) {
                         strokeWeight = 4;
@@ -1743,172 +1663,7 @@
                     });
                 }
             }
-
-            /*
-             function ChangeSquare(score,i) {
-             if(animationTab[i] == false) {
-             rectangles[i].setOptions({
-             strokeColor: "#DDDDDD",
-             strokeOpacity: "#DDDDDD",
-             fillColor: "#DDDDDD",
-             fillOpacity: "#DDDDDD"
-             });
-             animationTab[i] = true;
-             } else {
-             fillOpacity = opacity;
-             strokeOpacity = opacity+0.05;
-             
-             fillColor = GetColorFromScore(score);
-             strokeColor = GetColorFromScore(score);
-             rectangles[i].setOptions({
-             strokeColor: strokeColor,
-             strokeOpacity: strokeOpacity,
-             fillColor: fillColor,
-             fillOpacity: fillOpacity
-             });
-             animationTab[i] = false;
-             clearInterval(intervals[i]);
-             }
-             }
-             
-             function ChangeSquareOLD(score,i) {
-             var north = rectangles[i].getBounds().getNorthEast().lat();
-             var south = rectangles[i].getBounds().getSouthWest().lat();
-             var east = rectangles[i].getBounds().getNorthEast().lng();
-             var west = rectangles[i].getBounds().getSouthWest().lng();
-             
-             if(animationTab[i] == 0) {
-             north -= 0.0001;
-             south += 0.0001;
-             if(north > south) {
-             
-             rectangles[i].setOptions({
-             bounds: {
-             north:north,
-             south:south,
-             east:east,
-             west:west
-             }
-             });
-             } else {    
-             
-             var fillColor;
-             var strokeColor;
-             var fillOpacity;
-             var strokeOpacity;
-             
-             fillOpacity = opacity;
-             strokeOpacity = opacity+0.05;
-             
-             fillColor = GetColorFromScore(score);
-             strokeColor = GetColorFromScore(score);
-             rectangles[i].setOptions({
-             strokeColor: strokeColor,
-             strokeOpacity: strokeOpacity,
-             fillColor: fillColor,
-             fillOpacity: fillOpacity
-             });
-             animationTab[i] = 1;
-             }
-             } else {
-             north += 0.0001;
-             south -= 0.0001;
-             
-             var diff = (north-south) - (hauteur);
-             if(diff >= 0) {
-             north -= diff/2;
-             south += diff/2;
-             
-             animationTab[i] = 0;
-             clearInterval(intervals[i]);
-             }
-             rectangles[i].setOptions({
-             bounds: {
-             north:north,
-             south:south,
-             east:east,
-             west:west
-             }
-             });
-             }
-             }
-             */
-
-
-
-                    /*fillColor = GetColorFromScore(score);
-                    strokeColor = GetColorFromScore(score);
-                    rectangles[i].setOptions({
-                        strokeColor: strokeColor,
-                        strokeOpacity: strokeOpacity,
-                        fillColor: fillColor,
-                        fillOpacity: fillOpacity
-                    });
-                    animationTab[i] = false;
-                    clearInterval(intervals[i]);*/
             
-            
-            function ChangeSquareOLD(score,i) {
-                var north = rectangles[i].getBounds().getNorthEast().lat();
-                var south = rectangles[i].getBounds().getSouthWest().lat();
-                var east = rectangles[i].getBounds().getNorthEast().lng();
-                var west = rectangles[i].getBounds().getSouthWest().lng();
-                
-                if(animationTab[i] == 0) {
-                    north -= 0.0001;
-                    south += 0.0001;
-                    if(north > south) {
-                        
-                        rectangles[i].setOptions({
-                            bounds: {
-                                north:north,
-                                south:south,
-                                east:east,
-                                west:west
-                            }
-                        });
-                    } else {    
-                        
-                        var fillColor;
-                        var strokeColor;
-                        var fillOpacity;
-                        var strokeOpacity;
-                        
-                        fillOpacity = opacity;
-                        strokeOpacity = opacity+0.05;
-
-                        fillColor = GetColorFromScore(score);
-                        strokeColor = GetColorFromScore(score);
-                        rectangles[i].setOptions({
-                            strokeColor: strokeColor,
-                            strokeOpacity: strokeOpacity,
-                            fillColor: fillColor,
-                            fillOpacity: fillOpacity
-                        });
-                        animationTab[i] = 1;
-                    }
-                } else {
-                    north += 0.0001;
-                    south -= 0.0001;
-                    
-                    var diff = (north-south) - (hauteur);
-                    if(diff >= 0) {
-                        north -= diff/2;
-                        south += diff/2;
-                        
-                        animationTab[i] = 0;
-                        clearInterval(intervals[i]);
-                    }
-                    rectangles[i].setOptions({
-                        bounds: {
-                            north:north,
-                            south:south,
-                            east:east,
-                            west:west
-                        }
-                    });
-                }
-            }
         </script>
         <script>
             $(document).ready(function(){
@@ -1923,9 +1678,7 @@
     // Lorsque je soumets le formulaire
             $('#addOfferForm').on('submit', function(e) {
                 e.preventDefault(); // J'empêche le comportement par défaut du navigateur, c-à-d de soumettre le formulaire
-
                 var $form = $(this); // L'objet jQuery du formulaire
-
                 // Je récupère les valeurs
                 var formdata = (window.FormData) ? new FormData($form[0]) : null;
                 var data = (formdata !== null) ? formdata : $form.serialize();
@@ -1934,7 +1687,6 @@
                 var type = $('#type').val();
                 var link = $('#link').val();
                  
-
                 // Je vérifie une première fois pour ne pas lancer la requête HTTP
                 // si je sais que mon PHP renverra une erreur
                 if(address === '' || price === '' || link === '' || type === '') {
