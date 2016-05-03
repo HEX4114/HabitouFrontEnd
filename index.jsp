@@ -785,7 +785,7 @@
                                 <div id="listRentBuysDiv">
                                     <div id="buy" class="modeRentBuyDiv" aria-label="Vendre">
                                         <input class="critCheck" type="checkbox" id="buyCheck" onclick="EnablePriceBuyCheck(this)" checked/><label class="labelChek" for="buyCheck"></label>
-                                        <span id="achat" class="critereName">Vente</span>
+                                        <span id="vente" class="critereName">Vente</span>
                                     </div>
                                     <div id="rent" class="modeRentBuyDiv" aria-label="Louer">
                                         <input class="critCheck" type="checkbox" id="rentCheck" onclick="EnablePriceRentCheck(this)" checked/><label class="labelChek" for="rentCheck"></label>
@@ -803,15 +803,15 @@
                                 </div>
                                 </br>
                                 <div id="rooms" class="critereDiv">
-                                    <input class="critCheck" type="checkbox" id="roomCheck" onclick="EnableCritereOffers(4)"/><label class="labelChek" for="roomCheck"></label>
+                                    <input class="critCheck" type="checkbox" id="roomCheck" onclick="EnableCritereOffers(5)"/><label class="labelChek" for="roomCheck"></label>
                                     <span class="critereName">Nb chambres</span>
-                                    <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled rangeOffers" oninput="GrabCursor(4, 2)" disabled>
+                                    <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled rangeOffers" oninput="GrabCursor(5, 2)" disabled>
                                     <span class="value">0</span>
                                 </div>
                                 <div id="floor" class="critereDiv">
-                                    <input class="critCheck" type="checkbox" id="floorCheck" onclick="EnableCritereOffers(5)"/><label class="labelChek" for="floorCheck"></label>
+                                    <input class="critCheck" type="checkbox" id="floorCheck" onclick="EnableCritereOffers(6)"/><label class="labelChek" for="floorCheck"></label>
                                     <span class="critereName">N° étage</span>
-                                    <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled rangeOffers" oninput="GrabCursor(5, 2)" disabled>
+                                    <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled rangeOffers" oninput="GrabCursor(6, 2)" disabled>
                                     <span class="value">0</span>
                                 </div>
                                 <div id="boundRent" class="boundValues">
@@ -825,9 +825,9 @@
                                 <br>
                                 
                                 <div id="pricerent" class="critereDiv">
-                                    <input class="critCheck" type="checkbox" id="priceRentCheck" onclick="EnableCritereOffers(8)"/><label class="labelChek" for="priceRentCheck"></label>
+                                    <input class="critCheck" type="checkbox" id="priceRentCheck" onclick="EnableCritereOffers(9)"/><label class="labelChek" for="priceRentCheck"></label>
                                     <span class="critereName">Prix location</span>
-                                    <input type="range" min="0" max="1000" step="10" value="500" class="cursorDisabled" oninput="GrabCursor(8, 2)" disabled>
+                                    <input type="range" min="0" max="1000" step="10" value="500" class="cursorDisabled" oninput="GrabCursor(9, 2)" disabled>
                                     <span class="value">0</span>
                                 </div>
                                 <div id="boundBuy" class="boundValues">
@@ -839,9 +839,9 @@
                                 </div>
                                 <br>
                                 <div id="pricebuy" class="critereDiv">
-                                    <input class="critCheck" type="checkbox" id="priceBuyCheck" onclick="EnableCritereOffers(11)"/><label class="labelChek" for="priceBuyCheck"></label>
+                                    <input class="critCheck" type="checkbox" id="priceBuyCheck" onclick="EnableCritereOffers(12)"/><label class="labelChek" for="priceBuyCheck"></label>
                                     <span class="critereName">Prix achat</span>
-                                    <input type="range" min="0" max="100000" step="1000" value="50000" class="cursorDisabled" oninput="GrabCursor(11, 2)" disabled>
+                                    <input type="range" min="0" max="100000" step="1000" value="50000" class="cursorDisabled" oninput="GrabCursor(12, 2)" disabled>
                                     <span class="value">0</span>
                                 </div>
                             </div>
@@ -1097,7 +1097,7 @@
                     var longi = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
                     var lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var typeOffer = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
-                    if (typeOffer === "vente") {
+                    if (typeOffer === "Vente") {
                         markers[i] = new google.maps.Marker({
                             position: new google.maps.LatLng(lati, longi),
                             map: map,
@@ -1267,7 +1267,7 @@
                     document.getElementById("priceRentCheck").checked = false;
                     document.getElementById("priceRentCheck").disabled = true;
                 }
-                EnableCritereOffers(8);
+                EnableCritereOffers(9);
             }
             function EnablePriceBuyCheck(checkbox) {
                 if (checkbox.checked) {
@@ -1276,7 +1276,7 @@
                     document.getElementById("priceBuyCheck").checked = false;
                     document.getElementById("priceBuyCheck").disabled = true;
                 }
-                EnableCritereOffers(11);
+                EnableCritereOffers(12);
             }
             
             
@@ -1493,7 +1493,7 @@
                 }
                 nodes = document.getElementById('listCriteresOffreDiv').children;
                 for (var i = 0; i < nodes.length; i += 1) {
-                    if (i == 4 || i == 5 || i == 8 || i == 11) {
+                    if (i == 5 || i == 6 || i == 9 || i == 12) {
                         if (nodes[i].children[0].checked) {
                             triggerChecked = true;
                             parameters += "&";
