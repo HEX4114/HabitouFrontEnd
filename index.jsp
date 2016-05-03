@@ -687,15 +687,15 @@
                                     <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3, 1)" disabled>
                                     <span class="value">0</span>
                                 </div>
-                                <div id="school" class="critereDiv" hidden>
+                                <div id="kindergarten" class="critereDiv">
                                     <input class="critCheck" type="checkbox" id="crit2Check" onclick="EnableCritereZone(4)"/><label class="labelChek" for="crit2Check"></label>
                                     <span class="critereName">École</span>
                                     <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4, 1)" disabled>
                                     <span class="value">0</span>
                                 </div>
-                                <div id="transport" class="critereDiv" hidden>
+                                <div id="doctor" class="critereDiv">
                                     <input class="critCheck" type="checkbox" id="crit3Check" onclick="EnableCritereZone(5)"/><label class="labelChek" for="crit3Check"></label>
-                                    <span class="critereName">Station de transport</span>
+                                    <a class="critereName">Docteur</a>
                                     <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5, 1)" disabled>
                                     <span class="value">0</span>
                                 </div>
@@ -808,25 +808,25 @@
                                 <div class="critereNameInfos">Adresse</div>
                                 <div id="adressResultTime" class="resultInfos"></div>
                             </div>
-                            <div id="superMarketResultDiv" class="critereResultDiv">
-                                <div class="pastille" id="pastilleSupermarket"></div>
-                                <div class="critereNameInfos">Supermarché</div>
-                                <div id="supermarkerResultTime" class="resultInfos"></div>
-                            </div>
-                            <div id="schoolResultDiv" class="critereResultDiv" hidden>
-                                <div class="pastille" id="pastilleSchool"></div>
-                                <div class="critereNameInfos">École</div>
-                                <div id="schoolResultTime" class="resultInfos"></div>
-                            </div>
-                            <div id="transportResultDiv" class="critereResultDiv" hidden>
-                                <div class="pastille" id="pastilleTransport"></div>
-                                <div class="critereNameInfos">Station de transport</div>
-                                <div id="transportResultTime" class="resultInfos"></div>
-                            </div>
                             <div id="atmResultDiv" class="critereResultDiv">
                                 <div class="pastille" id="pastilleAtm"></div>
                                 <div class="critereNameInfos">Borne de retrait</div>
                                 <div id="atmResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="superMarketResultDiv" class="critereResultDiv">
+                                <div class="pastille" id="pastilleSupermarket"></div>
+                                <div class="critereNameInfos">Supermarché</div>
+                                <div id="supermarketResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="doctorResultDiv" class="critereResultDiv">
+                                <div class="pastille" id="pastilleDoctor"></div>
+                                <div class="critereNameInfos">Docteur</div>
+                                <div id="doctorResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="kindergartenResultDiv" class="critereResultDiv">
+                                <div class="pastille" id="pastilleKindergarten"></div>
+                                <div class="critereNameInfos">Maternelle</div>
+                                <div id="kindergartenResultTime" class="resultInfos"></div>
                             </div>
                         </div>
                     </div>
@@ -856,19 +856,27 @@
             var rectangles = new Array;
             var animationTab = new Array;
             var intervals = new Array;
-            var opacity = 0.45;
+
+            var opacity = 0.5;
+
             var selectedRectangle = -1;
             var selectedRectangleFillColor;
             var selectedRectangleStrokeColor;
             var markersSquareSelected = new Array;
             var infoWindow;
             var critSupermarket;
-            var critAtm;
-            var critAddress;
             var critSupermarketSeuil;
+            var critAtm;
             var critAtmSeuil;
+            var critAddress;
             var critAddressSeuil;
             var critAddressString;
+
+            var critDoctor;
+            var critDoctorSeuil;
+            var critKindergarten;
+            var critKindergartenSeuil;
+
             var critCar;
             var critBike;
             var critTransport;
@@ -909,8 +917,8 @@
                 controlUpUI.addEventListener('click', function () {
                     opacity = opacity + 0.1;
                     if (opacity > 1)
-                        opacity = 0.95;
-                    UpdateSquaresOpacity();
+                        opacity = 1;
+                    updateSquaresOpacity();
                 });
                 var controlLabelUI = document.createElement('div');
                 controlLabelUI.style.marginRight = '10px';
@@ -950,8 +958,9 @@
                 controlDownUI.addEventListener('click', function () {
                     opacity = opacity - 0.1;
                     if (opacity < 0)
-                        opacity = 0.05;
-                    UpdateSquaresOpacity();
+                        opacity = 0;
+                    updateSquaresOpacity();
+
                 });
             }
             function UpdateSquaresOpacity() {
@@ -974,6 +983,7 @@
                 };
                 var container = document.getElementById("mapContainer");
                 map = new google.maps.Map(container, myOptions);
+                
                 map.controls[google.maps.ControlPosition.LEFT_TOP].push(recherches);
 				
                 var opacityControlDiv = document.createElement('div');
@@ -1099,10 +1109,10 @@
                 if (score < 0) {
                     return RgbToHex(255, 255, 255);
                 }
-                var r = (score >= 0.5) ? 131 + (1 - score) * 94 : 225;
-                var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
-                //var r = (score <= 0.5) ? (score)/0.5*255 : 255; 
-                //var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
+                //var r = (score >= 0.5) ? 131 + (1 - score) * 94 : 225;
+                //var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
+                var r = (score >= 0.5) ? (1-score)/0.5*255 : 255; 
+                var g = (score >= 0.5) ? 255 : score/0.5*255;
                 return RgbToHex(r, g, 0);
             }
             function RgbToHex(r, g, b) {
@@ -1215,6 +1225,10 @@
                 critAtm = false;
                 critSupermarket = false;
                 critAddress = false;
+
+                critKindergarten = false;
+                critDoctor = false;
+
                 critCar = false;
                 critBike = false;
                 critTransport = false;
@@ -1260,11 +1274,19 @@
                                 critAtm = true;
                                 critAtmSeuil = nodes[i].children[3].value * 60;
                             }
+                            if (nodes[i].id == "kindergarten") {
+                                critKindergarten = true;
+                                critKindergartenSeuil = nodes[i].children[3].value * 60;
+                            }
+                            if (nodes[i].id == "doctor") {
+                                critDoctor = true;
+                                critDoctorSeuil = nodes[i].children[3].value * 60;
+                            }
                         } else {
-                            if(nodes[i].id == "adress") {
+                            if (nodes[i].id == "adress") {
                                 parameters += nodes[i].id + "=null";
                                 parameters += "&adressstring=null";
-                            }
+                           }
                         }
                     }
                 }
@@ -1458,6 +1480,9 @@
                 if (infoWindow != null) {
                     infoWindow.close();
                 }
+                
+               
+                
                 parameters += "atm=";
                 if (critAtm) {
                     parameters += critAtmSeuil;
@@ -1467,6 +1492,18 @@
                 parameters += "&supermarket=";
                 if (critSupermarket) {
                     parameters += critSupermarketSeuil;
+                } else {
+                    parameters += "null";
+                }
+                parameters += "&doctor=";
+                if (critDoctor) {
+                    parameters += critDoctorSeuil;
+                } else {
+                    parameters += "null";
+                }
+                parameters += "&kindergarten=";
+                if (critKindergarten) {
+                    parameters += critKindergartenSeuil;
                 } else {
                     parameters += "null";
                 }
@@ -1498,6 +1535,18 @@
                 } else {
                     parameters += "n";
                 }
+                
+                
+
+                if (critVilleurbanne) {
+                    parameters += "&collection=squaresV";
+                } else if (critLyon1) {
+                    parameters += "&collection=squaresL1";
+                } else {
+                    parameters += "&collection=squaresGL";
+                }
+                
+                
                 var lat = event.latLng.lat();
                 var lng = event.latLng.lng();
                 var north;
@@ -1627,29 +1676,7 @@
                 }
                 
                 
-                if(!critCar) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
-                else {
-                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
-                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
-                    result = (walkTime > driveTime ? driveTime : walkTime);
-                }
-                result = Math.round(result / 60);
-                document.getElementById("supermarkerResultTime").innerHTML = result + " min";
-                score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[2].childNodes[0].nodeValue);
-                icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
-                document.getElementById("pastilleSupermarket").style.backgroundImage = icon;
-                document.getElementById("pastilleSupermarket").style.backgroundColor = GetColorFromScore(score);
-                lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
-                long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
-                if(markersSquareSelected[1] != null) {
-                    markersSquareSelected[1].setMap(null);
-                    markersSquareSelected[1] = null;    
-                }
-                markersSquareSelected[1] = new google.maps.Marker({
-                    position: new google.maps.LatLng(lati, long),
-                    map: map,
-                    icon: 'http://maps.google.com/mapfiles/ms/icons/convienancestore.png'
-                });
+                
                 if (!critCar)
                     result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                 else {
@@ -1665,6 +1692,32 @@
                 document.getElementById("pastilleAtm").style.backgroundColor = GetColorFromScore(score);
                 lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
                 long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
+                if(markersSquareSelected[1] != null) {
+                    markersSquareSelected[1].setMap(null);
+                    markersSquareSelected[1] = null;    
+                }        
+                markersSquareSelected[1] = new google.maps.Marker({
+                    position: new google.maps.LatLng(lati, long),
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/micons/euro.png'
+                });
+
+
+                if (!critCar)
+                    result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                else {
+                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                    result = (walkTime > driveTime ? driveTime : walkTime);
+                }
+                result = Math.round(result / 60);
+                document.getElementById("supermarketResultTime").innerHTML = result + " min";
+                score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[2].childNodes[0].nodeValue);
+                icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
+                document.getElementById("pastilleSupermarket").style.backgroundImage = icon;
+                document.getElementById("pastilleSupermarket").style.backgroundColor = GetColorFromScore(score);
+                lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
+                long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
                 if(markersSquareSelected[2] != null) {
                     markersSquareSelected[2].setMap(null);
                     markersSquareSelected[2] = null;    
@@ -1672,8 +1725,61 @@
                 markersSquareSelected[2] = new google.maps.Marker({
                     position: new google.maps.LatLng(lati, long),
                     map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/convienancestore.png'
+                });
+
+
+                if (!critCar)
+                    result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                else {
+                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                    result = (walkTime > driveTime ? driveTime : walkTime);
+                }
+                result = Math.round(result / 60);
+                document.getElementById("doctorResultTime").innerHTML = result + " min";
+                score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[2].childNodes[0].nodeValue);
+                icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
+                document.getElementById("pastilleDoctor").style.backgroundImage = icon;
+                document.getElementById("pastilleDoctor").style.backgroundColor = GetColorFromScore(score);
+                lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
+                long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
+                if(markersSquareSelected[3] != null) {
+                    markersSquareSelected[3].setMap(null);
+                    markersSquareSelected[3] = null;    
+                }
+                markersSquareSelected[3] = new google.maps.Marker({
+                    position: new google.maps.LatLng(lati, long),
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/convienancestore.png'
+                });
+                
+                
+                if (!critCar)
+                    result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                else {
+                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                    result = (walkTime > driveTime ? driveTime : walkTime);
+                }
+                result = Math.round(result / 60);
+                document.getElementById("kindergartenResultTime").innerHTML = result + " min";
+                score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[2].childNodes[0].nodeValue);
+                icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
+                document.getElementById("pastilleKindergarten").style.backgroundImage = icon;
+                document.getElementById("pastilleKindergarten").style.backgroundColor = GetColorFromScore(score);
+                lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
+                long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
+                if(markersSquareSelected[4] != null) {
+                    markersSquareSelected[4].setMap(null);
+                    markersSquareSelected[4] = null;    
+                }        
+                markersSquareSelected[4] = new google.maps.Marker({
+                    position: new google.maps.LatLng(lati, long),
+                    map: map,
                     icon: 'http://maps.google.com/mapfiles/ms/micons/euro.png'
                 });
+
             }
             function DeleteAllSelectedRectangleMarkers() {
                 if (markersSquareSelected != null) {
@@ -1812,7 +1918,6 @@
                 </form>
               </div>
             </div>
-
           </div>
         </div>
     </body>
