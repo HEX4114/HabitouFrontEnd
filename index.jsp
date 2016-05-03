@@ -4,14 +4,17 @@
         <title>Criteri'Home</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
         <script type="text/javascript" 
-            src="http://maps.google.com/maps/api/js?key=AIzaSyAjCKf6zCL0EwJegJ4sV1wBu3T3gQ3fENA&sensor=false">
+                src="http://maps.google.com/maps/api/js?key=AIzaSyAjCKf6zCL0EwJegJ4sV1wBu3T3gQ3fENA&sensor=false">
         </script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         
         <style type="text/css">
             @font-face { font-family: AR DESTINE; src: url('ARDESTINE.ttf'); }
-            
+
             html {
                 height:100%;
                 display:block;
@@ -19,44 +22,43 @@
             }
             body{
                 height: 100%;
-                display:block;
+                display:flex;
+                flex-flow: column;
                 width:100%;
             }
             #titleApp{
-                vertical-align: top;
+                
                 text-align: center;
                 font-family : AR DESTINE;
                 color : #FFFFFF;
                 font-size : 92px;
                 text-shadow: 0px 4px 9px #000000;
-                margin: -10px 0px 0px -8px;
-                padding: 0px;
-                width: 102%;
-                height: 100px;
+                
+                
+                line-height: 92px;
                 background-image: linear-gradient(120deg, #41AF8E, #7F3499);
                 box-shadow: 0 2px 6px rgba(0,0,0,0.6);
                 z-index: 2;
-                position:relative;
+                
+                flex-basis: 100px;
             }
-            
+            #mapContainer{
+                z-index: 1;
+                flex-grow: 1;
+            }
+
             save{
                 background-image: linear-gradient(120deg, #00946A, #5C0079);
                 background-color: #A1C643;
             }
+
             
-            #mapContainer{
-                margin-left: -8px;
-                padding: 0px;
-                width: 101%;
-                height: 88%;
-                z-index: 1;
-                position: relative;
-            }
-            
+
             #rechercheDiv{
                 margin-top: 20px;
+                width: 425px;
             }
-            
+
             .commandBorder {
                 background-color: #fff;
                 border : 2px solid #fff;
@@ -66,7 +68,7 @@
                 margin-left : 22px;
                 text-align: left;
             }
-            
+
             .commandInner {
                 color : rgb(25,25,25);
                 font-family : Roboto,Arial,sans-serif;
@@ -74,13 +76,20 @@
                 padding-left : 5px;
                 padding-right : 5px;
             }
-            
+
             #transportsTitle {
                 float: left;
             }
             .modeTransportDiv{
                 float: right;
                 margin-left: 20px;
+                margin-bottom: 12px;
+                margin-top : 6px;
+            }
+
+            .modeRentBuyDiv{
+                float: left;
+                margin-left: 0px;
                 margin-bottom: 12px;
                 margin-top : 6px;
             }
@@ -107,7 +116,7 @@
                 float: right;
                 vertical-align: middle;
             }
-            
+
             .inputText {
                 font : inherit;
                 font-size : 15px;
@@ -127,7 +136,7 @@
                 background-color : #f0f0f0;
                 box-shadow: 0px 0px 0px 0px #000000 inset;
             }
-            
+
             .value {
                 color : #777777;
                 font-family : Arial;
@@ -139,8 +148,9 @@
                 margin-right: 2px;
                 text-align: right;
                 visibility: hidden;
+                display: block;
             }
-            
+
             .boundValues{
                 color : #777777;
                 font-family : Arial;
@@ -150,23 +160,33 @@
                 font-weight: bold;
             }
             .boundMin{
-                margin-right: 44.5%;
+                margin-left: 14%;
             }
             .boundMiddle{
-                margin-right: 41%;
+                margin-left: 39%;
             }
             .boundMax{
+                margin-left: 34%;
             }
-            
+
             .bound0{
-                margin-right: 20.3%;
+                margin-left: 14%;
             }
-            .boundNumber{
-                margin-right: 19%;
+            .bound5{
+                margin-left: 18.5%;
             }
-            
-            
-            input[type="checkbox"] {
+            .bound10{
+                margin-left: 15.7%;
+            }
+            .bound15{
+                margin-left: 14.5%;
+            }
+            .bound20{
+                margin-left: 14.5%;
+            }
+
+
+            input[type="checkbox"].critCheck {
                 cursor: pointer;
                 -webkit-appearance: none;
                 height: 15px;
@@ -177,23 +197,23 @@
                 margin-top : 0px;
                 vertical-align : top;
             }
-            input[type="checkbox"]:checked {
+            input[type="checkbox"].critCheck:checked {
                 background-image:linear-gradient(60deg, #969696, #565656);
                 border : solid 2px #5f5f5f;
             }
-            input[type=checkbox]:focus {
+            input[type=checkbox].critCheck:focus {
                 outline: none;
             }
             label {
                 cursor: pointer;
                 opacity: 0;
                 content: '';
-                width: 9px;
-                height: 4px;
+                width: 12px;
+                height: 7px;
                 top: auto;
                 left: auto;
                 margin-top: 2px;
-                margin-left: -15px;
+                margin-left: -13px;
                 position: absolute;
                 background: transparent;
                 border: 3px solid #E8E8E8;
@@ -205,14 +225,14 @@
                 -ms-transform: rotate(-45deg);
                 transform: rotate(-45deg);
             }
-            input[type=checkbox]:hover + label {
+            input[type=checkbox].critCheck:hover + .labelChek {
                 opacity: 0.5;
             }
-            input[type=checkbox]:checked + label {
+            input[type=checkbox].critCheck:checked + .labelChek {
                 opacity: 1;
                 border-color: #B9DB48;
             }
-            
+
             .critereDiv{
                 margin: 0px 0px 8px 0px;
             }
@@ -247,19 +267,20 @@
             }
             .cursorEnabled:active::-webkit-slider-thumb {
                 background: #ddd;
-                
+
             }
-            input[type=range]:focus {
+            input[type=range] {
                 outline: none;
+                width: 66%;
             }
-            
+
             .cursorDisabled {
                 /*removes default webkit styles*/
                 -webkit-appearance: none;
                 /*fix for FF unable to apply focus style bug */
                 border: 1px solid white;
                 /*required for proper track sizing in FF*/
-                width: 300px;
+                width: 250px;
                 float: right;
                 margin-top : 4px;
                 cursor: default;
@@ -273,23 +294,28 @@
             .cursorDisabled::-webkit-slider-thumb {
                 visibility: hidden;
             }
-            
+
             #titleCritere{
-                margin : 6px 0px 10px 5px;
+                margin : 6px 0px 6px 5px;
             }
+
+
+            .targetZone { display: none; }
+            .targetOffer { display: none; }
+
             .themeCritereTitle {
                 margin : 6px 0px 6px 5px;
             }
-            
+
             .button {
                 margin : 4px 0px 5px 0px;
                 width : 100%;
-                height : 50px;
+                height : 40px;
                 border-radius: 2px;
                 border : solid 2px #5f5f5f;
                 background-image:linear-gradient(120deg, #EFF2C6, #F8F9E0);
                 box-shadow: -1px 2px 20px rgba(255, 255, 255, 0.6) inset,
-                            0px -1px 1px 0px rgba(0, 0, 0, 0.3) inset;
+                    0px -1px 1px 0px rgba(0, 0, 0, 0.3) inset;
                 cursor: pointer;
             }
             .button:disabled {
@@ -299,23 +325,23 @@
                 border : solid 2px #9f9f9f;
                 cursor: default;
             }
-            
+
             #searchAlert {
                 color : red;
-                font-size : 12;
+                font-size : 12px;
                 text-align: center;
                 background-color:#f8dcdc;
                 margin-bottom : 2px;
             }
-            
+
             #squareInfosDiv {
-                width: 493px;
+                width: 100%;
             }
-            
+
             #titleResult {
-                weight: 100%;
+                width: 100%;
             }
-            
+
             .resultInfos {
                 display: inline-block;
                 text-align: right;
@@ -324,18 +350,18 @@
                 margin-top: 4px;
                 vertical-align: top;
             }
-            
+
             .critereResultDiv {
                 margin: 4px 0px 4px 0px;
             }
-            
+
             .critereNameInfos{
                 display: inline-block;
                 width: 30%;
                 margin-top: 4px;
                 vertical-align: top;
             }
-            
+
             .pastille{
                 width: 24px;
                 height: 24px;
@@ -345,9 +371,15 @@
                 display: inline-block;
                 margin: 0px 5px 0px 5px;
             }
-            
-            
-            
+            .modal-header, h4, .close {
+                background-color: #5cb85c;
+                color:white !important;
+                text-align: center;
+                font-size: 30px;
+            }
+            .modal-footer {
+                background-color: #f9f9f9;
+            }
             
             .cssload-thecube {
                     width: 73px;
@@ -539,161 +571,290 @@
                 z-index: 30;
             }
             
+            .displayButton{
+                -webkit-appearance: none;
+                border-width: 5px;
+                border: solid 3px #777777;
+                border-radius: 100%;
+                width: 20px;
+                height: 20px;
+                margin-top: 15px;
+                cursor:pointer;
+                background-image: url("img/icon_plus.png");
+                background-size: 12px 12px;
+                background-position: 1px 1px;
+            }
+            .displayButton:focus{
+                outline: none;
+            }
+            .displayButton:checked:focus{
+                outline: none;
+            }
+            .displayButton:hover{
+                opacity: 0.4;
+            }
+            .displayButton:checked{
+                background-image: url("img/icon_moins.png");
+            }
+            .displayTitle {
+                margin-top: 6px;
+                margin-left: 4px;
+                vertical-align: top;
+                display: inline-block;
+                font-weight: bold;
+            }
+            
+            .borderButton {
+                -webkit-appearance: none;
+                background-image : none;
+                background-color: #DDDDDD;
+                border-radius: 2px;
+                border: solid 3px #AAAAAA;
+                height: 50px;
+                padding-left: 20px;
+                padding-right: 20px;
+                position: absolute;
+                top:25px;
+                float: right;
+                z-index: 100;
+                font-weight: bold;
+            }
+            .borderButton:hover {
+                background-color: #EEEEEE;
+                border-color: #BBBBBB;
+            }
+            .borderButton.offre {
+                right: 200px;
+            }
+            .borderButton.compte {
+                right: 30px;
+            }
             
         </style>
     </head>
     <body onload="GetMap()">
-        
+
         <div id="titleApp">Criteri'Home</div>
+        <button type="button" class="borderButton compte" id="myBtnCompte">Mon compte</button>
+        <button type="button" class="borderButton offre" id="myBtn">Créer une offre</button>
         
         <div id="mapContainer">
         </div>
-        <div id="rechercheDiv">
-            <div id="rechercheBord" class="commandBorder">
-                <div id="rechercheInter" class="commandInner">
-                    <div id="titleCritere">
-                        <b>Critères de recherche :</b>
-                        </br>
-                    </div>
-                    <div id="transportsCritDiv">
-                        <div class="themeCritereTitle" id="transportsTitle">
-                            Moyens de transport :
+
+        <div id="recherches">
+            <div id="rechercheDiv">
+                <div id="rechercheBord" class="commandBorder">
+                    <div id="rechercheInter" class="commandInner">
+                        <div id="titleCritere">
+                            <input type="checkbox" id="minMaxButton" onclick="toggle(document.querySelectorAll('.targetZone'))" class="displayButton" >
+                            <div class="displayTitle">Chercher un quartier</div>
                         </div>
-                        <div id="listTransportsDiv">
-                            <div id="transport" class="modeTransportDiv" aria-label="En transports en commun">
-                                <div class="iconDiv iconTransit">
+                        <div class="targetZone">
+                            <div id="transportsCritDiv">
+                                <div class="themeCritereTitle" id="transportsTitle">
+                                    Moyens de transport :
                                 </div>
-                                <div class="checkTransportDiv">
-                                    <input type="checkbox" id="transportCheck" onclick="EnableMode()"/><label for="transportCheck"></label>
+                                <div id="listTransportsDiv">
+                                    <div id="transport" class="modeTransportDiv" >
+                                        <div class="iconDiv iconTransit">
+                                        </div>
+                                        <div class="checkTransportDiv">
+                                            <input class="critCheck" type="checkbox" id="transportCheck" onclick="EnableMode()"/><label class="labelChek" for="transportCheck"></label>
+                                        </div>
+                                    </div>
+                                    <div id="car" class="modeTransportDiv" >
+                                        <div class="iconDiv iconCar">
+                                        </div>
+                                        <div class="checkTransportDiv">
+                                            <input class="critCheck" type="checkbox" id="carCheck" onclick="EnableMode()"/><label class="labelChek" for="carCheck"></label>
+                                        </div>
+                                    </div>
+                                    <div id="bike" class="modeTransportDiv" >
+                                        <div class="iconDiv iconBike">
+                                        </div>
+                                        <div class="checkTransportDiv">
+                                            <input class="critCheck" type="checkbox" id="bikeCheck" onclick="EnableMode()"/><label class="labelChek" for="bikeCheck"></label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div id="car" class="modeTransportDiv" aria-label="En voiture">
-                                <div class="iconDiv iconCar">
-                                </div>
-                                <div class="checkTransportDiv">
-                                    <input type="checkbox" id="carCheck" onclick="EnableMode()"/><label for="carCheck"></label>
-                                </div>
+                            <div></div>
+                            </br></br>
+                            <div class="themeCritereTitle">
+                                À moins de (distance en min) :
+                                </br>
                             </div>
-                            <div id="bike" class="modeTransportDiv" aria-label="À vélo">
-                                <div class="iconDiv iconBike">
-                                </div>
-                                <div class="checkTransportDiv">
-                                    <input type="checkbox" id="bikeCheck" onclick="EnableMode()"/><label for="bikeCheck"></label>
-                                </div>
+                            <div class="boundValues">
+                                <span class="boundMin">0</span><span class="boundMiddle">50</span><span class="boundMax">100</span>
+                                </br>
                             </div>
-                        </div>
-                    </div>
-                    <div></div>
-                    </br></br>
-                    <div class="themeCritereTitle">
-                        À moins de (distance en min) :
-                        </br>
-                    </div>
-                    <div class="boundValues">
-                        <span class="boundMin">0</span><span class="boundMiddle">50</span><span class="boundMax">100</span>
-                        </br>
-                    </div>
-                    </br>
-                    <div id="listCriteresDiv">
-                        <div id="adress" class="critereDiv">
-                            <input type="checkbox" id="critAdressCheck" onclick="EnableCritere(0)"/><label for="critAdressCheck"></label>
-                            <a class="critereName">Adresse </a>
-                            <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(0)" disabled>
-                            <a class="value">0</a>
                             </br>
-                            <input type="text" id="adressInput" class="inputText" onkeydown="EnterPressed(this)" disabled value="Adresse..."/>
-                            
+                            <div id="listCriteresDiv">
+                                <div id="adress" class="critereDiv">
+                                    <input class="critCheck" type="checkbox" id="critAddresseCheck" onclick="EnableCritere(0)"/><label class="labelChek" for="critAddresseCheck"></label>
+                                    <span class="critereName">Adresse </span>
+                                    <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(0)" disabled>
+                                    <span class="value">0</span>
+                                    </br>
+                                    <input type="text" id="adressInput" class="inputText" onkeydown="EnterPressed(this)" disabled value="Adresse..."/>
+
+                                </div>
+                                <div class="boundValues">
+                                    <span class="bound0">0</span>
+                                    <span class="bound5">5</span>
+                                    <span class="bound10">10</span>
+                                    <span class="bound15">15</span>
+                                    <span class="bound20">20</span>
+                                </div>
+                                </br>
+                                <div id="supermarket" class="critereDiv">
+                                    <input class="critCheck" type="checkbox" id="crit1Check" onclick="EnableCritere(3)"/><label class="labelChek" for="crit1Check"></label>
+                                    <span class="critereName">Supermarché</span>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
+                                    <span class="value">0</span>
+                                </div>
+                                <div id="school" class="critereDiv" hidden>
+                                    <input class="critCheck" type="checkbox" id="crit2Check" onclick="EnableCritere(4)"/><label class="labelChek" for="crit2Check"></label>
+                                    <span class="critereName">École</span>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
+                                    <span class="value">0</span>
+                                </div>
+                                <div id="transport" class="critereDiv" hidden>
+                                    <input class="critCheck" type="checkbox" id="crit3Check" onclick="EnableCritere(5)"/><label class="labelChek" for="crit3Check"></label>
+                                    <span class="critereName">Station de transport</span>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5)" disabled>
+                                    <span class="value">0</span>
+                                </div>
+                                <div id="atm" class="critereDiv">
+                                    <input class="critCheck" type="checkbox" id="crit4Check" onclick="EnableCritere(6)"/><label class="labelChek" for="crit4Check"></label>
+                                    <span class="critereName">Borne de retrait</span>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6)" disabled>
+                                    <span class="value">0</span>
+                                </div>
+                            </div>
+
+                            <button id="searchButton" type="button" onclick="ClickSearchButton(this)" class="button" > 
+                                Rechercher
+                            </button> 
+
+                            <div id="searchAlert">
+                            </div>
                         </div>
-                        <div class="boundValues">
-                            <span class="bound0">0</span>
-                            <span class="boundNumber">5</span>
-                            <span class="boundNumber">10</span>
-                            <span class="boundNumber">15</span>
-                            <span >20</span>
-                        </div>
-                        </br>
-                        <div id="supermarket" class="critereDiv">
-                            <input type="checkbox" id="crit1Check" onclick="EnableCritere(3)"/><label for="crit1Check"></label>
-                            <a class="critereName">Supermarché</a>
-                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
-                            <a class="value">0</a>
-                        </div>
-                        <div id="school" class="critereDiv" hidden>
-                            <input type="checkbox" id="crit2Check" onclick="EnableCritere(4)"/><label for="crit2Check"></label>
-                            <a class="critereName">École</a>
-                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
-                            <a class="value">0</a>
-                        </div>
-                        <div id="transport" class="critereDiv" hidden>
-                            <input type="checkbox" id="crit3Check" onclick="EnableCritere(5)"/><label for="crit3Check"></label>
-                            <a class="critereName">Station de transport</a>
-                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5)" disabled>
-                            <a class="value">0</a>
-                        </div>
-                        <div id="atm" class="critereDiv">
-                            <input type="checkbox" id="crit4Check" onclick="EnableCritere(6)"/><label for="crit4Check"></label>
-                            <a class="critereName">Borne de retrait</a>
-                            <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6)" disabled>
-                            <a class="value">0</a>
-                        </div>
+
                     </div>
-                    
-                    <button id="searchButton" type="button" onclick="ClickSearchButton(this)" class="button" > 
-                        Rechercher
-                    </button> 
-                    
-                    <div id="searchAlert">
-                    </div>
-                    
-                    
+
                 </div>
-                
             </div>
-        </div>
-        <div id="squareInfosDiv" hidden>
-            <div id="resultBord" class="commandBorder">
-                <div id="resultInter" class="commandInner">
-                    <div id="titleResult">
-                        <b></b>
+
+            <div id="rechercheOffreDiv">
+                <div id="rechercheBord" class="commandBorder">
+                    <div id="rechercheInter" class="commandInner">
+                        <div id="titleCritere">
+                            <input type="checkbox" id="minMaxButton" onclick="toggle(document.querySelectorAll('.targetOffer'))" class="displayButton" >
+                            <div class="displayTitle">Offres immobilières</div>
+                        </div>
+                        <div class="targetOffer">
+                            <div id="listCriteresDiv">
+                                <div id="listRentBuysDiv">
+                                    <div id="buy" class="modeRentBuyDiv" aria-label="Vendre">
+                                        <input class="critCheck" type="checkbox" id="buyCheck" onclick="EnableOfferMode()"/><label class="labelChek" for="buyCheck"></label>
+                                        <span class="critereName">Vendre</span>
+                                    </div>
+                                    <div id="rent" class="modeRentBuyDiv" aria-label="Louer">
+                                        <input class="critCheck" type="checkbox" id="rentCheck" onclick="EnableOfferMode()"/><label class="labelChek" for="rentCheck"></label>
+                                        <span class="critereName">Louer</span>
+                                    </div>
+                                </div>
+                                <div></div>
+                                </br></br>
+                                <div class="boundValues">
+                                    <span class="bound0">0</span>
+                                    <span class="boundNumber">5</span>
+                                    <span class="boundNumber">10</span>
+                                    <span class="boundNumber">15</span>
+                                    <span >20</span>
+                                </div>
+                                </br>
+                                <div id="rooms" class="critereDiv">
+                                    <input class="critCheck" type="checkbox" id="crit5Check" onclick="EnableCritere(7)"/><label class="labelChek" for="crit5Check"></label>
+                                    <span class="critereName">No. chambres</span>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
+                                    <span class="value">0</span>
+                                </div>
+                                <div id="floor" class="critereDiv">
+                                    <input class="critCheck" type="checkbox" id="crit6Check" onclick="EnableCritere(8)"/><label class="labelChek" for="crit6Check"></label>
+                                    <span class="critereName">No. étage</span>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
+                                    <span class="value">0</span>
+                                </div>
+                                <div class="boundValues">
+                                    <span class="bound0">0</span>
+                                    <span class="boundNumber">75</span>
+                                    <span class="boundNumber">150</span>
+                                    <span class="boundNumber">225</span>
+                                    <span >300</span>
+                                </div>
+                                </br>
+                                <div id="price" class="critereDiv">
+                                    <input class="critCheck" type="checkbox" id="crit7Check" onclick="EnableCritere(9)"/><label class="labelChek" for="crit7Check"></label>
+                                    <span class="critereName">Prix</span>
+                                    <input type="range" min="0" max="300000" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5)" disabled>
+                                    <span class="value">0</span>
+                                </div>
+                            </div>
+
+                            <button id="searchOfferButton" type="button" onclick="ClickSearchOfferButton(this)" class="button" > 
+                                Rechercher
+                            </button> 
+
+                            <div id="searchOfferAlert">
+                            </div>
+                        </div>
+
                     </div>
-                    <div id="listInfosDiv">
-                        <div id="adressResultDiv" class="critereResultDiv">
-                            <div class="pastille" id="pastilleAdress"></div>
-                            <div class="critereNameInfos">Adresse</div>
-                            <div id="adressResultTime" class="resultInfos"></div>
+
+                </div>
+            </div>
+            <div id="squareInfosDiv" hidden>
+                <div id="resultBord" class="commandBorder">
+                    <div id="resultInter" class="commandInner">
+                        <div id="titleResult">
+                            <b></b>
                         </div>
-                        <div id="superMarketResultDiv" class="critereResultDiv">
-                            <div class="pastille" id="pastilleSupermarket"></div>
-                            <div class="critereNameInfos">Supermarché</div>
-                            <div id="supermarkerResultTime" class="resultInfos"></div>
-                        </div>
-                        <div id="schoolResultDiv" class="critereResultDiv" hidden>
-                            <div class="pastille" id="pastilleSchool"></div>
-                            <div class="critereNameInfos">École</div>
-                            <div id="schoolResultTime" class="resultInfos"></div>
-                        </div>
-                        <div id="transportResultDiv" class="critereResultDiv" hidden>
-                            <div class="pastille" id="pastilleTransport"></div>
-                            <div class="critereNameInfos">Station de transport</div>
-                            <div id="transportResultTime" class="resultInfos"></div>
-                        </div>
-                        <div id="atmResultDiv" class="critereResultDiv">
-                            <div class="pastille" id="pastilleAtm"></div>
-                            <div class="critereNameInfos">Borne de retrait</div>
-                            <div id="atmResultTime" class="resultInfos"></div>
+                        <div id="listInfosDiv">
+                            <div id="adressResultDiv" class="critereResultDiv">
+                                <div class="pastille" id="pastilleAdress"></div>
+                                <div class="critereNameInfos">Adresse</div>
+                                <div id="adressResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="superMarketResultDiv" class="critereResultDiv">
+                                <div class="pastille" id="pastilleSupermarket"></div>
+                                <div class="critereNameInfos">Supermarché</div>
+                                <div id="supermarkerResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="schoolResultDiv" class="critereResultDiv" hidden>
+                                <div class="pastille" id="pastilleSchool"></div>
+                                <div class="critereNameInfos">École</div>
+                                <div id="schoolResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="transportResultDiv" class="critereResultDiv" hidden>
+                                <div class="pastille" id="pastilleTransport"></div>
+                                <div class="critereNameInfos">Station de transport</div>
+                                <div id="transportResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="atmResultDiv" class="critereResultDiv">
+                                <div class="pastille" id="pastilleAtm"></div>
+                                <div class="critereNameInfos">Borne de retrait</div>
+                                <div id="atmResultTime" class="resultInfos"></div>
+                            </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
         
-        <div id="opacityDiv">
-            <div id="resultBord" class="commandBorder">
-                <div id="resultInter" class="commandInner">
-                </div>
-            </div>
-        </div>
+
+
         
         <div class="cssload-thecube" id="loadingSquare" hidden>
             <div class="cssload-cube cssload-c1"></div>
@@ -701,7 +862,7 @@
             <div class="cssload-cube cssload-c4"></div>
             <div class="cssload-cube cssload-c3"></div>
         </div>
-        
+
         <script type="text/javascript">
             var largeur = 0.00075;
             var hauteur = 0.0005;
@@ -710,24 +871,24 @@
             var animationTab = new Array;
             var intervals = new Array;
             var opacity = 0.45;
-            
+
             var selectedRectangle = -1;
             var selectedRectangleFillColor;
             var selectedRectangleStrokeColor;
             var markersSquareSelected = new Array;
             var infoWindow;
-            
+
             var critSupermarket;
             var critAtm;
-            var critAdress;
+            var critAddress;
             var critSupermarketSeuil;
             var critAtmSeuil;
-            var critAdressSeuil;
-            var critAdressString;
+            var critAddressSeuil;
+            var critAddressString;
             var critCar;
             var critBike;
             var critTransport;
-            
+
             function OpacityControl(controlDiv, map) {
                 // Set CSS for the control border.
                 var controlUpUI = document.createElement('div');
@@ -756,12 +917,13 @@
                 controlUpUI.appendChild(controlUpText);
 
                 // Setup the click event listeners.
-                controlUpUI.addEventListener('click', function() {
+                controlUpUI.addEventListener('click', function () {
                     opacity = opacity + 0.1;
-                    if(opacity > 1) opacity = 0.95;
+                    if (opacity > 1)
+                        opacity = 0.95;
                     updateSquaresOpacity();
                 });
-                
+
                 var controlLabelUI = document.createElement('div');
                 controlLabelUI.style.marginRight = '10px';
                 controlLabelUI.style.textAlign = 'center';
@@ -775,7 +937,7 @@
                 controlLabelText.style.lineHeight = '30px';
                 controlLabelText.innerHTML = 'Opacity';
                 controlLabelUI.appendChild(controlLabelText);
-                
+
                 var controlDownUI = document.createElement('div');
                 controlDownUI.style.backgroundColor = '#fff';
                 controlDownUI.style.border = '2px solid #fff';
@@ -801,58 +963,52 @@
                 controlDownUI.appendChild(controlDownText);
 
                 // Setup the click event listeners: simply set the map to Chicago.
-                controlDownUI.addEventListener('click', function() {
+                controlDownUI.addEventListener('click', function () {
                     opacity = opacity - 0.1;
-                    if(opacity < 0) opacity = 0.05;
+                    if (opacity < 0)
+                        opacity = 0.05;
                     updateSquaresOpacity();
                 });
             }
 
             function updateSquaresOpacity() {
-                for(var i=0; i<rectangles.length; i++) {
+                for (var i = 0; i < rectangles.length; i++) {
                     rectangles[i].setOptions({
                         strokeOpacity: opacity + 0.05,
                         fillOpacity: opacity
                     });
                 }
             }
-            
+
             function GetMap() {
                 var origin = new google.maps.LatLng(45.760, 4.850);
                 var myOptions = {
-                   zoom: 13,
-                   center: origin,
-                   mapTypeId: google.maps.MapTypeId.ROADMAP,
-                   disableDefaultUI: true
+                    zoom: 13,
+                    center: origin,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    disableDefaultUI: true
                 };
                 var container = document.getElementById("mapContainer");
-                map = new google.maps.Map(container,myOptions);
-                
-                map.controls[google.maps.ControlPosition.TOP_LEFT].push(rechercheDiv);
-                
-                var resultDiv = document.getElementById("squareInfosDiv");
-                map.controls[google.maps.ControlPosition.LEFT_TOP].push(resultDiv);
-                
-                /*
-                setIndicatorColor("star1", 1, 1);
-                setIndicatorColor("star2", 1.4, 1);
-                setIndicatorColor("star3", 1.8, 1);
-                setIndicatorColor("star4", 2.2, 1);
-                setIndicatorColor("star5", 2.6, 1);
-                */
+                map = new google.maps.Map(container, myOptions);
+
+                map.controls[google.maps.ControlPosition.LEFT_TOP].push(recherches);
+
+                //var resultDiv = document.getElementById("squareInfosDiv");
+                //map.controls[google.maps.ControlPosition.LEFT_TOP].push(resultDiv);
 
                 var opacityControlDiv = document.createElement('div');
                 var opacityControl = new OpacityControl(opacityControlDiv, map);
                 opacityControlDiv.index = 1;
                 map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(opacityControlDiv);
 
+
                 GetOffers();
-                map.addListener('click', function(){
-                    document.getElementById("squareInfosDiv").hidden = true; 
+                map.addListener('click', function () {
+                    document.getElementById("squareInfosDiv").hidden = true;
                     HighlightRectangle(selectedRectangle, false);
                     DeleteAllSelectedRectangleMarkers();
                     selectedRectangle = -1;
-                    if(infoWindow != null) {
+                    if (infoWindow != null) {
                         infoWindow.close();
                     }
                 });
@@ -887,24 +1043,24 @@
                     var longi = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
                     var lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var typeOffer = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
-                    
+
                     if (typeOffer === 'vendre') {
                         markers[i] = new google.maps.Marker({
                             position: new google.maps.LatLng(lati, longi),
                             map: map,
                             icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
                         });
-                     } else {
-                         markers[i] = new google.maps.Marker({
+                    } else {
+                        markers[i] = new google.maps.Marker({
                             position: new google.maps.LatLng(lati, longi),
                             map: map,
                             icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
                         });
-                     }
+                    }
 
                     markers[i].index = i; //add index property
-                    
-                    var prev_infoWindow =false;
+
+                    var prev_infoWindow = false;
                     google.maps.event.addListener(markers[i], 'click', function (event) {
                         ClickSquare(event);
                         var xmlHttpReq = false;
@@ -925,25 +1081,31 @@
                                 for (var i = 0; i < offer.length; i++) {
                                     var address = xmlHttpReq.responseXML.getElementsByTagName("address")[i].childNodes[0].nodeValue;
                                     var type = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
+                                    //var rooms = xmlHttpReq.responseXML.getElementsByTagName("rooms")[i].childNodes[0].nodeValue;
+                                    //var floor = xmlHttpReq.responseXML.getElementsByTagName("floor")[i].childNodes[0].nodeValue;
+                                    //var m2 = xmlHttpReq.responseXML.getElementsByTagName("m2")[i].childNodes[0].nodeValue;
                                     var price = xmlHttpReq.responseXML.getElementsByTagName("price")[i].childNodes[0].nodeValue;
                                     var link = xmlHttpReq.responseXML.getElementsByTagName("link")[i].childNodes[0].nodeValue;
-                                    var src = "http://localhost:8080/Habitou/getOfferImagesById?id="+ids[ind];
+                                    var src = window.location.href+"getOfferImagesById?id=" + ids[ind];
                                     infoWindow = new google.maps.InfoWindow({
                                         content: '<div class="popup_container">' +
-                                                '<IMG ID="ImageOffer" BORDER="0" ALIGN="Top" SRC='+src+ ' width="100" height="100" >' +
-                                                '<br> <br> Address : ' + address + 
-                                                '<br> Type : ' + type + 
-                                                '<br> Price : &euro; ' + parseFloat(price).toFixed(2) + 
-                                                '<br> <a href="' + link + '">' + 'Lien vers l annonce' +'</a>'+
+                                                '<IMG ID="ImageOffer" BORDER="0" ALIGN="Top" SRC=' + src + ' width="100" height="100" >' +
+                                                '<br> <br> Adresse : ' + address +
+                                                '<br> Type : ' + type +
+                                                '<br> No. chambres : ' + "rooms" +
+                                                '<br> No. étage : ' + "floor" +
+                                                '<br> Mètres carrés : ' + "m2" +
+                                                '<br> Prix : &euro; ' + parseFloat(price).toFixed(2) +
+                                                '<br> <a href="' + link + '">' + 'Lien vers l annonce' + '</a>' +
                                                 ' </div>',
                                         maxWidth: 300
                                     });
-                                    
-                                    if( prev_infoWindow ) {
+
+                                    if (prev_infoWindow) {
                                         prev_infoWindow.close();
                                     }
-                                    
-                                    
+
+
                                     infoWindow.open(map, markers[ind]);
                                     prev_infoWindow = infoWindow;
                                     map.panTo(markers[ind].getPosition());
@@ -954,42 +1116,42 @@
                     });
                 }
             }
-            
+
             function setIndicatorColor(id, distance, distanceMax) {
-                var r = (distance >= distanceMax) ? (distance >= 2*distanceMax) ? 255 : (distance-distanceMax)/distanceMax*255 : 0;
-                var g = (distance >= 2*distanceMax) ? (distance >= 3*distanceMax) ? 0 : (1 - (distance-distanceMax)/(2*distanceMax))*255 : 255;
+                var r = (distance >= distanceMax) ? (distance >= 2 * distanceMax) ? 255 : (distance - distanceMax) / distanceMax * 255 : 0;
+                var g = (distance >= 2 * distanceMax) ? (distance >= 3 * distanceMax) ? 0 : (1 - (distance - distanceMax) / (2 * distanceMax)) * 255 : 255;
                 var elem = document.getElementById(id);
-		elem.style.color = rgbToHex(r, g, 0);
+                elem.style.color = rgbToHex(r, g, 0);
             }
-            
+
             function GetColorFromScore(score) {
-              //score = 1 - score;
-              if(score<0) {
-                  return rgbToHex(255, 255, 255);
-              }
-              var r = (score >= 0.5) ? 131 + (1-score)*94 : 225;
-              var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
-              //var r = (score <= 0.5) ? (score)/0.5*255 : 255; 
-              //var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
-	      return rgbToHex(r, g, 0);
+                //score = 1 - score;
+                if (score < 0) {
+                    return rgbToHex(255, 255, 255);
+                }
+                var r = (score >= 0.5) ? 131 + (1 - score) * 94 : 225;
+                var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
+                //var r = (score <= 0.5) ? (score)/0.5*255 : 255; 
+                //var g = (score <= 0.5) ? 255 : (0.5 - score)/0.5*255;
+                return rgbToHex(r, g, 0);
             }
-            
+
             function rgbToHex(r, g, b) {
                 return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-	    }
-           
-           
+            }
+
+
             function EnableCritere(numCritere) {
                 var nodes = document.getElementById('listCriteresDiv').children;
-                for(var i=0; i<nodes.length; i+=1) {
-                    if(i == numCritere) {
-                        if(i!=1 && i!=2) {
-                            if(nodes[i].children[0].checked) {
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (i == numCritere) {
+                        if (i != 1 && i != 2) {
+                            if (nodes[i].children[0].checked) {
                                 nodes[i].children[3].className = "cursorEnabled";
                                 nodes[i].children[3].disabled = false;
-                                nodes[i].children[4].style="visibility: visible";
+                                nodes[i].children[4].style = "visibility: visible";
                                 GrabCursor(numCritere);
-                                if(i == 0) {
+                                if (i == 0) {
                                     nodes[0].children[6].select();
                                     nodes[0].children[6].disabled = false;
                                     nodes[0].children[6].focus();
@@ -997,8 +1159,8 @@
                             } else {
                                 nodes[i].children[3].className = "cursorDisabled";
                                 nodes[i].children[3].disabled = true;
-                                nodes[i].children[4].style="visibility: hidden";
-                                if(i == 0) {
+                                nodes[i].children[4].style = "visibility: hidden";
+                                if (i == 0) {
                                     nodes[i].children[6].disabled = true;
                                 }
                             }
@@ -1006,58 +1168,94 @@
                     }
                 }
             }
-            
+
             function GrabCursor(numCursor) {
                 var nodes = document.getElementById('listCriteresDiv').children;
-                for(var j=0; j<nodes.length; j+=1) {
-                    if(j == numCursor) {
+                for (var j = 0; j < nodes.length; j += 1) {
+                    if (j == numCursor) {
                         var value = nodes[j].children[3].value;
                         nodes[j].children[4].innerHTML = value;
                     }
-                } 
+                }
             }
-            
+
+            var open = true;
+            var heightChecked = false;
+            var initHeight = 0;
+            var intval = null;
+
+            //document.getElementById('minMaxButton').addEventListener('click', function () {
+            //    toggle(document.querySelectorAll('.target'));
+            //});
+
+            function toggle(elements, specifiedDisplay) {
+                var element, index;
+
+                elements = elements.length ? elements : [elements];
+                for (index = 0; index < elements.length; index++) {
+                    element = elements[index];
+
+                    if (isElementHidden(element)) {
+                        element.style.display = '';
+
+                        // If the element is still hidden after removing the inline display
+                        if (isElementHidden(element)) {
+                            element.style.display = specifiedDisplay || 'block';
+                        }
+                    } else {
+                        element.style.display = 'none';
+                    }
+                }
+                function isElementHidden(element) {
+                    return window.getComputedStyle(element, null).getPropertyValue('display') === 'none';
+                }
+            }
+
             function ClickSearchButton(button) {
                 critAtm = false;
                 critSupermarket = false;
-                critAdress = false;
+                critAddress = false;
                 critCar = false;
                 critBike = false;
                 critTransport = false;
-                
+
                 button.disabled = true;
                 document.getElementById("squareInfosDiv").hidden = true;
                 HighlightRectangle(selectedRectangle, false);
                 DeleteAllSelectedRectangleMarkers();
                 selectedRectangle = -1;
-                if(infoWindow != null) {
+                if (infoWindow != null) {
                     infoWindow.close();
                 }
-                document.getElementById("loadingSquare").hidden = false;
+                
                 
                 var parameters = "?";
                 var triggerChecked = false;
-                
+
                 var nodes = document.getElementById('listCriteresDiv').children;
-                for(var i=0; i<nodes.length; i+=1) {
-                    if(i!=1 && i!=2) {
-                        if(!(parameters == "?")) parameters += "&";
-                        
-                        if(nodes[i].children[0].checked) {
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (i != 1 && i != 2) {
+                        if (!(parameters == "?"))
+                            parameters += "&";
+
+                        if (nodes[i].children[0].checked) {
                             triggerChecked = true;
                             parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
+
                             if(nodes[i].id == "adress") {
+                                document.getElementById("loadingSquare").hidden = false;
                                 var adressString = nodes[i].children[6].value.replace(/ /g, "+");
                                 parameters += "&adressstring" + "=" + adressString;
-                                critAdress = true;
-                                critAdressSeuil = nodes[i].children[3].value * 60;
-                                critAdressString = nodes[i].children[6].value;
+                                critAddress = true;
+                                critAddressSeuil = nodes[i].children[3].value * 60;
+                                critAddressString = nodes[i].children[6].value;
+
                             }
-                            if(nodes[i].id == "supermarket"){
+                            if (nodes[i].id == "supermarket") {
                                 critSupermarket = true;
                                 critSupermarketSeuil = nodes[i].children[3].value * 60;
                             }
-                            if(nodes[i].id == "atm"){
+                            if (nodes[i].id == "atm") {
                                 critAtm = true;
                                 critAtmSeuil = nodes[i].children[3].value * 60;
                             }
@@ -1068,26 +1266,26 @@
                             }
                         }
                     }
-                } 
-                
+                }
+
                 nodes = document.getElementById('listTransportsDiv').children;
-                for(var i=0; i<nodes.length; i+=1) {
-                    if(nodes[i].children[1].children[0].checked) {
-                        if(nodes[i].id == "car"){
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (nodes[i].children[1].children[0].checked) {
+                        if (nodes[i].id == "car") {
                             critCar = true;
                         }
-                        if(nodes[i].id == "bike"){
+                        if (nodes[i].id == "bike") {
                             critBike = true;
                         }
-                        if(nodes[i].id == "transport"){
+                        if (nodes[i].id == "transport") {
                             critTransport = true;
                         }
                         parameters += "&" + nodes[i].id + "=y";
                     } else {
                         parameters += "&" + nodes[i].id + "=n";
                     }
-                } 
-                
+                }
+
                 if (!triggerChecked) {
                     document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
                     document.getElementById("loadingSquare").hidden = true;
@@ -1100,8 +1298,91 @@
                     //alert(parameters);
                 }
             }
-            
-            
+
+            function ClickSearchOfferButton(button) {
+                critPrice = false;
+                critRooms = false;
+                critFloor = false;
+
+                critRent = false;
+                critBuy = false;
+
+                button.disabled = true;
+                //document.getElementById("squareInfosDiv").hidden = true;
+                //HighlightRectangle(selectedRectangle, false);
+                //DeleteAllSelectedRectangleMarkers();
+                //selectedRectangle = -1;
+                //if (infoWindow != null) {
+                //    infoWindow.close();
+                //}
+
+                setTimeout(function (button) {
+                    button.disabled = false;
+                }, 1400, button);
+                var parameters = "?";
+                var triggerChecked = false;
+
+                var nodes = document.getElementById('listCriteresOffreDiv').children;
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (i != 1 && i != 2) {
+                        if (!(parameters == "?"))
+                            parameters += "&";
+
+                        if (nodes[i].children[0].checked) {
+                            triggerChecked = true;
+                            parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
+                            if (nodes[i].id == "adress") {
+                                var adressString = nodes[i].children[6].value;
+                                parameters += "adressstring" + "=" + adressString;
+                                critAddress = true;
+                                critAddressSeuil = nodes[i].children[3].value * 60;
+                                critAddressString = nodes[i].children[6].value;
+                            }
+                            if (nodes[i].id == "supermarket") {
+                                critSupermarket = true;
+                                critSupermarketSeuil = nodes[i].children[3].value * 60;
+                            }
+                            if (nodes[i].id == "atm") {
+                                critAtm = true;
+                                critAtmSeuil = nodes[i].children[3].value * 60;
+                            }
+                        } else {
+                            parameters += nodes[i].id + "=null";
+                            if (nodes[i].id == "adress") {
+                                parameters += "adressstring=null";
+                            }
+                        }
+                    }
+                }
+
+                nodes = document.getElementById('listTransportsDiv').children;
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (nodes[i].children[1].children[0].checked) {
+                        if (nodes[i].id == "car") {
+                            critCar = true;
+                        }
+                        if (nodes[i].id == "bike") {
+                            critBike = true;
+                        }
+                        if (nodes[i].id == "transport") {
+                            critTransport = true;
+                        }
+                        parameters += "&" + nodes[i].id + "=y";
+                    } else {
+                        parameters += "&" + nodes[i].id + "=n";
+                    }
+                }
+
+                if (!triggerChecked) {
+                    document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
+                    DeleteAllSquares();
+                } else {
+                    document.getElementById('searchAlert').innerHTML = "";
+                    GetSquaresRequest(parameters);
+                    //alert(parameters);
+                }
+            }
+
             function EnterPressed(textBox) {
                 //document.getElementById('searchButton').disabled = false;
                 if (event.keyCode == 13) {
@@ -1110,21 +1391,21 @@
                     document.getElementById('searchButton').focus();
                 }
             }
-            
-            
-            
+
+
+
             function GetSquaresRequest(parameters) {
                 var xmlHttpReq = false;
 
                 if (window.XMLHttpRequest) {
-                   xmlHttpReq = new XMLHttpRequest();
+                    xmlHttpReq = new XMLHttpRequest();
                 }
                 else if (window.ActiveXObject) {
                     xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
                 }
                 xmlHttpReq.open('GET', "getSquares" + parameters, true);
                 xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xmlHttpReq.onreadystatechange = function() {
+                xmlHttpReq.onreadystatechange = function () {
                     if (xmlHttpReq.readyState == 4) {
                         if(xmlHttpReq.status == 204) {
                             WrongAdress();
@@ -1135,24 +1416,25 @@
                 }
                 xmlHttpReq.send();
             }
-            
+
             function WrongAdress() {
                 document.getElementById('searchAlert').innerHTML = "L'adresse saisie est introuvable";
                 DeleteAllSquares();
             }
             
+
             function GetOneSquareRequest(parameters) {
                 var xmlHttpReq = false;
 
                 if (window.XMLHttpRequest) {
-                   xmlHttpReq = new XMLHttpRequest();
+                    xmlHttpReq = new XMLHttpRequest();
                 }
                 else if (window.ActiveXObject) {
                     xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
                 }
                 xmlHttpReq.open('GET', "getSquareById" + parameters, true);
                 xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xmlHttpReq.onreadystatechange = function() {
+                xmlHttpReq.onreadystatechange = function () {
                     if (xmlHttpReq.readyState == 4) {
                         if(xmlHttpReq.status == 204) {
                             WrongAdress();
@@ -1163,75 +1445,74 @@
                 }
                 xmlHttpReq.send();
             }
-            
+
             function EnableMode() {
                 //document.getElementById('searchButton').disabled = false;
             }
-            
+
             function ClickSquare(event) {
                 var parameters = "?";
-                if(infoWindow != null) {
+                if (infoWindow != null) {
                     infoWindow.close();
                 }
-                
+
                 parameters += "atm=";
-                if(critAtm){
+                if (critAtm) {
                     parameters += critAtmSeuil;
                 } else {
                     parameters += "null";
                 }
                 parameters += "&supermarket=";
-                if(critSupermarket){
+                if (critSupermarket) {
                     parameters += critSupermarketSeuil;
                 } else {
                     parameters += "null";
                 }
                 parameters += "&adress=";
-                if(critAdress){
-                    parameters += critAdressSeuil;
+                if (critAddress) {
+                    parameters += critAddressSeuil;
                     parameters += "&adressstring=";
-                    parameters += critAdressString;
+                    parameters += critAddressString;
                 } else {
                     parameters += "null";
                     parameters += "&adressstring=";
                     parameters += "null";
                 }
                 parameters += "&car=";
-                if(critCar){
+                if (critCar) {
                     parameters += "y";
                 } else {
                     parameters += "n";
                 }
                 parameters += "&bike=";
-                if(critBike){
+                if (critBike) {
                     parameters += "y";
                 } else {
                     parameters += "n";
                 }
                 parameters += "&transport=";
-                if(critTransport){
+                if (critTransport) {
                     parameters += "y";
                 } else {
                     parameters += "n";
                 }
-                
-                
+
                 var lat = event.latLng.lat();
                 var lng = event.latLng.lng();
-                
+
                 var north;
                 var south;
                 var east;
                 var west;
-                
-                for(var i=0; i<rectangles.length; i++) {
+
+                for (var i = 0; i < rectangles.length; i++) {
                     north = rectangles[i].getBounds().getNorthEast().lat();
                     south = rectangles[i].getBounds().getSouthWest().lat();
                     east = rectangles[i].getBounds().getNorthEast().lng();
                     west = rectangles[i].getBounds().getSouthWest().lng();
-                    if(lat < north && lat > south) {
-                        if(lng < east && lng > west) {
-                            if(i == selectedRectangle) {
+                    if (lat < north && lat > south) {
+                        if (lng < east && lng > west) {
+                            if (i == selectedRectangle) {
                                 HighlightRectangle(i, false);
                                 DeleteAllSelectedRectangleMarkers();
                                 selectedRectangle = -1;
@@ -1250,10 +1531,11 @@
                     }
                 }
             }
-            
-            
+
+
             function RefreshSquares(xmlHttpReq) {
                 var squares = xmlHttpReq.responseXML.getElementsByTagName("square");
+
                 var firstTime = false;
                 
                 for (var i=0; i<squares.length; i++) {
@@ -1262,7 +1544,7 @@
                     var long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
                     var lat = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("score")[i].childNodes[0].nodeValue);
-                    
+      
                     if(rectangles.length != squares.length) {
                         firstTime = true;
                         rectangles[i] = new google.maps.Rectangle({
@@ -1281,10 +1563,10 @@
                         //map.event.addListener(rectangles[i], 'click', ClickSquare);
                         rectangles[i].addListener('click', ClickSquare);
                         //animationTab[i] = false;
-                    } 
-                        
+                    }
+
                     fillOpacity = opacity;
-                    strokeOpacity = opacity+0.05;
+                    strokeOpacity = opacity + 0.05;
 
                     fillColor = GetColorFromScore(score);
                     strokeColor = GetColorFromScore(score);
@@ -1299,25 +1581,25 @@
                     setTimeout(function(){ 
                         document.getElementById("loadingSquare").hidden = true; 
                         document.getElementById("searchButton").disabled = false;
-                    }, 1500);
+                    }, 600);
                 } else {
                     setTimeout(function(){ 
                         document.getElementById("searchButton").disabled = false;
                         document.getElementById("loadingSquare").hidden = true; 
-                    }, 800);
+                    }, 300);
                 }
                 
             }
-            
-            
+
+
             function LaunchRemoteInterval(score, i) {
                 intervals[i] = setInterval(ChangeSquare, 1, score, i);
             }
-            
-            
+
+
             function RefreshSquareInfos(xmlHttpReq) {
                 document.getElementById("squareInfosDiv").hidden = false;
-                
+
                 var walkTime;
                 var driveTime;
                 var result;
@@ -1327,33 +1609,42 @@
                 var long;
                 var icon;
                 
-                if(!critCar) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
-                else {
-                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
-                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
-                    result = (walkTime > driveTime ? driveTime : walkTime) ;
+                if(markersSquareSelected[0] != null) {
+                    markersSquareSelected[0].setMap(null);
+                    markersSquareSelected[0] = null;    
                 }
-                result = Math.round(result/60) ;
-                document.getElementById("adressResultTime").innerHTML = result + " min";
-                score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[2].childNodes[0].nodeValue);
-                icon = (score > 0 ? 'url(img/icon_adress.png)' : 'url(img/icon_adress_black.png)');
-                document.getElementById("pastilleAdress").style.backgroundImage = icon;
-                document.getElementById("pastilleAdress").style.backgroundColor = GetColorFromScore(score);
-                lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
-                long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
-                markersSquareSelected[0] = new google.maps.Marker({
-                    position: new google.maps.LatLng(lati, long),
-                    map: map
-                });
+                if (critAddress) {
+                    document.getElementById("adressResultDiv").hidden = false;
+                    if(!critCar) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                    else {
+                        driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                        walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                        result = (walkTime > driveTime ? driveTime : walkTime) ;
+                    }
+                    result = Math.round(result/60) ;
+                    document.getElementById("adressResultTime").innerHTML = result + " min";
+                    score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[2].childNodes[0].nodeValue);
+                    icon = (score > 0 ? 'url(img/icon_adress.png)' : 'url(img/icon_adress_black.png)');
+                    document.getElementById("pastilleAdress").style.backgroundImage = icon;
+                    document.getElementById("pastilleAdress").style.backgroundColor = GetColorFromScore(score);
+                    lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
+                    long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("adress")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
+                    markersSquareSelected[0] = new google.maps.Marker({
+                        position: new google.maps.LatLng(lati, long),
+                        map: map
+                    });
+                } else {
+                    document.getElementById("adressResultDiv").hidden = true;
+                }
                 
                 
                 if(!critCar) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                 else {
                     driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
                     walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
-                    result = (walkTime > driveTime ? driveTime : walkTime) ;
+                    result = (walkTime > driveTime ? driveTime : walkTime);
                 }
-                result = Math.round(result/60);
+                result = Math.round(result / 60);
                 document.getElementById("supermarkerResultTime").innerHTML = result + " min";
                 score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[2].childNodes[0].nodeValue);
                 icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
@@ -1361,20 +1652,25 @@
                 document.getElementById("pastilleSupermarket").style.backgroundColor = GetColorFromScore(score);
                 lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
                 long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
+                if(markersSquareSelected[1] != null) {
+                    markersSquareSelected[1].setMap(null);
+                    markersSquareSelected[1] = null;    
+                }
                 markersSquareSelected[1] = new google.maps.Marker({
                     position: new google.maps.LatLng(lati, long),
                     map: map,
                     icon: 'http://maps.google.com/mapfiles/ms/icons/convienancestore.png'
                 });
-                
-                
-                if(!critCar) result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+
+
+                if (!critCar)
+                    result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                 else {
                     driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
                     walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
-                    result = (walkTime > driveTime ? driveTime : walkTime) ;
+                    result = (walkTime > driveTime ? driveTime : walkTime);
                 }
-                result = Math.round(result/60) ;
+                result = Math.round(result / 60);
                 document.getElementById("atmResultTime").innerHTML = result + " min";
                 score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[2].childNodes[0].nodeValue);
                 icon = (score > 0 ? 'url(img/icon_atm.png)' : 'url(img/icon_atm_black.png)');
@@ -1382,44 +1678,48 @@
                 document.getElementById("pastilleAtm").style.backgroundColor = GetColorFromScore(score);
                 lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
                 long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
+                if(markersSquareSelected[2] != null) {
+                    markersSquareSelected[2].setMap(null);
+                    markersSquareSelected[2] = null;    
+                }
                 markersSquareSelected[2] = new google.maps.Marker({
                     position: new google.maps.LatLng(lati, long),
                     map: map,
                     icon: 'http://maps.google.com/mapfiles/ms/micons/euro.png'
                 });
-        
-                
-                
+
+
+
             }
-            
+
             function DeleteAllSelectedRectangleMarkers() {
-                if(markersSquareSelected != null) {
-                    for (var k=0; k<markersSquareSelected.length; k++) {
-                        if(markersSquareSelected[k] != null) {
+                if (markersSquareSelected != null) {
+                    for (var k = 0; k < markersSquareSelected.length; k++) {
+                        if (markersSquareSelected[k] != null) {
                             markersSquareSelected[k].setMap(null);
                             markersSquareSelected[k] = null;
                         }
                     }
                 }
             }
-            
+
             function DeleteAllSquares() {
-                for (var k=0; k<rectangles.length; k++) {
+                for (var k = 0; k < rectangles.length; k++) {
                     rectangles[k].setMap(null);
                     rectangles[k] = null;
                 }
                 rectangles = new Array;
             }
-            
+
             function HighlightRectangle(i, todo) {
                 var fillColor;
                 var strokeColor;
                 var strokeWeight;
                 var strokeOpacity;
                 var zIndex;
-                
-                if(i != -1) {
-                    if(todo) {
+
+                if (i != -1) {
+                    if (todo) {
                         strokeWeight = 4;
                         strokeOpacity = 1;
                         fillColor = "#FFFFFF";
@@ -1429,7 +1729,7 @@
                         zIndex = 5;
                     } else {
                         strokeWeight = 1;
-                        strokeOpacity = opacity+0.05;
+                        strokeOpacity = opacity + 0.05;
                         fillColor = selectedRectangleFillColor;
                         strokeColor = selectedRectangleStrokeColor;
                         zIndex = 0;
@@ -1443,22 +1743,100 @@
                     });
                 }
             }
-            
-            /*
-            function ChangeSquare(score,i) {
-                if(animationTab[i] == false) {
-                    rectangles[i].setOptions({
-                        strokeColor: "#DDDDDD",
-                        strokeOpacity: "#DDDDDD",
-                        fillColor: "#DDDDDD",
-                        fillOpacity: "#DDDDDD"
-                    });
-                    animationTab[i] = true;
-                } else {
-                    fillOpacity = opacity;
-                    strokeOpacity = opacity+0.05;
 
-                    fillColor = GetColorFromScore(score);
+            /*
+             function ChangeSquare(score,i) {
+             if(animationTab[i] == false) {
+             rectangles[i].setOptions({
+             strokeColor: "#DDDDDD",
+             strokeOpacity: "#DDDDDD",
+             fillColor: "#DDDDDD",
+             fillOpacity: "#DDDDDD"
+             });
+             animationTab[i] = true;
+             } else {
+             fillOpacity = opacity;
+             strokeOpacity = opacity+0.05;
+             
+             fillColor = GetColorFromScore(score);
+             strokeColor = GetColorFromScore(score);
+             rectangles[i].setOptions({
+             strokeColor: strokeColor,
+             strokeOpacity: strokeOpacity,
+             fillColor: fillColor,
+             fillOpacity: fillOpacity
+             });
+             animationTab[i] = false;
+             clearInterval(intervals[i]);
+             }
+             }
+             
+             function ChangeSquareOLD(score,i) {
+             var north = rectangles[i].getBounds().getNorthEast().lat();
+             var south = rectangles[i].getBounds().getSouthWest().lat();
+             var east = rectangles[i].getBounds().getNorthEast().lng();
+             var west = rectangles[i].getBounds().getSouthWest().lng();
+             
+             if(animationTab[i] == 0) {
+             north -= 0.0001;
+             south += 0.0001;
+             if(north > south) {
+             
+             rectangles[i].setOptions({
+             bounds: {
+             north:north,
+             south:south,
+             east:east,
+             west:west
+             }
+             });
+             } else {    
+             
+             var fillColor;
+             var strokeColor;
+             var fillOpacity;
+             var strokeOpacity;
+             
+             fillOpacity = opacity;
+             strokeOpacity = opacity+0.05;
+             
+             fillColor = GetColorFromScore(score);
+             strokeColor = GetColorFromScore(score);
+             rectangles[i].setOptions({
+             strokeColor: strokeColor,
+             strokeOpacity: strokeOpacity,
+             fillColor: fillColor,
+             fillOpacity: fillOpacity
+             });
+             animationTab[i] = 1;
+             }
+             } else {
+             north += 0.0001;
+             south -= 0.0001;
+             
+             var diff = (north-south) - (hauteur);
+             if(diff >= 0) {
+             north -= diff/2;
+             south += diff/2;
+             
+             animationTab[i] = 0;
+             clearInterval(intervals[i]);
+             }
+             rectangles[i].setOptions({
+             bounds: {
+             north:north,
+             south:south,
+             east:east,
+             west:west
+             }
+             });
+             }
+             }
+             */
+
+
+
+                    /*fillColor = GetColorFromScore(score);
                     strokeColor = GetColorFromScore(score);
                     rectangles[i].setOptions({
                         strokeColor: strokeColor,
@@ -1467,9 +1845,8 @@
                         fillOpacity: fillOpacity
                     });
                     animationTab[i] = false;
-                    clearInterval(intervals[i]);
-                }
-            }
+                    clearInterval(intervals[i]);*/
+            
             
             function ChangeSquareOLD(score,i) {
                 var north = rectangles[i].getBounds().getNorthEast().lat();
@@ -1532,9 +1909,99 @@
                     });
                 }
             }
-            */
+        </script>
+        <script>
+            $(document).ready(function(){
+                $("#myBtn").click(function(){
+                    $("#myModal").modal();
+                });
+            });
+        </script>
+        
+        <script>
+            $(document).ready(function() {
+    // Lorsque je soumets le formulaire
+            $('#addOfferForm').on('submit', function(e) {
+                e.preventDefault(); // J'empêche le comportement par défaut du navigateur, c-à-d de soumettre le formulaire
+
+                var $form = $(this); // L'objet jQuery du formulaire
+
+                // Je récupère les valeurs
+                var formdata = (window.FormData) ? new FormData($form[0]) : null;
+                var data = (formdata !== null) ? formdata : $form.serialize();
+                var address = $('#address').val();
+                var price = $('#price').val();
+                var type = $('#type').val();
+                var link = $('#link').val();
+                 
+
+                // Je vérifie une première fois pour ne pas lancer la requête HTTP
+                // si je sais que mon PHP renverra une erreur
+                if(address === '' || price === '' || link === '' || type === '') {
+                    alert('Les champs doivent êtres remplis');
+                    return;
+                } 
+                else {
+                    // Envoi de la requête HTTP en mode asynchrone
+                    $.ajax({
+                        url: $form.attr('action'),
+                        type: $form.attr('method'),
+                        contentType: false, // obligatoire pour de l'upload
+                        processData: false, // obligatoire pour de l'upload
+                        dataType: 'json', // selon le retour attendu
+                        data: data,
+                        success: function (response) {
+                         }
+                    });
+                }
+                alert("L'offre a bien été crée");
+                $('.modal.in').modal('hide');
+            });
+        });
+            
             
             
         </script>
+        
+        
+        
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header" style="padding:35px 50px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4><span class="glyphicon glyphicon-list-alt"></span> Ajouter une offre</h4>
+              </div>
+              <div class="modal-body" style="padding:40px 50px;">
+                <form id="addOfferForm" role="form" action="addOffer" method="post" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <p><span class="glyphicon glyphicon-home"></span> Adresse : </p>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Enter correct address">
+                  </div>
+                  <div class="form-group">
+                    <p><span class="glyphicon glyphicon-link"></span> Lien vers l'offre : </p>
+                    <input type="text" class="form-control" id="link" name="link" placeholder="Enter link">
+                  </div>
+                  <div class="form-group">
+                    <p><span class="glyphicon glyphicon-euro"></span> Prix : </p>
+                    <input type="text" class="form-control" id="price" name="price" placeholder="Enter price">
+                  </div>
+                  <div class="form-group">
+                    <p><span class="glyphicon glyphicon-transfer"></span> Type de contrat : </p>
+                    <input type="text" class="form-control" id="type" name="type" placeholder="Enter type (location, buy)">
+                  </div>
+                  <div class="form-group">
+                    <p><span class="glyphicon glyphicon-file"></span> Image : </p>
+                    <input type="file" class="form-control" id="file" name="file" placeholder="Enter file to upload">
+                  </div>
+                    <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
     </body>
 </html>
