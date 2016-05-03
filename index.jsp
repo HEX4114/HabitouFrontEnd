@@ -529,13 +529,13 @@
                                 </div>
                                 </br>
                                 <div id="rooms" class="critereDiv">
-                                    <input type="checkbox" id="crit1Check" onclick="EnableCritere(4, 2)"/><label for="crit1Check"></label>
+                                    <input type="checkbox" id="roomCheck" onclick="EnableCritere(4, 2)"/><label for="roomCheck"></label>
                                     <a class="critereName">No. chambres</a>
                                     <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled" oninput="GrabCursor(4, 2)" disabled>
                                     <a class="value">0</a>
                                 </div>
                                 <div id="floor" class="critereDiv">
-                                    <input type="checkbox" id="crit2Check" onclick="EnableCritere(5, 2)"/><label for="crit2Check"></label>
+                                    <input type="checkbox" id="floorCheck" onclick="EnableCritere(5, 2)"/><label for="floorCheck"></label>
                                     <a class="critereName">No. étage</a>
                                     <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled" oninput="GrabCursor(5, 2)" disabled>
                                     <a class="value">0</a>
@@ -546,7 +546,7 @@
                                     <span class="boundMax">300</span>
                                 </div>
                                 <div id="price" class="critereDiv">
-                                    <input type="checkbox" id="crit3Check" onclick="EnableCritere(7, 2)"/><label for="crit3Check"></label>
+                                    <input type="checkbox" id="priceCheck" onclick="EnableCritere(7, 2)"/><label for="priceCheck"></label>
                                     <a class="critereName">Prix</a>
                                     <input type="range" min="0" max="300" step="1" value="150" class="cursorDisabled" oninput="GrabCursor(7, 2)" disabled>
                                     <a class="value">0</a>
@@ -638,15 +638,6 @@
             var critCar;
             var critBike;
             var critTransport;
-
-            var critBuy;
-            var critRent;
-            var critRooms;
-            var critFloor;
-            var critPrice;
-            var critRoomsSeuil;
-            var critFloorSeuil;
-            var critPriceSeuil;
 
             var markers = [];
 
@@ -783,6 +774,7 @@
                 });
             }
 
+            /* Getting offers and putting markers on a map*/
             function GetOffers() {
                 var xmlHttpReq = false;
 
@@ -892,6 +884,7 @@
                 markers.length = 0;
             }
 
+            /* Coloring squares */
             function setIndicatorColor(id, distance, distanceMax) {
                 var r = (distance >= distanceMax) ? (distance >= 2 * distanceMax) ? 255 : (distance - distanceMax) / distanceMax * 255 : 0;
                 var g = (distance >= 2 * distanceMax) ? (distance >= 3 * distanceMax) ? 0 : (1 - (distance - distanceMax) / (2 * distanceMax)) * 255 : 255;
@@ -915,7 +908,7 @@
                 return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
             }
 
-
+            /* Enabling criteres elements*/
             function EnableCritere(numCritere, opt) {
                 var nodes;
                 if (opt === 1) {
@@ -964,6 +957,7 @@
                 }
             }
 
+            /* Toggle criteres windows */
             function toggle(elements, specifiedDisplay) {
                 var element, index;
 
@@ -987,6 +981,70 @@
                 }
             }
 
+            /* Search offers */
+            function ClickSearchOfferButton(button) {
+                button.disabled = true;
+
+                setTimeout(function (button) {
+                    button.disabled = false;
+                }, 1400, button);
+                var parameters = "?";
+                var triggerChecked = false;
+
+                var nodes = document.getElementById('listRentBuysDiv').children;
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (!(parameters == "?")) {
+                        parameters += "&";
+                    }
+                    if (nodes[i].children[0].checked) {
+                        triggerChecked = true;
+                        parameters += nodes[i].id + "=y";
+                    } else {
+                        parameters += nodes[i].id + "=n";
+                    }
+                }
+
+                nodes = document.getElementById('listCriteresOffreDiv').children;
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (i == 4 || i == 5 || i == 7) {
+                        if (nodes[i].children[0].checked) {
+                            triggerChecked = true;
+                            parameters += "&";
+                            parameters += nodes[i].id + "=" + nodes[i].children[3].value;
+                        }
+                    }
+                }
+
+                if (!triggerChecked) {
+                    document.getElementById('searchOfferAlert').innerHTML = "Aucun critère n'est sélectionné !";
+                    clearOverlays();
+                } else {
+                    document.getElementById('searchOfferAlert').innerHTML = "";
+                    GetOffersRequest(parameters);
+                }
+            }
+
+            function GetOffersRequest(parameters) {
+                var xmlHttpReq = false;
+
+                if (window.XMLHttpRequest) {
+                    xmlHttpReq = new XMLHttpRequest();
+                }
+                else if (window.ActiveXObject) {
+                    xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlHttpReq.open('GET', "getOffers" + parameters, true);
+                xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xmlHttpReq.onreadystatechange = function () {
+                    if (xmlHttpReq.readyState == 4) {
+                        clearOverlays();
+                        GetMarkers(xmlHttpReq);
+                    }
+                }
+                xmlHttpReq.send();
+            }
+
+            /* Search squares */
             function ClickSearchButton(button) {
                 critAtm = false;
                 critSupermarket = false;
@@ -1071,74 +1129,6 @@
                 }
             }
 
-            function ClickSearchOfferButton(button) {
-                critPrice = false;
-                critRooms = false;
-                critFloor = false;
-
-                critRent = false;
-                critBuy = false;
-
-                button.disabled = true;
-
-                setTimeout(function (button) {
-                    button.disabled = false;
-                }, 1400, button);
-                var parameters = "?";
-                var triggerChecked = false;
-
-                var nodes = document.getElementById('listRentBuysDiv').children;
-                for (var i = 0; i < nodes.length; i += 1) {
-                    if (!(parameters == "?")) {
-                        parameters += "&";
-                    }
-                    if (nodes[i].children[0].checked) {
-                        triggerChecked = true;
-                        if (nodes[i].id == "buy") {
-                            critBuy = true;
-                        } else if (nodes[i].id == "rent") {
-                            critRent = true;
-                        }
-                        parameters += nodes[i].id + "=y";
-                    } else {
-                        parameters += nodes[i].id + "=n";
-                    }
-                }
-
-                nodes = document.getElementById('listCriteresOffreDiv').children;
-                for (var i = 0; i < nodes.length; i += 1) {
-                    if (i == 4 || i == 5 || i == 7) {
-                        if (nodes[i].children[0].checked) {
-                            triggerChecked = true;
-                            parameters += "&";
-                            parameters += nodes[i].id + "=" + nodes[i].children[3].value;
-                            if (nodes[i].id == "rooms") {
-                                critRooms = true;
-                                critRoomsSeuil = nodes[i].children[3].value;
-                            }
-                            if (nodes[i].id == "floor") {
-                                critFloor = true;
-                                critFloorSeuil = nodes[i].children[3].value;
-                            }
-                            if (nodes[i].id == "price") {
-                                critPrice = true;
-                                critPriceSeuil = nodes[i].children[3].value;
-                            }
-                        }
-                    }
-                }
-
-
-
-                if (!triggerChecked) {
-                    document.getElementById('searchOfferAlert').innerHTML = "Aucun critère n'est sélectionné !";
-                    clearOverlays();
-                } else {
-                    document.getElementById('searchOfferAlert').innerHTML = "";
-                    GetOffersRequest(parameters);
-                }
-            }
-
             function EnterPressed(textBox) {
                 //document.getElementById('searchButton').disabled = false;
                 if (event.keyCode == 13) {
@@ -1147,8 +1137,6 @@
                     document.getElementById('searchButton').focus();
                 }
             }
-
-
 
             function GetSquaresRequest(parameters) {
                 var xmlHttpReq = false;
@@ -1169,26 +1157,7 @@
                 xmlHttpReq.send();
             }
 
-            function GetOffersRequest(parameters) {
-                var xmlHttpReq = false;
-
-                if (window.XMLHttpRequest) {
-                    xmlHttpReq = new XMLHttpRequest();
-                }
-                else if (window.ActiveXObject) {
-                    xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-                xmlHttpReq.open('GET', "getOffers" + parameters, true);
-                xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xmlHttpReq.onreadystatechange = function () {
-                    if (xmlHttpReq.readyState == 4) {
-                        clearOverlays();
-                        GetMarkers(xmlHttpReq);
-                    }
-                }
-                xmlHttpReq.send();
-            }
-
+            /* Click square management */
             function GetOneSquareRequest(parameters) {
                 var xmlHttpReq = false;
 
