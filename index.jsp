@@ -404,7 +404,7 @@
                         </div>
                         <div class="targetZone">
                             <div id="zoneCritDiv">
-                               <div class="themeCritereTitle" id="zonesTitle">
+                                <div class="themeCritereTitle" id="zonesTitle">
                                     Zone :             
                                 </div> 
                                 <select id="zonesDiv">
@@ -663,7 +663,7 @@
             var critCar;
             var critBike;
             var critTransport;
-            
+
             var currentZone;
             var critGrandLyon;
             var critVilleurbanne;
@@ -1098,7 +1098,7 @@
                 critCar = false;
                 critBike = false;
                 critTransport = false;
-                
+
                 critGrandLyon = false;
                 critVilleurbanne = false;
                 critLyon1 = false;
@@ -1121,10 +1121,10 @@
                 var nodes = document.getElementById('listCriteresDiv').children;
                 for (var i = 0; i < nodes.length; i += 1) {
                     if (i != 1 && i != 2) {
-                        if (!(parameters == "?"))
-                            parameters += "&";
-
                         if (nodes[i].children[0].checked) {
+                            if (!(parameters == "?")) {
+                                parameters += "&";
+                            }
                             triggerChecked = true;
                             parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
                             if (nodes[i].id == "adress") {
@@ -1176,39 +1176,39 @@
                         parameters += "&" + nodes[i].id + "=n";
                     }
                 }
-                
+
                 var z = document.getElementById("zonesDiv");
                 var selectedItem = z.options[z.selectedIndex].value;
-                
+
                 if (selectedItem === "gl") {
-                    if (currentZone !== "gl"){
+                    if (currentZone !== "gl") {
                         DeleteAllSquares();
                         currentZone = "gl";
                     }
                     critGrandLyon = true;
                 }
                 if (selectedItem === "l1") {
-                    if (currentZone !== "l1"){
+                    if (currentZone !== "l1") {
                         DeleteAllSquares();
                         currentZone = "l1";
                     }
                     critLyon1 = true;
                 }
                 if (selectedItem === "villeurbanne") {
-                    if (currentZone !== "villeurbanne"){
+                    if (currentZone !== "villeurbanne") {
                         DeleteAllSquares();
                         currentZone = "villeurbanne";
                     }
                     critVilleurbanne = true;
                 }
 
-                                                      
+
                 parameters += "&collection=";
                 if (critVilleurbanne) {
                     parameters += "squaresV";
                 } else if (critLyon1) {
                     parameters += "squaresL1";
-                }else {
+                } else {
                     parameters += "squaresGL";
                 }
 
