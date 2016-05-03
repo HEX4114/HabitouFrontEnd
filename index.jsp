@@ -1381,10 +1381,11 @@
                             if (nodes[i].id == "pollution") {
                                 critPollution = true;
                                 critPollutionSeuil = nodes[i].children[3].value;
-                                if(critPollutionSeuil === "Peu important"){
+                                if(critPollutionSeuil === "Peu importe"){
                                     parameters += "50";
+                                    critPollutionSeuil = "50";
                                 }
-                                else if(critPollutionSeuil === "Moyennement important"){
+                                else if(critPollutionSeuil === "Pas trop élevée"){
                                     parameters += "30";
                                     critPollutionSeuil = "30";
                                 }
@@ -1392,7 +1393,6 @@
                                     parameters += "15";
                                     critPollutionSeuil = "15";
                                 }
-                                critPollutionSeuil;
                             }
                         } else {
                             if (nodes[i].id == "adress") {
@@ -1913,22 +1913,14 @@
                 });
                 
                 
-                
-                if (!critCar)
-                    result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("pollution")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
-                else {
-                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("pollution")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
-                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("pollution")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
-                    result = (walkTime > driveTime ? driveTime : walkTime);
-                }
-                result = Math.round(result / 60);
-                document.getElementById("pollutionResultTime").innerHTML = result + " min";
                 score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("pollution")[0].childNodes[5].childNodes[0].nodeValue);
                 icon = (score > 0 ? 'url(img/icon_pollution.png)' : 'url(img/icon_pollution_black.png)');
                 document.getElementById("pastillePollution").style.backgroundImage = icon;
                 document.getElementById("pastillePollution").style.backgroundColor = GetColorFromScore(score);
-                alert(score);
             }
+            
+            
+            
             function DeleteAllSelectedRectangleMarkers() {
                 if (markersSquareSelected != null) {
                     for (var k = 0; k < markersSquareSelected.length; k++) {
