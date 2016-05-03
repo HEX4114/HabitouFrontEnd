@@ -132,7 +132,6 @@
                 line-height : 10px;
                 font-size : 10px;
                 float: right;
-                width: 20px;
                 margin-top: 4px;
                 margin-right: 2px;
                 text-align: right;
@@ -279,8 +278,8 @@
             #titleCritere{
                 margin : 6px 0px 6px 5px;
             }
-            .targetZone { display: none; }
-            .targetOffer { display: none; }
+            #targetZone { display : none;  }
+            #targetOffer { display : none; }
             .themeCritereTitle {
                 margin : 6px 0px 6px 5px;
             }
@@ -609,6 +608,24 @@
             }
             
             
+            .boundOffersMin {
+                margin-left: 4%;
+            }
+            .boundOffersMiddle {
+                display: inline-block;
+                width: 40px;
+                margin-left: 38%;
+                text-align: center;
+            }
+            .boundOffersMax{
+                float: right;
+            }
+            
+            
+            input[type=range].rangeOffers {
+                outline: none;
+            }
+            
         </style>
     </head>
     <body onload="GetMap()">
@@ -625,10 +642,10 @@
                 <div id="rechercheBord" class="commandBorder">
                     <div id="rechercheInter" class="commandInner">
                         <div id="titleCritere">
-                            <input type="checkbox" id="minMaxButton" onclick="ToggleCriteria(document.querySelectorAll('.targetZone'))" class="displayButton" >
+                            <input type="checkbox" id="minMaxButton1" onclick="PreToggleCriteria(this)" class="displayButton" >
                             <div class="displayTitle">Chercher un quartier</div>
                         </div>
-                        <div class="targetZone">
+                        <div id="targetZone">
                             <div id="critGeneraux">
                                 <select id="zonesDiv">
                                     <option value="gl">Grand Lyon</option>
@@ -741,10 +758,10 @@
                 <div id="rechercheBord" class="commandBorder">
                     <div id="rechercheInter" class="commandInner">
                         <div id="titleCritere">
-                            <input type="checkbox" id="minMaxButton" onclick="ToggleCriteria(document.querySelectorAll('.targetOffer'))" class="displayButton" >
+                            <input type="checkbox" id="minMaxButton2" onclick="PreToggleCriteria(this)" class="displayButton" >
                             <div class="displayTitle">Offres immobilières</div>
                         </div>
-                        <div class="targetOffer">
+                        <div id="targetOffer">
                             <div id="listCriteresOffreDiv">
                                 <div id="listRentBuysDiv">
                                     <div id="buy" class="modeRentBuyDiv" aria-label="Vendre">
@@ -758,43 +775,53 @@
                                 </div>
                                 </br>
                                 <div class="boundValues">
-                                    <span class="boundMin">0</span>
-                                    <span class="boundMiddle">5</span>
-                                    <span class="boundMax">10+</span>
+                                    <span class="boundOffersMin">0</span>
+                                    <div class="boundOffersMiddle">
+                                        <span >5  </span>
+                                    </div>
+                                    <span class="boundOffersMax">10+</span>
                                 </div>
                                 </br>
                                 <div id="rooms" class="critereDiv">
                                     <input class="critCheck" type="checkbox" id="roomCheck" onclick="EnableCritereOffers(4)"/><label class="labelChek" for="roomCheck"></label>
-                                    <span class="critereName">No. chambres</span>
-                                    <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled" oninput="GrabCursor(4, 2)" disabled>
+                                    <span class="critereName">Nb chambres</span>
+                                    <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled rangeOffers" oninput="GrabCursor(4, 2)" disabled>
                                     <span class="value">0</span>
                                 </div>
                                 <div id="floor" class="critereDiv">
                                     <input class="critCheck" type="checkbox" id="floorCheck" onclick="EnableCritereOffers(5)"/><label class="labelChek" for="floorCheck"></label>
-                                    <span class="critereName">No. étage</span>
-                                    <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled" oninput="GrabCursor(5, 2)" disabled>
+                                    <span class="critereName">N° étage</span>
+                                    <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled rangeOffers" oninput="GrabCursor(5, 2)" disabled>
                                     <span class="value">0</span>
                                 </div>
                                 <div id="boundRent" class="boundValues">
-                                    <span class="boundMin">0</span>
-                                    <span class="boundMiddle">500</span>
-                                    <span class="boundMax">1000</span>
+                                    <span class="boundOffersMin">0</span>
+                                    <div class="boundOffersMiddle">
+                                        <span >500</span>
+                                    </div>
+                                    <span class="boundOffersMax">1.000</span>
                                 </div>
-                                <div id="priceRent" class="critereDiv">
-                                    <input class="critCheck" type="checkbox" id="priceRentCheck" onclick="EnableCritereOffers(7)"/><label class="labelChek" for="priceRentCheck"></label>
+                                
+                                <br>
+                                
+                                <div id="pricerent" class="critereDiv">
+                                    <input class="critCheck" type="checkbox" id="priceRentCheck" onclick="EnableCritereOffers(8)"/><label class="labelChek" for="priceRentCheck"></label>
                                     <span class="critereName">Prix location</span>
-                                    <input type="range" min="0" max="1000" step="10" value="500" class="cursorDisabled" oninput="GrabCursor(7, 2)" disabled>
+                                    <input type="range" min="0" max="1000" step="10" value="500" class="cursorDisabled" oninput="GrabCursor(8, 2)" disabled>
                                     <span class="value">0</span>
                                 </div>
                                 <div id="boundBuy" class="boundValues">
-                                    <span class="boundMin">0</span>
-                                    <span class="boundMiddle">250</span>
-                                    <span class="boundMax">500</span>
+                                    <span class="boundOffersMin">0</span>
+                                    <div class="boundOffersMiddle">
+                                        <span >50.000</span>
+                                    </div>
+                                    <span class="boundOffersMax">100.000</span>
                                 </div>
-                                <div id="priceBuy" class="critereDiv">
-                                    <input class="critCheck" type="checkbox" id="priceBuyCheck" onclick="EnableCritereOffers(9)"/><label class="labelChek" for="priceBuyCheck"></label>
+                                <br>
+                                <div id="pricebuy" class="critereDiv">
+                                    <input class="critCheck" type="checkbox" id="priceBuyCheck" onclick="EnableCritereOffers(11)"/><label class="labelChek" for="priceBuyCheck"></label>
                                     <span class="critereName">Prix achat</span>
-                                    <input type="range" min="0" max="500" step="10" value="250" class="cursorDisabled" oninput="GrabCursor(9, 2)" disabled>
+                                    <input type="range" min="0" max="100000" step="1000" value="50000" class="cursorDisabled" oninput="GrabCursor(11, 2)" disabled>
                                     <span class="value">0</span>
                                 </div>
                             </div>
@@ -1167,19 +1194,19 @@
             }
             
             function EnableCritereOffers(numCritere) {
-                var nodes = document.getElementById('listCriteresDiv').children;
+                var nodes = document.getElementById('listCriteresOffreDiv').children;
                 for (var i = 0; i < nodes.length; i += 1) {
                     if (i == numCritere) {
-						if (nodes[i].children[0].checked) {
-							nodes[i].children[3].className = "cursorEnabled";
-							nodes[i].children[3].disabled = false;
-							nodes[i].children[4].style = "visibility: visible";
-							GrabCursor(numCritere, 2);
-						} else {
-							nodes[i].children[3].className = "cursorDisabled";
-							nodes[i].children[3].disabled = true;
-							nodes[i].children[4].style = "visibility: hidden";
-						}
+                        if (nodes[i].children[0].checked) {
+                                nodes[i].children[3].className = "cursorEnabled";
+                                nodes[i].children[3].disabled = false;
+                                nodes[i].children[4].style = "visibility: visible";
+                                GrabCursor(numCritere, 2);
+                        } else {
+                                nodes[i].children[3].className = "cursorDisabled";
+                                nodes[i].children[3].disabled = true;
+                                nodes[i].children[4].style = "visibility: hidden";
+                        }
                     }
                 }
             }
@@ -1207,7 +1234,7 @@
                     document.getElementById("priceRentCheck").checked = false;
                     document.getElementById("priceRentCheck").disabled = true;
                 }
-                EnableCritere(7, 2);
+                EnableCritereOffers(8);
             }
             function EnablePriceBuyCheck(checkbox) {
                 if (checkbox.checked) {
@@ -1216,9 +1243,40 @@
                     document.getElementById("priceBuyCheck").checked = false;
                     document.getElementById("priceBuyCheck").disabled = true;
                 }
-                EnableCritere(9, 2);
+                EnableCritereOffers(11);
             }
             /* Toggle criteres windows */
+            
+            function PreToggleCriteria(button) {
+                
+                var otherButton;
+                if(button.id == "minMaxButton1") {
+                    if(button.checked) {
+                        otherButton = document.getElementById("minMaxButton2");
+                        document.getElementById("targetZone").style.display = "inline";
+                        
+                        if(otherButton.checked) {
+                            otherButton.checked = false;
+                            document.getElementById("targetOffer").style.display = "none";
+                        }
+                    } else {
+                        document.getElementById("targetZone").style.display = "none";
+                    }
+                }
+                if(button.id == "minMaxButton2") {
+                    if(button.checked) {
+                        otherButton = document.getElementById("minMaxButton1");
+                        document.getElementById("targetOffer").style.display = "inline";
+                        if(otherButton.checked) {
+                            otherButton.checked = false;
+                            document.getElementById("targetZone").style.display = "none";
+                        }
+                    } else {
+                        document.getElementById("targetOffer").style.display = "none";
+                    }
+                }
+            }
+            
             function ToggleCriteria(elements, specifiedDisplay) {
                 var element, index;
                 elements = elements.length ? elements : [elements];
@@ -1420,7 +1478,7 @@
                 }
                 nodes = document.getElementById('listCriteresOffreDiv').children;
                 for (var i = 0; i < nodes.length; i += 1) {
-                    if (i == 4 || i == 5 || i == 7 || i == 9) {
+                    if (i == 4 || i == 5 || i == 8 || i == 11) {
                         if (nodes[i].children[0].checked) {
                             triggerChecked = true;
                             parameters += "&";
