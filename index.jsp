@@ -785,13 +785,14 @@
                                 <div id="listRentBuysDiv">
                                     <div id="buy" class="modeRentBuyDiv" aria-label="Vendre">
                                         <input class="critCheck" type="checkbox" id="buyCheck" onclick="EnablePriceBuyCheck(this)" checked/><label class="labelChek" for="buyCheck"></label>
-                                        <span class="critereName">achat</span>
+                                        <span id="achat" class="critereName">Vente</span>
                                     </div>
                                     <div id="rent" class="modeRentBuyDiv" aria-label="Louer">
                                         <input class="critCheck" type="checkbox" id="rentCheck" onclick="EnablePriceRentCheck(this)" checked/><label class="labelChek" for="rentCheck"></label>
-                                        <span class="critereName">location</span>
+                                        <span id="location" class="critereName">Location</span>
                                     </div>
                                 </div>
+                                </br>
                                 </br>
                                 <div class="boundValues">
                                     <span class="boundOffersMin">0</span>
@@ -1096,7 +1097,7 @@
                     var longi = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("long")[i].childNodes[0].nodeValue);
                     var lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("lat")[i].childNodes[0].nodeValue);
                     var typeOffer = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
-                    if (typeOffer === "Vente") {
+                    if (typeOffer === "vente") {
                         markers[i] = new google.maps.Marker({
                             position: new google.maps.LatLng(lati, longi),
                             map: map,
@@ -2054,7 +2055,7 @@
                       <p><span class="glyphicon glyphicon-transfer"></span> Type de contrat : </p>
                       <select class="selectpicker" name="type" id="selectType">
                           <option>Location</option>
-                          <option>Vente</option>
+                          <option>vente</option>
                       </select>
                     </div>
                     <div class="floating-box" style=" margin-left: 10%;">
