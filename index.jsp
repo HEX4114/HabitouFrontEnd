@@ -798,7 +798,7 @@
                                 <div id="pricerent" class="critereDiv">
                                     <input class="critCheck" type="checkbox" id="priceRentCheck" onclick="EnableCritereOffers(8)"/><label class="labelChek" for="priceRentCheck"></label>
                                     <span class="critereName">Prix location</span>
-                                    <input type="range" min="0" max="1000" step="10" value="500" class="cursorDisabled rangeOffers" oninput="GrabCursor(8, 2)" disabled>
+                                    <input type="range" min="0" max="1000" step="10" value="500" class="cursorDisabled" oninput="GrabCursor(8, 2)" disabled>
                                     <span class="value">0</span>
                                 </div>
                                 <div id="boundBuy" class="boundValues">
@@ -812,7 +812,7 @@
                                 <div id="pricebuy" class="critereDiv">
                                     <input class="critCheck" type="checkbox" id="priceBuyCheck" onclick="EnableCritereOffers(11)"/><label class="labelChek" for="priceBuyCheck"></label>
                                     <span class="critereName">Prix achat</span>
-                                    <input type="range" min="0" max="100000" step="1000" value="50000" class="cursorDisabled rangeOffers" oninput="GrabCursor(11, 2)" disabled>
+                                    <input type="range" min="0" max="100000" step="1000" value="50000" class="cursorDisabled" oninput="GrabCursor(11, 2)" disabled>
                                     <span class="value">0</span>
                                 </div>
                             </div>
@@ -1187,12 +1187,12 @@
                 for (var i = 0; i < nodes.length; i += 1) {
                     if (i == numCritere) {
                         if (nodes[i].children[0].checked) {
-                                nodes[i].children[3].className = "cursorEnabled rangeOffers";
+                                nodes[i].children[3].className = "cursorEnabled";
                                 nodes[i].children[3].disabled = false;
                                 nodes[i].children[4].style = "visibility: visible";
                                 GrabCursor(numCritere, 2);
                         } else {
-                                nodes[i].children[3].className = "cursorDisabled rangeOffers";
+                                nodes[i].children[3].className = "cursorDisabled";
                                 nodes[i].children[3].disabled = true;
                                 nodes[i].children[4].style = "visibility: hidden";
                         }
@@ -1223,7 +1223,7 @@
                     document.getElementById("priceRentCheck").checked = false;
                     document.getElementById("priceRentCheck").disabled = true;
                 }
-                EnableCritere(7, 2);
+                EnableCritereOffers(8);
             }
             function EnablePriceBuyCheck(checkbox) {
                 if (checkbox.checked) {
@@ -1232,7 +1232,7 @@
                     document.getElementById("priceBuyCheck").checked = false;
                     document.getElementById("priceBuyCheck").disabled = true;
                 }
-                EnableCritere(9, 2);
+                EnableCritereOffers(11);
             }
             /* Toggle criteres windows */
             
