@@ -714,6 +714,15 @@
                                     <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6, 1)" disabled>
                                     <span class="value">0</span>
                                 </div>
+                                <div id="pollution" class="critereDiv">
+                                    <input class="critCheck" type="checkbox" id="crit4Check" onclick="EnableCritereZone(7)"/><label class="labelChek" for="crit4Check"></label>
+                                    <span class="critereName">Pollution</span>
+                                    <select class="selectpicker" class="cursorDisabled">
+                                        <option>Peu important</option>
+                                        <option>Moyennement important</option>
+                                        <option>Très important</option>
+                                    </select>
+                                </div> 
                             </div>
                             <button id="searchButton" type="button" onclick="ClickSearchButton(this)" class="button" > 
                                 Rechercher
@@ -878,6 +887,8 @@
             var critAtm;
             var critAtmSeuil;
             var critAddress;
+            var critPollution;
+            var critPollutionSeuil;
             var critAddressSeuil;
             var critAddressString;
 
@@ -1234,7 +1245,7 @@
                 critAtm = false;
                 critSupermarket = false;
                 critAddress = false;
-
+                critPollution = false;
                 critKindergarten = false;
                 critDoctor = false;
 
@@ -1266,30 +1277,50 @@
                                 parameters += "&";
                             }
                             triggerChecked = true;
-                            parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
+                            parameters += nodes[i].id + "=";
                             if(nodes[i].id == "adress") {
                                 document.getElementById("loadingSquare").hidden = false;
+                                critAddressSeuil = nodes[i].children[3].value * 60;
+                                parameters += critAddressSeuil;
                                 var adressString = nodes[i].children[6].value.replace(/ /g, "+");
                                 parameters += "&adressstring" + "=" + adressString;
                                 critAddress = true;
-                                critAddressSeuil = nodes[i].children[3].value * 60;
+                                
                                 critAddressString = nodes[i].children[6].value;
                             }
                             if (nodes[i].id == "supermarket") {
                                 critSupermarket = true;
                                 critSupermarketSeuil = nodes[i].children[3].value * 60;
+                                parameters += critSupermarketSeuil;
                             }
                             if (nodes[i].id == "atm") {
                                 critAtm = true;
                                 critAtmSeuil = nodes[i].children[3].value * 60;
+                                parameters += critAtmSeuil;
                             }
                             if (nodes[i].id == "kindergarten") {
                                 critKindergarten = true;
                                 critKindergartenSeuil = nodes[i].children[3].value * 60;
+                                parameters += critKindergartenSeuil;
                             }
                             if (nodes[i].id == "doctor") {
                                 critDoctor = true;
                                 critDoctorSeuil = nodes[i].children[3].value * 60;
+                                parameters += critDoctorSeuil;
+                            }
+                            if (nodes[i].id == "pollution") {
+                                critPollution = true;
+                                critPollutionSeuil = nodes[i].children[3].value;
+                                if(critDoctorSeuil == "Peu important"){
+                                    parameters += "50";
+                                }
+                                else if(critDoctorSeuil == "Moyennement important"){
+                                    parameters += "30";
+                                }
+                                else {
+                                    parameters += "15";
+                                }
+                                critPollutionSeuil;
                             }
                         } else {
                             if (nodes[i].id == "adress") {
@@ -1513,6 +1544,12 @@
                 parameters += "&kindergarten=";
                 if (critKindergarten) {
                     parameters += critKindergartenSeuil;
+                } else {
+                    parameters += "null";
+                }
+                parameters += "&pollution=";
+                if(critPollution){
+                    parameters += critPollutionSeuil;
                 } else {
                     parameters += "null";
                 }
