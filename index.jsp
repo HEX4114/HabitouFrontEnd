@@ -403,6 +403,16 @@
                             <b>Critères de recherche de zone</b>
                         </div>
                         <div class="targetZone">
+                            <div id="zoneCritDiv">
+                               <div class="themeCritereTitle" id="zonesTitle">
+                                    Zone :             
+                                </div> 
+                                <select id="zonesDiv">
+                                    <option value="gl">Grand Lyon</option>
+                                    <option value="l1">Lyon 1</option>
+                                    <option value="villeurbanne">Villeurbanne</option>
+                                </select>
+                            </div>
                             <div id="transportsCritDiv">
                                 <div class="themeCritereTitle" id="transportsTitle">
                                     Moyens de transport :
@@ -649,6 +659,11 @@
             var critCar;
             var critBike;
             var critTransport;
+            
+            var currentZone;
+            var critGrandLyon;
+            var critVilleurbanne;
+            var critLyon1;
 
             var markers = [];
 
@@ -1084,6 +1099,10 @@
                 critCar = false;
                 critBike = false;
                 critTransport = false;
+                
+                critGrandLyon = false;
+                critVilleurbanne = false;
+                critLyon1 = false;
 
                 button.disabled = true;
                 document.getElementById("squareInfosDiv").hidden = true;
@@ -1149,6 +1168,41 @@
                     } else {
                         parameters += "&" + nodes[i].id + "=n";
                     }
+                }
+                
+                var z = document.getElementById("zonesDiv");
+                var selectedItem = z.options[z.selectedIndex].value;
+                
+                if (selectedItem === "gl") {
+                    if (currentZone !== "gl"){
+                        DeleteAllSquares();
+                        currentZone = "gl";
+                    }
+                    critGrandLyon = true;
+                }
+                if (selectedItem === "l1") {
+                    if (currentZone !== "l1"){
+                        DeleteAllSquares();
+                        currentZone = "l1";
+                    }
+                    critLyon1 = true;
+                }
+                if (selectedItem === "villeurbanne") {
+                    if (currentZone !== "villeurbanne"){
+                        DeleteAllSquares();
+                        currentZone = "villeurbanne";
+                    }
+                    critVilleurbanne = true;
+                }
+
+                                                      
+                parameters += "&collection=";
+                if (critVilleurbanne) {
+                    parameters += "squaresV";
+                } else if (critLyon1) {
+                    parameters += "squaresL1";
+                }else {
+                    parameters += "squaresGL";
                 }
 
                 if (!triggerChecked) {
