@@ -1128,7 +1128,7 @@
                             triggerChecked = true;
                             parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
                             if (nodes[i].id == "adress") {
-                                var adressString = nodes[i].children[6].value;
+                                var adressString = nodes[i].children[6].value.replace(/ /g, "+");
                                 parameters += "adressstring" + "=" + adressString;
                                 critAddresse = true;
                                 critAddresseSeuil = nodes[i].children[3].value * 60;
@@ -1150,11 +1150,11 @@
                                 critDoctor = true;
                                 critDoctorSeuil = nodes[i].children[3].value * 60;
                             }
-//                        } else {
-//                            parameters += nodes[i].id + "=null";
-//                            if (nodes[i].id == "adress") {
-//                                parameters += "&adressstring=null";
-//                           }
+                        } else {
+                            if (nodes[i].id == "adress") {
+                                parameters += nodes[i].id + "=null";
+                                parameters += "&adressstring=null";
+                           }
                         }
                     }
                 }
