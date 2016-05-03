@@ -1721,46 +1721,47 @@
 
         </script>
 
+        <!-- Modal -->
         <button type="button" class="btn btn-default btn-lg" id="myBtn">Créer une offre</button>
-
+        
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
+          <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header" style="padding:35px 50px;">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4><span class="glyphicons glyphicons-building"></span> Ajouter une offre</h4>
-                    </div>
-                    <div class="modal-body" style="padding:40px 50px;">
-                        <form id="addOfferForm" role="form" action="addOffer" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="address"><span class="glyphicons glyphicons-global"></span> Address</label>
-                                <input type="text" class="form-control" id="address" name="address" placeholder="Enter correct address">
-                            </div>
-                            <div class="form-group">
-                                <label for="link"><span class="glyphicons glyphicons-link"></span> Link to offer</label>
-                                <input type="text" class="form-control" id="link" name="link" placeholder="Enter link">
-                            </div>
-                            <div class="form-group">
-                                <label for="price"><span class="glyphicons glyphicons-fees-payments"></span> Price </label>
-                                <input type="text" class="form-control" id="price" name="price" placeholder="Enter price">
-                            </div>
-                            <div class="form-group">
-                                <label for="type"><span class="glyphicons glyphicons-mixed-buildings"></span> Type </label>
-                                <input type="text" class="form-control" id="type" name="type" placeholder="Enter type (location, buy)">
-                            </div>
-                            <div class="form-group">
-                                <label for="file"><span class="glyphicons glyphicons-file-plus"></span> Image to upload </label>
-                                <input type="file" class="form-control" id="file" name="file" placeholder="Enter file to upload">
-                            </div>
-                            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Ajouter</button>
-                        </form>
-                    </div>
-                </div>
-
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header" style="padding:35px 50px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4><span class="glyphicon glyphicon-list-alt"></span> Ajouter une offre</h4>
+              </div>
+              <div class="modal-body" style="padding:40px 50px;">
+                <form id="addOfferForm" role="form" action="addOffer" method="post" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <p><span class="glyphicon glyphicon-home"></span> Adresse : </p>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Enter correct address">
+                  </div>
+                  <div class="form-group">
+                    <p><span class="glyphicon glyphicon-link"></span> Lien vers l'offre : </p>
+                    <input type="text" class="form-control" id="link" name="link" placeholder="Enter link">
+                  </div>
+                  <div class="form-group">
+                    <p><span class="glyphicon glyphicon-euro"></span> Prix : </p>
+                    <input type="text" class="form-control" id="price" name="price" placeholder="Enter price">
+                  </div>
+                  <div class="form-group">
+                    <p><span class="glyphicon glyphicon-transfer"></span> Type de contrat : </p>
+                    <input type="text" class="form-control" id="type" name="type" placeholder="Enter type (location, buy)">
+                  </div>
+                  <div class="form-group">
+                    <p><span class="glyphicon glyphicon-file"></span> Image : </p>
+                    <input type="file" class="form-control" id="file" name="file" placeholder="Enter file to upload">
+                  </div>
+                    <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
+                </form>
+              </div>
             </div>
+
+          </div>
         </div>
     </body>
 </html>
