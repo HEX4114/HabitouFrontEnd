@@ -626,6 +626,25 @@
                 outline: none;
             }
             
+            #pollutionList {
+                display: inline-block;
+                width: 200px;
+                float: right;
+                width: 66%;
+                
+                border : solid 2px #dedede;
+                border-radius : 1px;
+                background-color : #ffffff;
+                box-shadow: 0px 1px 3px 1px #f0f0f0 inset;
+            }
+            #pollutionList:disabled {
+                color : #c0c0c0;
+                border : solid 2px #eaeaea;
+                background-color : #f0f0f0;
+                box-shadow: 0px 0px 0px 0px #000000 inset;
+            }
+            
+            
         </style>
     </head>
     <body onload="GetMap()">
@@ -732,12 +751,12 @@
                                     <span class="value">0</span>
                                 </div>
                                 <div id="pollution" class="critereDiv">
-                                    <input class="critCheck" type="checkbox" id="crit4Check" onclick="EnableCritereZone(7)"/><label class="labelChek" for="crit4Check"></label>
+                                    <input class="critCheck" type="checkbox" id="crit5Check" onclick="EnableListPollution(this)"/><label class="labelChek" for="crit5Check"></label>
                                     <span class="critereName">Pollution</span>
-                                    <select class="selectpicker" class="cursorDisabled">
-                                        <option>Peu important</option>
-                                        <option>Moyennement important</option>
-                                        <option>Très important</option>
+                                    <select id="pollutionList" disabled>
+                                        <option>Peu importe</option>
+                                        <option>Pas trop élevée</option>
+                                        <option>Le moins possible</option>
                                     </select>
                                 </div> 
                             </div>
@@ -871,6 +890,10 @@
                                 <div class="pastille" id="pastilleKindergarten"></div>
                                 <div class="critereNameInfos">Maternelle</div>
                                 <div id="kindergartenResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="pollutionResultDiv" class="critereResultDiv">
+                                <div class="pastille" id="pastillePollution"></div>
+                                <div class="critereNameInfos">Pollution</div>
                             </div>
                         </div>
                     </div>
@@ -1211,6 +1234,15 @@
                 }
             }
 			
+            function EnableListPollution(button) {
+                if(button.checked) {
+                    document.getElementById("pollutionList").disabled = false;
+                } else {
+                    document.getElementById("pollutionList").disabled = true;
+                }
+                
+            }            
+            
             function GrabCursor(numCursor, opt) {
                 var nodes;
                 if (opt === 1) {
@@ -1354,9 +1386,11 @@
                                 }
                                 else if(critPollutionSeuil === "Moyennement important"){
                                     parameters += "30";
+                                    critPollutionSeuil = "30";
                                 }
                                 else {
                                     parameters += "15";
+                                    critPollutionSeuil = "15";
                                 }
                                 critPollutionSeuil;
                             }
@@ -1877,7 +1911,23 @@
                     map: map,
                     icon: 'img/marker_university.png'
                 });
-
+                
+                
+                
+                if (!critCar)
+                    result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("pollution")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                else {
+                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("pollution")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("pollution")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                    result = (walkTime > driveTime ? driveTime : walkTime);
+                }
+                result = Math.round(result / 60);
+                document.getElementById("pollutionResultTime").innerHTML = result + " min";
+                score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("pollution")[0].childNodes[5].childNodes[0].nodeValue);
+                icon = (score > 0 ? 'url(img/icon_pollution.png)' : 'url(img/icon_pollution_black.png)');
+                document.getElementById("pastillePollution").style.backgroundImage = icon;
+                document.getElementById("pastillePollution").style.backgroundColor = GetColorFromScore(score);
+                alert(score);
             }
             function DeleteAllSelectedRectangleMarkers() {
                 if (markersSquareSelected != null) {
