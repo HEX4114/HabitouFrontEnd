@@ -52,7 +52,7 @@
             
             #rechercheDiv{
                 margin-top: 20px;
-                width: 425px;
+                width: 475px;
             }
             .commandBorder {
                 background-color: #fff;
@@ -76,8 +76,8 @@
             .modeTransportDiv{
                 float: right;
                 margin-left: 20px;
-                margin-bottom: 12px;
-                margin-top : 6px;
+                margin-bottom: 0px;
+                margin-top : 0px;
             }
             .modeRentBuyDiv{
                 float: left;
@@ -111,11 +111,10 @@
             .inputText {
                 font : inherit;
                 font-size : 15px;
-                width : 98%;
+                width : 100%;
                 height : 24px;
                 padding : 0px;
-                padding-left : 2px;
-                margin : 1px 1% 6px 1%;
+                margin : 1px 0px 2px 0px;
                 border : solid 2px #dedede;
                 border-radius : 1px;
                 background-color : #ffffff;
@@ -286,7 +285,7 @@
                 margin : 6px 0px 6px 5px;
             }
             .button {
-                margin : 4px 0px 5px 0px;
+                margin : 0px 0px 5px 0px;
                 width : 100%;
                 height : 40px;
                 border-radius: 2px;
@@ -594,6 +593,19 @@
                 right: 30px;
             }
             
+            #critGeneraux{
+                display: flex;
+                flex-flow: row;
+            }
+            #zonesDiv{
+                height: 24px;
+                flex-grow: 1;
+            }
+            #transportsCritDiv {
+                flex-grow: 1;
+            }
+            
+            
         </style>
     </head>
     <body onload="GetMap()">
@@ -614,46 +626,39 @@
                             <div class="displayTitle">Chercher un quartier</div>
                         </div>
                         <div class="targetZone">
-                            <div id="zoneCritDiv">
-                                <div class="themeCritereTitle" id="zonesTitle">
-                                    Zone :             
-                                </div> 
+                            <div id="critGeneraux">
                                 <select id="zonesDiv">
                                     <option value="gl">Grand Lyon</option>
                                     <option value="l1">Lyon 1</option>
                                     <option value="villeurbanne">Villeurbanne</option>
                                 </select>
-                            </div>
-                            <div id="transportsCritDiv">
-                                <div class="themeCritereTitle" id="transportsTitle">
-                                    Moyens de transport :
-                                </div>
-                                <div id="listTransportsDiv">
-                                    <div id="transport" class="modeTransportDiv" >
-                                        <div class="iconDiv iconTransit">
+                                <div id="transportsCritDiv">
+                                    <div id="listTransportsDiv">
+                                        <div id="transport" class="modeTransportDiv" >
+                                            <div class="iconDiv iconTransit">
+                                            </div>
+                                            <div class="checkTransportDiv">
+                                                <input class="critCheck" type="checkbox" id="transportCheck" /><label class="labelChek" for="transportCheck"></label>
+                                            </div>
                                         </div>
-                                        <div class="checkTransportDiv">
-                                            <input class="critCheck" type="checkbox" id="transportCheck" /><label class="labelChek" for="transportCheck"></label>
+                                        <div id="car" class="modeTransportDiv" >
+                                            <div class="iconDiv iconCar">
+                                            </div>
+                                            <div class="checkTransportDiv">
+                                                <input class="critCheck" type="checkbox" id="carCheck" /><label class="labelChek" for="carCheck"></label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div id="car" class="modeTransportDiv" >
-                                        <div class="iconDiv iconCar">
-                                        </div>
-                                        <div class="checkTransportDiv">
-                                            <input class="critCheck" type="checkbox" id="carCheck" /><label class="labelChek" for="carCheck"></label>
-                                        </div>
-                                    </div>
-                                    <div id="bike" class="modeTransportDiv" >
-                                        <div class="iconDiv iconBike">
-                                        </div>
-                                        <div class="checkTransportDiv">
-                                            <input class="critCheck" type="checkbox" id="bikeCheck" /><label class="labelChek" for="bikeCheck"></label>
+                                        <div id="bike" class="modeTransportDiv" >
+                                            <div class="iconDiv iconBike">
+                                            </div>
+                                            <div class="checkTransportDiv">
+                                                <input class="critCheck" type="checkbox" id="bikeCheck" /><label class="labelChek" for="bikeCheck"></label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div></div>
-                            </br></br>
+                            
                             <div class="themeCritereTitle">
                                 À moins de (distance en min) :
                                 </br>
@@ -695,18 +700,18 @@
                                 </div>
                                 <div id="doctor" class="critereDiv">
                                     <input class="critCheck" type="checkbox" id="crit3Check" onclick="EnableCritereZone(5)"/><label class="labelChek" for="crit3Check"></label>
-                                    <a class="critereName">Docteur</a>
+                                    <span class="critereName">Docteur</span>
                                     <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5, 1)" disabled>
                                     <span class="value">0</span>
                                 </div>
                                 <div id="atm" class="critereDiv">
                                     <input class="critCheck" type="checkbox" id="crit4Check" onclick="EnableCritereZone(6)"/><label class="labelChek" for="crit4Check"></label>
                                     <span class="critereName">Borne de retrait</span>
+                                    
                                     <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6, 1)" disabled>
                                     <span class="value">0</span>
                                 </div>
                             </div>
-
                             <button id="searchButton" type="button" onclick="ClickSearchButton(this)" class="button" > 
                                 Rechercher
                             </button> 
@@ -852,9 +857,10 @@
         <script type="text/javascript">
             var largeur = 0.00075;
             var hauteur = 0.0005;
+            var largeurGL = 0.0075;
+            var hauteurGL = 0.005;
             var rectanglesId = new Array;
             var rectangles = new Array;
-            var animationTab = new Array;
             var intervals = new Array;
 
             var opacity = 0.5;
@@ -1109,10 +1115,10 @@
                 if (score < 0) {
                     return RgbToHex(255, 255, 255);
                 }
-                //var r = (score >= 0.5) ? 131 + (1 - score) * 94 : 225;
-                //var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
-                var r = (score >= 0.5) ? (1-score)/0.5*255 : 255; 
-                var g = (score >= 0.5) ? 255 : score/0.5*255;
+                var r = (score >= 0.5) ? 131 + (1 - score) * 94 : 225;
+                var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
+                //var r = (score >= 0.5) ? (1-score)/0.5*255 : 255; 
+                //var g = (score >= 0.5) ? 255 : score/0.5*255;
                 return RgbToHex(r, g, 0);
             }
             function RgbToHex(r, g, b) {
@@ -1583,6 +1589,20 @@
                 var squares = xmlHttpReq.responseXML.getElementsByTagName("square");
                 var firstTime = false;
                 
+                var larg;
+                var haut;
+                
+                if(critGrandLyon) {
+                    larg = largeurGL;
+                    haut = hauteurGL;
+                } else {
+                    larg = largeur;
+                    haut = hauteur;
+                }
+                
+                if(rectangles.length != squares.length) {
+                    DeleteAllSquares();
+                }
                 for (var i=0; i<squares.length; i++) {
                     var result = "";
                     rectanglesId[i] = xmlHttpReq.responseXML.getElementsByTagName("id")[i].childNodes[0].nodeValue;
@@ -1599,10 +1619,10 @@
                             map: map,
                             clickable: true,
                             bounds: {
-                                north: lat + hauteur / 2,
-                                south: lat - hauteur / 2,
-                                east: long + largeur / 2,
-                                west: long - largeur / 2
+                                north: lat + haut / 2,
+                                south: lat - haut / 2,
+                                east: long + larg / 2,
+                                west: long - larg / 2
                             }
                         });
                         //map.event.addListener(rectangles[i], 'click', ClickSquare);
@@ -1739,7 +1759,7 @@
                 result = Math.round(result / 60);
                 document.getElementById("doctorResultTime").innerHTML = result + " min";
                 score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[2].childNodes[0].nodeValue);
-                icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
+                icon = (score > 0 ? 'url(img/icon_doctor.png)' : 'url(img/icon_doctor_black.png)');
                 document.getElementById("pastilleDoctor").style.backgroundImage = icon;
                 document.getElementById("pastilleDoctor").style.backgroundColor = GetColorFromScore(score);
                 lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
@@ -1765,7 +1785,7 @@
                 result = Math.round(result / 60);
                 document.getElementById("kindergartenResultTime").innerHTML = result + " min";
                 score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[2].childNodes[0].nodeValue);
-                icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
+                icon = (score > 0 ? 'url(img/icon_school.png)' : 'url(img/icon_school_black.png)');
                 document.getElementById("pastilleKindergarten").style.backgroundImage = icon;
                 document.getElementById("pastilleKindergarten").style.backgroundColor = GetColorFromScore(score);
                 lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
@@ -1792,11 +1812,13 @@
                 }
             }
             function DeleteAllSquares() {
-                for (var k = 0; k < rectangles.length; k++) {
-                    rectangles[k].setMap(null);
-                    rectangles[k] = null;
+                if (rectangles.length > 0) {
+                    for (var k = 0; k < rectangles.length; k++) {
+                        rectangles[k].setMap(null);
+                        rectangles[k] = null;
+                    }
+                    rectangles = new Array;
                 }
-                rectangles = new Array;
             }
             function HighlightRectangle(i, todo) {
                 var fillColor;
