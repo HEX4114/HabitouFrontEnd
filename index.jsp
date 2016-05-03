@@ -462,28 +462,28 @@
                                     <span class="bound20">20</span>
                                 </div>
                                 </br>
+                                <div id="atm" class="critereDiv">
+                                    <input type="checkbox" id="crit4Check" onclick="EnableCritere(6, 1)"/><label for="crit4Check"></label>
+                                    <a class="critereName">Borne de retrait</a>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6, 1)" disabled>
+                                    <a class="value">0</a>
+                                </div>
                                 <div id="supermarket" class="critereDiv">
                                     <input type="checkbox" id="crit1Check" onclick="EnableCritere(3, 1)"/><label for="crit1Check"></label>
                                     <a class="critereName">Supermarché</a>
                                     <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3, 1)" disabled>
                                     <a class="value">0</a>
                                 </div>
-                                <div id="school" class="critereDiv" hidden>
-                                    <input type="checkbox" id="crit2Check" onclick="EnableCritere(4, 1)"/><label for="crit2Check"></label>
-                                    <a class="critereName">École</a>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4, 1)" disabled>
-                                    <a class="value">0</a>
-                                </div>
-                                <div id="transport" class="critereDiv" hidden>
+                                <div id="doctor" class="critereDiv">
                                     <input type="checkbox" id="crit3Check" onclick="EnableCritere(5, 1)"/><label for="crit3Check"></label>
-                                    <a class="critereName">Station de transport</a>
+                                    <a class="critereName">Docteur</a>
                                     <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5, 1)" disabled>
                                     <a class="value">0</a>
                                 </div>
-                                <div id="atm" class="critereDiv">
-                                    <input type="checkbox" id="crit4Check" onclick="EnableCritere(6, 1)"/><label for="crit4Check"></label>
-                                    <a class="critereName">Borne de retrait</a>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6, 1)" disabled>
+                                <div id="kindergarten" class="critereDiv">
+                                    <input type="checkbox" id="crit2Check" onclick="EnableCritere(4, 1)"/><label for="crit2Check"></label>
+                                    <a class="critereName">Maternelle</a>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4, 1)" disabled>
                                     <a class="value">0</a>
                                 </div>
                             </div>
@@ -577,25 +577,25 @@
                                 <div class="critereNameInfos">Adresse</div>
                                 <div id="adressResultTime" class="resultInfos"></div>
                             </div>
-                            <div id="superMarketResultDiv" class="critereResultDiv">
-                                <div class="pastille" id="pastilleSupermarket"></div>
-                                <div class="critereNameInfos">Supermarché</div>
-                                <div id="supermarkerResultTime" class="resultInfos"></div>
-                            </div>
-                            <div id="schoolResultDiv" class="critereResultDiv" hidden>
-                                <div class="pastille" id="pastilleSchool"></div>
-                                <div class="critereNameInfos">École</div>
-                                <div id="schoolResultTime" class="resultInfos"></div>
-                            </div>
-                            <div id="transportResultDiv" class="critereResultDiv" hidden>
-                                <div class="pastille" id="pastilleTransport"></div>
-                                <div class="critereNameInfos">Station de transport</div>
-                                <div id="transportResultTime" class="resultInfos"></div>
-                            </div>
                             <div id="atmResultDiv" class="critereResultDiv">
                                 <div class="pastille" id="pastilleAtm"></div>
                                 <div class="critereNameInfos">Borne de retrait</div>
                                 <div id="atmResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="superMarketResultDiv" class="critereResultDiv">
+                                <div class="pastille" id="pastilleSupermarket"></div>
+                                <div class="critereNameInfos">Supermarché</div>
+                                <div id="supermarketResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="doctorResultDiv" class="critereResultDiv">
+                                <div class="pastille" id="pastilleDoctor"></div>
+                                <div class="critereNameInfos">Docteur</div>
+                                <div id="doctorResultTime" class="resultInfos"></div>
+                            </div>
+                            <div id="kindergartenResultDiv" class="critereResultDiv">
+                                <div class="pastille" id="pastilleKindergarten"></div>
+                                <div class="critereNameInfos">Maternelle</div>
+                                <div id="kindergartenResultTime" class="resultInfos"></div>
                             </div>
                         </div>
 
@@ -620,7 +620,7 @@
             var rectangles = new Array;
             var animationTab = new Array;
             var intervals = new Array;
-            var opacity = 0.45;
+            var opacity = 0.5;
 
             var selectedRectangle = -1;
             var selectedRectangleFillColor;
@@ -629,10 +629,14 @@
             var infoWindow;
 
             var critSupermarket;
-            var critAtm;
-            var critAddresse;
             var critSupermarketSeuil;
+            var critAtm;
             var critAtmSeuil;
+            var critDoctor;
+            var critDoctorSeuil;
+            var critKindergarten;
+            var critKindergartenSeuil;
+            var critAddresse;
             var critAddresseSeuil;
             var critAddresseString;
             var critCar;
@@ -681,7 +685,7 @@
                 controlUpUI.addEventListener('click', function () {
                     opacity = opacity + 0.1;
                     if (opacity > 1)
-                        opacity = 0.95;
+                        opacity = 1;
                     updateSquaresOpacity();
                 });
 
@@ -727,7 +731,7 @@
                 controlDownUI.addEventListener('click', function () {
                     opacity = opacity - 0.1;
                     if (opacity < 0)
-                        opacity = 0.05;
+                        opacity = 0;
                     updateSquaresOpacity();
                 });
             }
@@ -756,14 +760,6 @@
 
                 //var resultDiv = document.getElementById("squareInfosDiv");
                 //map.controls[google.maps.ControlPosition.LEFT_TOP].push(resultDiv);
-
-                /*
-                 setIndicatorColor("star1", 1, 1);
-                 setIndicatorColor("star2", 1.4, 1);
-                 setIndicatorColor("star3", 1.8, 1);
-                 setIndicatorColor("star4", 2.2, 1);
-                 setIndicatorColor("star5", 2.6, 1);
-                 */
 
                 var opacityControlDiv = document.createElement('div');
                 var opacityControl = new OpacityControl(opacityControlDiv, map);
@@ -904,8 +900,8 @@
                 if (score < 0) {
                     return rgbToHex(255, 255, 255);
                 }
-                var r = (score >= 0.5) ? 131 + (1 - score) * 94 : 225;
-                var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
+                //var r = (score >= 0.5) ? 131 + (1 - score) * 94 : 225;
+                //var g = (score >= 0.5) ? 198 : (2 * score) * 148 + 50;
                 var r = (score >= 0.5) ? (1-score)/0.5*255 : 255; 
                 var g = (score >= 0.5) ? 255 : score/0.5*255;
                 return rgbToHex(r, g, 0);
@@ -990,6 +986,8 @@
             function ClickSearchButton(button) {
                 critAtm = false;
                 critSupermarket = false;
+                critKindergarten = false;
+                critDoctor = false;
                 critAddresse = false;
                 critCar = false;
                 critBike = false;
@@ -1033,6 +1031,14 @@
                             if (nodes[i].id == "atm") {
                                 critAtm = true;
                                 critAtmSeuil = nodes[i].children[3].value * 60;
+                            }
+                            if (nodes[i].id == "kindergarten") {
+                                critKindergarten = true;
+                                critKindergartenSeuil = nodes[i].children[3].value * 60;
+                            }
+                            if (nodes[i].id == "doctor") {
+                                critDoctor = true;
+                                critDoctorSeuil = nodes[i].children[3].value * 60;
                             }
                         } else {
                             parameters += nodes[i].id + "=null";
@@ -1226,6 +1232,18 @@
                 } else {
                     parameters += "null";
                 }
+                parameters += "&doctor=";
+                if (critDoctor) {
+                    parameters += critDoctorSeuil;
+                } else {
+                    parameters += "null";
+                }
+                parameters += "&kindergarten=";
+                if (critKindergarten) {
+                    parameters += critKindergartenSeuil;
+                } else {
+                    parameters += "null";
+                }
                 parameters += "&adress=";
                 if (critAddresse) {
                     parameters += critAddresseSeuil;
@@ -1402,29 +1420,7 @@
                 var lati;
                 var long;
                 var icon;
-
-                if (!critCar)
-                    result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
-                else {
-                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
-                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
-                    result = (walkTime > driveTime ? driveTime : walkTime);
-                }
-                result = Math.round(result / 60);
-                document.getElementById("supermarkerResultTime").innerHTML = result + " min";
-                score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[2].childNodes[0].nodeValue);
-                icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
-                document.getElementById("pastilleSupermarket").style.backgroundImage = icon;
-                document.getElementById("pastilleSupermarket").style.backgroundColor = GetColorFromScore(score);
-                lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
-                long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
-                markersSquareSelected[0] = new google.maps.Marker({
-                    position: new google.maps.LatLng(lati, long),
-                    map: map,
-                    icon: 'http://maps.google.com/mapfiles/ms/icons/convienancestore.png'
-                });
-
-
+                
                 if (!critCar)
                     result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
                 else {
@@ -1440,13 +1436,74 @@
                 document.getElementById("pastilleAtm").style.backgroundColor = GetColorFromScore(score);
                 lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
                 long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("atm")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
-                markersSquareSelected[1] = new google.maps.Marker({
+                markersSquareSelected[0] = new google.maps.Marker({
                     position: new google.maps.LatLng(lati, long),
                     map: map,
                     icon: 'http://maps.google.com/mapfiles/ms/micons/euro.png'
                 });
+                
+                if (!critCar)
+                    result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                else {
+                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                    result = (walkTime > driveTime ? driveTime : walkTime);
+                }
+                result = Math.round(result / 60);
+                document.getElementById("supermarketResultTime").innerHTML = result + " min";
+                score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[2].childNodes[0].nodeValue);
+                icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
+                document.getElementById("pastilleSupermarket").style.backgroundImage = icon;
+                document.getElementById("pastilleSupermarket").style.backgroundColor = GetColorFromScore(score);
+                lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
+                long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("supermarket")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
+                markersSquareSelected[1] = new google.maps.Marker({
+                    position: new google.maps.LatLng(lati, long),
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/convienancestore.png'
+                });
 
-
+                if (!critCar)
+                    result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                else {
+                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                    result = (walkTime > driveTime ? driveTime : walkTime);
+                }
+                result = Math.round(result / 60);
+                document.getElementById("doctorResultTime").innerHTML = result + " min";
+                score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[2].childNodes[0].nodeValue);
+                icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
+                document.getElementById("pastilleDoctor").style.backgroundImage = icon;
+                document.getElementById("pastilleDoctor").style.backgroundColor = GetColorFromScore(score);
+                lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
+                long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("doctor")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
+                markersSquareSelected[2] = new google.maps.Marker({
+                    position: new google.maps.LatLng(lati, long),
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/convienancestore.png'
+                });
+                
+                if (!critCar)
+                    result = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                else {
+                    driveTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[1].childNodes[3].childNodes[0].nodeValue);
+                    walkTime = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[0].childNodes[3].childNodes[0].nodeValue);
+                    result = (walkTime > driveTime ? driveTime : walkTime);
+                }
+                result = Math.round(result / 60);
+                document.getElementById("kindergartenResultTime").innerHTML = result + " min";
+                score = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[2].childNodes[0].nodeValue);
+                icon = (score > 0 ? 'url(img/icon_supermarket.png)' : 'url(img/icon_supermarket_black.png)');
+                document.getElementById("pastilleKindergarten").style.backgroundImage = icon;
+                document.getElementById("pastilleKindergarten").style.backgroundColor = GetColorFromScore(score);
+                lati = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[0].childNodes[1].childNodes[0].nodeValue);
+                long = parseFloat(xmlHttpReq.responseXML.getElementsByTagName("kindergarten")[0].childNodes[0].childNodes[2].childNodes[0].nodeValue);
+                markersSquareSelected[3] = new google.maps.Marker({
+                    position: new google.maps.LatLng(lati, long),
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/micons/euro.png'
+                });
 
             }
 
