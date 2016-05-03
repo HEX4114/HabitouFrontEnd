@@ -317,7 +317,7 @@
             .resultInfos {
                 display: inline-block;
                 text-align: right;
-                width: 10%;
+                width: 20%;
                 margin-left: 10px;
                 margin-top: 4px;
                 vertical-align: top;
@@ -870,8 +870,8 @@
         </div>
         
         <div id="opacityDiv">
-            <div id="resultBord" class="commandBorder">
-                <div id="resultInter" class="commandInner">
+            <div >
+                <div >
                 </div>
             </div>
         </div>
@@ -1234,7 +1234,7 @@
                 }
                 EnableCritere(9, 2);
             }
-            /* Toggle criteres windows */
+            
             
             function PreToggleCriteria(button) {
                 
@@ -1266,27 +1266,7 @@
                 }
             }
             
-            function ToggleCriteria(elements, specifiedDisplay) {
-                var element, index;
-                elements = elements.length ? elements : [elements];
-                for (index = 0; index < elements.length; index++) {
-                    element = elements[index];
-                    if (isElementHidden(element)) {
-                        element.style.display = '';
-                        // If the element is still hidden after removing the inline display
-                        if (isElementHidden(element)) {
-                            element.style.display = specifiedDisplay || 'block';
-                        }
-                    } else {
-                        element.style.display = 'none';
-                    }
-                }
-                function isElementHidden(element) {
-                    return window.getComputedStyle(element, null).getPropertyValue('display') === 'none';
-                }
-            }
-			
-			
+           	
 			
             function ClickSearchButton(button) {
                 critAtm = false;
@@ -1780,7 +1760,7 @@
                 markersSquareSelected[1] = new google.maps.Marker({
                     position: new google.maps.LatLng(lati, long),
                     map: map,
-                    icon: 'http://maps.google.com/mapfiles/ms/micons/euro.png'
+                    icon: 'img/marker_euro.png'
                 });
 
 
@@ -1806,7 +1786,7 @@
                 markersSquareSelected[2] = new google.maps.Marker({
                     position: new google.maps.LatLng(lati, long),
                     map: map,
-                    icon: 'http://maps.google.com/mapfiles/ms/icons/convienancestore.png'
+                    icon: 'img/marker_supermarket.png'
                 });
 
 
@@ -1832,7 +1812,7 @@
                 markersSquareSelected[3] = new google.maps.Marker({
                     position: new google.maps.LatLng(lati, long),
                     map: map,
-                    icon: 'http://maps.google.com/mapfiles/ms/icons/convienancestore.png'
+                    icon: 'img/marker_medicine.png'
                 });
                 
                 
@@ -1858,7 +1838,7 @@
                 markersSquareSelected[4] = new google.maps.Marker({
                     position: new google.maps.LatLng(lati, long),
                     map: map,
-                    icon: 'http://maps.google.com/mapfiles/ms/micons/euro.png'
+                    icon: 'img/marker_university.png'
                 });
 
             }
