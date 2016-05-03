@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        
+
         <style type="text/css">
             @font-face { font-family: AR DESTINE; src: url('ARDESTINE.ttf'); }
 
@@ -159,10 +159,10 @@
                 font-weight: bold;
             }
             .boundMin{
-                margin-left: 14%;
+                margin-left: 15%;
             }
             .boundMiddle{
-                margin-left: 39%;
+                margin-left: 32%;
             }
             .boundMax{
                 margin-left: 34%;
@@ -334,16 +334,12 @@
                 cursor: default;
             }
 
-            #searchAlert {
+            #searchAlert, #searchOfferAlert {
                 color : red;
                 font-size : 12px;
                 text-align: center;
                 background-color:#f8dcdc;
                 margin-bottom : 2px;
-            }
-
-            #squareInfosDiv {
-                width: 493px;
             }
 
             #titleResult {
@@ -388,7 +384,7 @@
             .modal-footer {
                 background-color: #f9f9f9;
             }
-            
+
         </style>
     </head>
     <body onload="GetMap()">
@@ -416,21 +412,21 @@
                                         <div class="iconDiv iconTransit">
                                         </div>
                                         <div class="checkTransportDiv">
-                                            <input type="checkbox" id="transportCheck" onclick="EnableMode()"/><label for="transportCheck"></label>
+                                            <input type="checkbox" id="transportCheck"/><label for="transportCheck"></label>
                                         </div>
                                     </div>
                                     <div id="car" class="modeTransportDiv" aria-label="En voiture">
                                         <div class="iconDiv iconCar">
                                         </div>
                                         <div class="checkTransportDiv">
-                                            <input type="checkbox" id="carCheck" onclick="EnableMode()"/><label for="carCheck"></label>
+                                            <input type="checkbox" id="carCheck"/><label for="carCheck"></label>
                                         </div>
                                     </div>
                                     <div id="bike" class="modeTransportDiv" aria-label="À vélo">
                                         <div class="iconDiv iconBike">
                                         </div>
                                         <div class="checkTransportDiv">
-                                            <input type="checkbox" id="bikeCheck" onclick="EnableMode()"/><label for="bikeCheck"></label>
+                                            <input type="checkbox" id="bikeCheck"/><label for="bikeCheck"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -442,15 +438,17 @@
                                 </br>
                             </div>
                             <div class="boundValues">
-                                <span class="boundMin">0</span><span class="boundMiddle">50</span><span class="boundMax">100</span>
+                                <span class="boundMin">0</span>
+                                <span class="boundMiddle">50</span>
+                                <span class="boundMax">100</span>
                                 </br>
                             </div>
                             </br>
                             <div id="listCriteresDiv">
                                 <div id="adress" class="critereDiv">
-                                    <input type="checkbox" id="critAddresseCheck" onclick="EnableCritere(0)"/><label for="critAddresseCheck"></label>
+                                    <input type="checkbox" id="critAddresseCheck" onclick="EnableCritere(0, 1)"/><label for="critAddresseCheck"></label>
                                     <a class="critereName">Adresse </a>
-                                    <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(0)" disabled>
+                                    <input type="range" min="0" max="100" step="1" value="50" class="cursorDisabled" oninput="GrabCursor(0, 1)" disabled>
                                     <a class="value">0</a>
                                     </br>
                                     <input type="text" id="adressInput" class="inputText" onkeydown="EnterPressed(this)" disabled value="Adresse..."/>
@@ -465,27 +463,27 @@
                                 </div>
                                 </br>
                                 <div id="supermarket" class="critereDiv">
-                                    <input type="checkbox" id="crit1Check" onclick="EnableCritere(3)"/><label for="crit1Check"></label>
+                                    <input type="checkbox" id="crit1Check" onclick="EnableCritere(3, 1)"/><label for="crit1Check"></label>
                                     <a class="critereName">Supermarché</a>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3, 1)" disabled>
                                     <a class="value">0</a>
                                 </div>
                                 <div id="school" class="critereDiv" hidden>
-                                    <input type="checkbox" id="crit2Check" onclick="EnableCritere(4)"/><label for="crit2Check"></label>
+                                    <input type="checkbox" id="crit2Check" onclick="EnableCritere(4, 1)"/><label for="crit2Check"></label>
                                     <a class="critereName">École</a>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4, 1)" disabled>
                                     <a class="value">0</a>
                                 </div>
                                 <div id="transport" class="critereDiv" hidden>
-                                    <input type="checkbox" id="crit3Check" onclick="EnableCritere(5)"/><label for="crit3Check"></label>
+                                    <input type="checkbox" id="crit3Check" onclick="EnableCritere(5, 1)"/><label for="crit3Check"></label>
                                     <a class="critereName">Station de transport</a>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5)" disabled>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5, 1)" disabled>
                                     <a class="value">0</a>
                                 </div>
                                 <div id="atm" class="critereDiv">
-                                    <input type="checkbox" id="crit4Check" onclick="EnableCritere(6)"/><label for="crit4Check"></label>
+                                    <input type="checkbox" id="crit4Check" onclick="EnableCritere(6, 1)"/><label for="crit4Check"></label>
                                     <a class="critereName">Borne de retrait</a>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6)" disabled>
+                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(6, 1)" disabled>
                                     <a class="value">0</a>
                                 </div>
                             </div>
@@ -512,51 +510,45 @@
                             </br>
                         </div>
                         <div class="targetOffer">
-                            <div id="listCriteresDiv">
+                            <div id="listCriteresOffreDiv">
                                 <div id="listRentBuysDiv">
                                     <div id="buy" class="modeRentBuyDiv" aria-label="Vendre">
-                                        <input type="checkbox" id="buyCheck" onclick="EnableOfferMode()"/><label for="buyCheck"></label>
+                                        <input type="checkbox" id="buyCheck" checked/><label for="buyCheck"></label>
                                         <a class="critereName">Vendre</a>
                                     </div>
                                     <div id="rent" class="modeRentBuyDiv" aria-label="Louer">
-                                        <input type="checkbox" id="rentCheck" onclick="EnableOfferMode()"/><label for="rentCheck"></label>
+                                        <input type="checkbox" id="rentCheck" checked/><label for="rentCheck"></label>
                                         <a class="critereName">Louer</a>
                                     </div>
                                 </div>
-                                <div></div>
-                                </br></br>
+                                </br>
                                 <div class="boundValues">
-                                    <span class="bound0">0</span>
-                                    <span class="boundNumber">5</span>
-                                    <span class="boundNumber">10</span>
-                                    <span class="boundNumber">15</span>
-                                    <span >20</span>
+                                    <span class="boundMin">0</span>
+                                    <span class="boundMiddle">5</span>
+                                    <span class="boundMax">10+</span>
                                 </div>
                                 </br>
                                 <div id="rooms" class="critereDiv">
-                                    <input type="checkbox" id="crit1Check" onclick="EnableCritere(3)"/><label for="crit1Check"></label>
+                                    <input type="checkbox" id="crit1Check" onclick="EnableCritere(4, 2)"/><label for="crit1Check"></label>
                                     <a class="critereName">No. chambres</a>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(3)" disabled>
+                                    <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled" oninput="GrabCursor(4, 2)" disabled>
                                     <a class="value">0</a>
                                 </div>
                                 <div id="floor" class="critereDiv">
-                                    <input type="checkbox" id="crit2Check" onclick="EnableCritere(4)"/><label for="crit2Check"></label>
+                                    <input type="checkbox" id="crit2Check" onclick="EnableCritere(5, 2)"/><label for="crit2Check"></label>
                                     <a class="critereName">No. étage</a>
-                                    <input type="range" min="0" max="20" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(4)" disabled>
+                                    <input type="range" min="0" max="10" step="1" value="5" class="cursorDisabled" oninput="GrabCursor(5, 2)" disabled>
                                     <a class="value">0</a>
                                 </div>
                                 <div class="boundValues">
-                                    <span class="bound0">0</span>
-                                    <span class="boundNumber">75</span>
-                                    <span class="boundNumber">150</span>
-                                    <span class="boundNumber">225</span>
-                                    <span >300</span>
+                                    <span class="boundMin">0</span>
+                                    <span class="boundMiddle">150</span>
+                                    <span class="boundMax">300</span>
                                 </div>
-                                </br>
                                 <div id="price" class="critereDiv">
-                                    <input type="checkbox" id="crit3Check" onclick="EnableCritere(5)"/><label for="crit3Check"></label>
+                                    <input type="checkbox" id="crit3Check" onclick="EnableCritere(7, 2)"/><label for="crit3Check"></label>
                                     <a class="critereName">Prix</a>
-                                    <input type="range" min="0" max="300000" step="1" value="10" class="cursorDisabled" oninput="GrabCursor(5)" disabled>
+                                    <input type="range" min="0" max="300" step="1" value="150" class="cursorDisabled" oninput="GrabCursor(7, 2)" disabled>
                                     <a class="value">0</a>
                                 </div>
                             </div>
@@ -646,6 +638,17 @@
             var critCar;
             var critBike;
             var critTransport;
+
+            var critBuy;
+            var critRent;
+            var critRooms;
+            var critFloor;
+            var critPrice;
+            var critRoomsSeuil;
+            var critFloorSeuil;
+            var critPriceSeuil;
+
+            var markers = [];
 
             function OpacityControl(controlDiv, map) {
                 // Set CSS for the control border.
@@ -801,7 +804,6 @@
 
             function GetMarkers(xmlHttpReq) {
                 var offers = xmlHttpReq.responseXML.getElementsByTagName("offer");
-                var markers = [];
                 var ids = [];
 
                 for (i = 0; i < offers.length; i++) {
@@ -847,20 +849,20 @@
                                 for (var i = 0; i < offer.length; i++) {
                                     var address = xmlHttpReq.responseXML.getElementsByTagName("address")[i].childNodes[0].nodeValue;
                                     var type = xmlHttpReq.responseXML.getElementsByTagName("type")[i].childNodes[0].nodeValue;
-                                    //var rooms = xmlHttpReq.responseXML.getElementsByTagName("rooms")[i].childNodes[0].nodeValue;
-                                    //var floor = xmlHttpReq.responseXML.getElementsByTagName("floor")[i].childNodes[0].nodeValue;
-                                    //var m2 = xmlHttpReq.responseXML.getElementsByTagName("m2")[i].childNodes[0].nodeValue;
+                                    var rooms = xmlHttpReq.responseXML.getElementsByTagName("rooms")[i].childNodes[0].nodeValue;
+                                    var floor = xmlHttpReq.responseXML.getElementsByTagName("floor")[i].childNodes[0].nodeValue;
+                                    var m2 = xmlHttpReq.responseXML.getElementsByTagName("m2")[i].childNodes[0].nodeValue;
                                     var price = xmlHttpReq.responseXML.getElementsByTagName("price")[i].childNodes[0].nodeValue;
                                     var link = xmlHttpReq.responseXML.getElementsByTagName("link")[i].childNodes[0].nodeValue;
-                                    var src = window.location.href+"getOfferImagesById?id=" + ids[ind];
+                                    var src = window.location.href + "getOfferImagesById?id=" + ids[ind];
                                     infoWindow = new google.maps.InfoWindow({
                                         content: '<div class="popup_container">' +
                                                 '<IMG ID="ImageOffer" BORDER="0" ALIGN="Top" SRC=' + src + ' width="100" height="100" >' +
                                                 '<br> <br> Adresse : ' + address +
                                                 '<br> Type : ' + type +
-                                                '<br> No. chambres : ' + "rooms" +
-                                                '<br> No. étage : ' + "floor" +
-                                                '<br> Mètres carrés : ' + "m2" +
+                                                '<br> No. chambres : ' + rooms +
+                                                '<br> No. étage : ' + floor +
+                                                '<br> Mètres carrés : ' + m2 +
                                                 '<br> Prix : &euro; ' + parseFloat(price).toFixed(2) +
                                                 '<br> <a href="' + link + '">' + 'Lien vers l annonce' + '</a>' +
                                                 ' </div>',
@@ -881,6 +883,13 @@
                         xmlHttpReq.send();
                     });
                 }
+            }
+
+            function clearOverlays() {
+                for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(null);
+                }
+                markers.length = 0;
             }
 
             function setIndicatorColor(id, distance, distanceMax) {
@@ -907,8 +916,13 @@
             }
 
 
-            function EnableCritere(numCritere) {
-                var nodes = document.getElementById('listCriteresDiv').children;
+            function EnableCritere(numCritere, opt) {
+                var nodes;
+                if (opt === 1) {
+                    nodes = document.getElementById('listCriteresDiv').children;
+                } else if (opt === 2) {
+                    nodes = document.getElementById('listCriteresOffreDiv').children;
+                }
                 for (var i = 0; i < nodes.length; i += 1) {
                     if (i == numCritere) {
                         if (i != 1 && i != 2) {
@@ -916,7 +930,7 @@
                                 nodes[i].children[3].className = "cursorEnabled";
                                 nodes[i].children[3].disabled = false;
                                 nodes[i].children[4].style = "visibility: visible";
-                                GrabCursor(numCritere);
+                                GrabCursor(numCritere, opt);
                                 if (i == 0) {
                                     nodes[0].children[6].select();
                                     nodes[0].children[6].disabled = false;
@@ -935,8 +949,13 @@
                 }
             }
 
-            function GrabCursor(numCursor) {
-                var nodes = document.getElementById('listCriteresDiv').children;
+            function GrabCursor(numCursor, opt) {
+                var nodes;
+                if (opt === 1) {
+                    nodes = document.getElementById('listCriteresDiv').children;
+                } else if (opt === 2) {
+                    nodes = document.getElementById('listCriteresOffreDiv').children;
+                }
                 for (var j = 0; j < nodes.length; j += 1) {
                     if (j == numCursor) {
                         var value = nodes[j].children[3].value;
@@ -944,15 +963,6 @@
                     }
                 }
             }
-
-            var open = true;
-            var heightChecked = false;
-            var initHeight = 0;
-            var intval = null;
-
-            //document.getElementById('minMaxButton').addEventListener('click', function () {
-            //    toggle(document.querySelectorAll('.target'));
-            //});
 
             function toggle(elements, specifiedDisplay) {
                 var element, index;
@@ -1070,13 +1080,6 @@
                 critBuy = false;
 
                 button.disabled = true;
-                //document.getElementById("squareInfosDiv").hidden = true;
-                //HighlightRectangle(selectedRectangle, false);
-                //DeleteAllSelectedRectangleMarkers();
-                //selectedRectangle = -1;
-                //if (infoWindow != null) {
-                //    infoWindow.close();
-                //}
 
                 setTimeout(function (button) {
                     button.disabled = false;
@@ -1084,64 +1087,55 @@
                 var parameters = "?";
                 var triggerChecked = false;
 
-                var nodes = document.getElementById('listCriteresOffreDiv').children;
+                var nodes = document.getElementById('listRentBuysDiv').children;
                 for (var i = 0; i < nodes.length; i += 1) {
-                    if (i != 1 && i != 2) {
-                        if (!(parameters == "?"))
-                            parameters += "&";
+                    if (!(parameters == "?")) {
+                        parameters += "&";
+                    }
+                    if (nodes[i].children[0].checked) {
+                        triggerChecked = true;
+                        if (nodes[i].id == "buy") {
+                            critBuy = true;
+                        } else if (nodes[i].id == "rent") {
+                            critRent = true;
+                        }
+                        parameters += nodes[i].id + "=y";
+                    } else {
+                        parameters += nodes[i].id + "=n";
+                    }
+                }
 
+                nodes = document.getElementById('listCriteresOffreDiv').children;
+                for (var i = 0; i < nodes.length; i += 1) {
+                    if (i == 4 || i == 5 || i == 7) {
                         if (nodes[i].children[0].checked) {
                             triggerChecked = true;
-                            parameters += nodes[i].id + "=" + nodes[i].children[3].value * 60;
-                            if (nodes[i].id == "adress") {
-                                var adressString = nodes[i].children[6].value;
-                                parameters += "adressstring" + "=" + adressString;
-                                critAddresse = true;
-                                critAddresseSeuil = nodes[i].children[3].value * 60;
-                                critAddresseString = nodes[i].children[6].value;
+                            parameters += "&";
+                            parameters += nodes[i].id + "=" + nodes[i].children[3].value;
+                            if (nodes[i].id == "rooms") {
+                                critRooms = true;
+                                critRoomsSeuil = nodes[i].children[3].value;
                             }
-                            if (nodes[i].id == "supermarket") {
-                                critSupermarket = true;
-                                critSupermarketSeuil = nodes[i].children[3].value * 60;
+                            if (nodes[i].id == "floor") {
+                                critFloor = true;
+                                critFloorSeuil = nodes[i].children[3].value;
                             }
-                            if (nodes[i].id == "atm") {
-                                critAtm = true;
-                                critAtmSeuil = nodes[i].children[3].value * 60;
-                            }
-                        } else {
-                            parameters += nodes[i].id + "=null";
-                            if (nodes[i].id == "adress") {
-                                parameters += "adressstring=null";
+                            if (nodes[i].id == "price") {
+                                critPrice = true;
+                                critPriceSeuil = nodes[i].children[3].value;
                             }
                         }
                     }
                 }
 
-                nodes = document.getElementById('listTransportsDiv').children;
-                for (var i = 0; i < nodes.length; i += 1) {
-                    if (nodes[i].children[1].children[0].checked) {
-                        if (nodes[i].id == "car") {
-                            critCar = true;
-                        }
-                        if (nodes[i].id == "bike") {
-                            critBike = true;
-                        }
-                        if (nodes[i].id == "transport") {
-                            critTransport = true;
-                        }
-                        parameters += "&" + nodes[i].id + "=y";
-                    } else {
-                        parameters += "&" + nodes[i].id + "=n";
-                    }
-                }
+
 
                 if (!triggerChecked) {
-                    document.getElementById('searchAlert').innerHTML = "Aucun critère n'est sélectionné !";
-                    DeleteAllSquares();
+                    document.getElementById('searchOfferAlert').innerHTML = "Aucun critère n'est sélectionné !";
+                    clearOverlays();
                 } else {
-                    document.getElementById('searchAlert').innerHTML = "";
-                    GetSquaresRequest(parameters);
-                    //alert(parameters);
+                    document.getElementById('searchOfferAlert').innerHTML = "";
+                    GetOffersRequest(parameters);
                 }
             }
 
@@ -1175,6 +1169,26 @@
                 xmlHttpReq.send();
             }
 
+            function GetOffersRequest(parameters) {
+                var xmlHttpReq = false;
+
+                if (window.XMLHttpRequest) {
+                    xmlHttpReq = new XMLHttpRequest();
+                }
+                else if (window.ActiveXObject) {
+                    xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlHttpReq.open('GET', "getOffers" + parameters, true);
+                xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xmlHttpReq.onreadystatechange = function () {
+                    if (xmlHttpReq.readyState == 4) {
+                        clearOverlays();
+                        GetMarkers(xmlHttpReq);
+                    }
+                }
+                xmlHttpReq.send();
+            }
+
             function GetOneSquareRequest(parameters) {
                 var xmlHttpReq = false;
 
@@ -1192,10 +1206,6 @@
                     }
                 }
                 xmlHttpReq.send();
-            }
-
-            function EnableMode() {
-                //document.getElementById('searchButton').disabled = false;
             }
 
             function ClickSquare(event) {
@@ -1311,7 +1321,6 @@
                     }
                 }
             }
-
 
             function RefreshSquares(xmlHttpReq) {
                 var squares = xmlHttpReq.responseXML.getElementsByTagName("square");
@@ -1585,46 +1594,46 @@
 
 
 
-                    /*fillColor = GetColorFromScore(score);
-                    strokeColor = GetColorFromScore(score);
-                    rectangles[i].setOptions({
-                        strokeColor: strokeColor,
-                        strokeOpacity: strokeOpacity,
-                        fillColor: fillColor,
-                        fillOpacity: fillOpacity
-                    });
-                    animationTab[i] = false;
-                    clearInterval(intervals[i]);*/
-            
-            
-            function ChangeSquareOLD(score,i) {
+            /*fillColor = GetColorFromScore(score);
+             strokeColor = GetColorFromScore(score);
+             rectangles[i].setOptions({
+             strokeColor: strokeColor,
+             strokeOpacity: strokeOpacity,
+             fillColor: fillColor,
+             fillOpacity: fillOpacity
+             });
+             animationTab[i] = false;
+             clearInterval(intervals[i]);*/
+
+
+            function ChangeSquareOLD(score, i) {
                 var north = rectangles[i].getBounds().getNorthEast().lat();
                 var south = rectangles[i].getBounds().getSouthWest().lat();
                 var east = rectangles[i].getBounds().getNorthEast().lng();
                 var west = rectangles[i].getBounds().getSouthWest().lng();
-                
-                if(animationTab[i] == 0) {
+
+                if (animationTab[i] == 0) {
                     north -= 0.0001;
                     south += 0.0001;
-                    if(north > south) {
-                        
+                    if (north > south) {
+
                         rectangles[i].setOptions({
                             bounds: {
-                                north:north,
-                                south:south,
-                                east:east,
-                                west:west
+                                north: north,
+                                south: south,
+                                east: east,
+                                west: west
                             }
                         });
-                    } else {    
-                        
+                    } else {
+
                         var fillColor;
                         var strokeColor;
                         var fillOpacity;
                         var strokeOpacity;
-                        
+
                         fillOpacity = opacity;
-                        strokeOpacity = opacity+0.05;
+                        strokeOpacity = opacity + 0.05;
 
                         fillColor = GetColorFromScore(score);
                         strokeColor = GetColorFromScore(score);
@@ -1639,119 +1648,119 @@
                 } else {
                     north += 0.0001;
                     south -= 0.0001;
-                    
-                    var diff = (north-south) - (hauteur);
-                    if(diff >= 0) {
-                        north -= diff/2;
-                        south += diff/2;
-                        
+
+                    var diff = (north - south) - (hauteur);
+                    if (diff >= 0) {
+                        north -= diff / 2;
+                        south += diff / 2;
+
                         animationTab[i] = 0;
                         clearInterval(intervals[i]);
                     }
                     rectangles[i].setOptions({
                         bounds: {
-                            north:north,
-                            south:south,
-                            east:east,
-                            west:west
+                            north: north,
+                            south: south,
+                            east: east,
+                            west: west
                         }
                     });
                 }
             }
         </script>
         <script>
-            $(document).ready(function(){
-                $("#myBtn").click(function(){
+            $(document).ready(function () {
+                $("#myBtn").click(function () {
                     $("#myModal").modal();
                 });
             });
         </script>
-        
+
         <script>
-            $(document).ready(function() {
-    // Lorsque je soumets le formulaire
-            $('#addOfferForm').on('submit', function(e) {
-                e.preventDefault(); // J'empêche le comportement par défaut du navigateur, c-à-d de soumettre le formulaire
+            $(document).ready(function () {
+                // Lorsque je soumets le formulaire
+                $('#addOfferForm').on('submit', function (e) {
+                    e.preventDefault(); // J'empêche le comportement par défaut du navigateur, c-à-d de soumettre le formulaire
 
-                var $form = $(this); // L'objet jQuery du formulaire
+                    var $form = $(this); // L'objet jQuery du formulaire
 
-                // Je récupère les valeurs
-                var formdata = (window.FormData) ? new FormData($form[0]) : null;
-                var data = (formdata !== null) ? formdata : $form.serialize();
-                var address = $('#address').val();
-                var price = $('#price').val();
-                var type = $('#type').val();
-                var link = $('#link').val();
-                 
+                    // Je récupère les valeurs
+                    var formdata = (window.FormData) ? new FormData($form[0]) : null;
+                    var data = (formdata !== null) ? formdata : $form.serialize();
+                    var address = $('#address').val();
+                    var price = $('#price').val();
+                    var type = $('#type').val();
+                    var link = $('#link').val();
 
-                // Je vérifie une première fois pour ne pas lancer la requête HTTP
-                // si je sais que mon PHP renverra une erreur
-                if(address === '' || price === '' || link === '' || type === '') {
-                    alert('Les champs doivent êtres remplis');
-                    return;
-                } 
-                else {
-                    // Envoi de la requête HTTP en mode asynchrone
-                    $.ajax({
-                        url: $form.attr('action'),
-                        type: $form.attr('method'),
-                        contentType: false, // obligatoire pour de l'upload
-                        processData: false, // obligatoire pour de l'upload
-                        dataType: 'json', // selon le retour attendu
-                        data: data,
-                        success: function (response) {
-                         }
-                    });
-                }
-                alert("L'offre a bien été crée");
-                $('.modal.in').modal('hide');
+
+                    // Je vérifie une première fois pour ne pas lancer la requête HTTP
+                    // si je sais que mon PHP renverra une erreur
+                    if (address === '' || price === '' || link === '' || type === '') {
+                        alert('Les champs doivent êtres remplis');
+                        return;
+                    }
+                    else {
+                        // Envoi de la requête HTTP en mode asynchrone
+                        $.ajax({
+                            url: $form.attr('action'),
+                            type: $form.attr('method'),
+                            contentType: false, // obligatoire pour de l'upload
+                            processData: false, // obligatoire pour de l'upload
+                            dataType: 'json', // selon le retour attendu
+                            data: data,
+                            success: function (response) {
+                            }
+                        });
+                    }
+                    alert("L'offre a bien été crée");
+                    $('.modal.in').modal('hide');
+                });
             });
-        });
-            
-            
-            
+
+
+
         </script>
-        
+
         <button type="button" class="btn btn-default btn-lg" id="myBtn">Créer une offre</button>
-        
+
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
+            <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header" style="padding:35px 50px;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4><span class="glyphicons glyphicons-building"></span> Ajouter une offre</h4>
-              </div>
-              <div class="modal-body" style="padding:40px 50px;">
-                <form id="addOfferForm" role="form" action="addOffer" method="post" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label for="address"><span class="glyphicons glyphicons-global"></span> Address</label>
-                    <input type="text" class="form-control" id="address" name="address" placeholder="Enter correct address">
-                  </div>
-                  <div class="form-group">
-                    <label for="link"><span class="glyphicons glyphicons-link"></span> Link to offer</label>
-                    <input type="text" class="form-control" id="link" name="link" placeholder="Enter link">
-                  </div>
-                  <div class="form-group">
-                    <label for="price"><span class="glyphicons glyphicons-fees-payments"></span> Price </label>
-                    <input type="text" class="form-control" id="price" name="price" placeholder="Enter price">
-                  </div>
-                  <div class="form-group">
-                    <label for="type"><span class="glyphicons glyphicons-mixed-buildings"></span> Type </label>
-                    <input type="text" class="form-control" id="type" name="type" placeholder="Enter type (location, buy)">
-                  </div>
-                  <div class="form-group">
-                    <label for="file"><span class="glyphicons glyphicons-file-plus"></span> Image to upload </label>
-                    <input type="file" class="form-control" id="file" name="file" placeholder="Enter file to upload">
-                  </div>
-                    <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Ajouter</button>
-                </form>
-              </div>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:35px 50px;">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4><span class="glyphicons glyphicons-building"></span> Ajouter une offre</h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <form id="addOfferForm" role="form" action="addOffer" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="address"><span class="glyphicons glyphicons-global"></span> Address</label>
+                                <input type="text" class="form-control" id="address" name="address" placeholder="Enter correct address">
+                            </div>
+                            <div class="form-group">
+                                <label for="link"><span class="glyphicons glyphicons-link"></span> Link to offer</label>
+                                <input type="text" class="form-control" id="link" name="link" placeholder="Enter link">
+                            </div>
+                            <div class="form-group">
+                                <label for="price"><span class="glyphicons glyphicons-fees-payments"></span> Price </label>
+                                <input type="text" class="form-control" id="price" name="price" placeholder="Enter price">
+                            </div>
+                            <div class="form-group">
+                                <label for="type"><span class="glyphicons glyphicons-mixed-buildings"></span> Type </label>
+                                <input type="text" class="form-control" id="type" name="type" placeholder="Enter type (location, buy)">
+                            </div>
+                            <div class="form-group">
+                                <label for="file"><span class="glyphicons glyphicons-file-plus"></span> Image to upload </label>
+                                <input type="file" class="form-control" id="file" name="file" placeholder="Enter file to upload">
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Ajouter</button>
+                        </form>
+                    </div>
+                </div>
+
             </div>
-
-          </div>
         </div>
     </body>
 </html>
