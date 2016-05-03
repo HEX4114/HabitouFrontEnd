@@ -1349,10 +1349,10 @@
                             if (nodes[i].id == "pollution") {
                                 critPollution = true;
                                 critPollutionSeuil = nodes[i].children[3].value;
-                                if(critDoctorSeuil == "Peu important"){
+                                if(critPollutionSeuil === "Peu important"){
                                     parameters += "50";
                                 }
-                                else if(critDoctorSeuil == "Moyennement important"){
+                                else if(critPollutionSeuil === "Moyennement important"){
                                     parameters += "30";
                                 }
                                 else {
