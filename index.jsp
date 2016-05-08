@@ -2056,7 +2056,7 @@
                       <p><span class="glyphicon glyphicon-transfer"></span> Type de contrat : </p>
                       <select class="selectpicker" name="type" id="selectType">
                           <option>Location</option>
-                          <option>vente</option>
+                          <option>Vente</option>
                       </select>
                     </div>
                     <div class="floating-box" style=" margin-left: 10%;">
