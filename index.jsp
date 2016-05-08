@@ -142,7 +142,7 @@
                 color : #777777;
                 font-family : Arial;
                 font-size : 12px;
-                width: 300px;
+                width: 335px;
                 float: right;
                 font-weight: bold;
             }
@@ -1510,7 +1510,8 @@
                     GetOffersRequest(parameters);
                 }
             }
-			function GetOffersRequest(parameters) {
+            
+            function GetOffersRequest(parameters) {
                 var xmlHttpReq = false;
                 if (window.XMLHttpRequest) {
                     xmlHttpReq = new XMLHttpRequest();
